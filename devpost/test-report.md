@@ -23,7 +23,7 @@ The live Lens Studio MCP tools are not available in this cloud execution environ
 - Kept `LifelineController` on the root; moved manual activation, Preview simulation, and voice activation components to Input Adapters; attached `LifelineEmergencyUI` to Instruction Panel.
 - Serialized the typed `SceneObject` references for controller and adapter inputs. No input declared as a component type was substituted with a SceneObject.
 - Rebuilt the UI module using installed UIKit `Frame`, `Button`, `ElementContent`, `FlexLayout`, and `FlexItem`. The main controller remains UI-independent. No raw `Component.Text` or hand-positioned UI labels are used; FlexLayout children are explicitly registered with `addItems()`.
-- Authored a head-following panel at the brief's 105 cm / 8 cm-below-horizon starting position. The frame uses 28.5 × 18.5 cm inner dimensions and 0.75 cm padding per edge, intended to remain within 30 × 20 cm.
+- Authored a head-following panel at the brief's 105 cm / 8 cm-below-horizon starting position. The Frame is capped at 30 × 20 cm; its content layout is 28.5 × 18.5 cm after the 0.75 cm inset.
 - Primary buttons are 5.6 cm; secondary buttons are 3.9 cm; adjacent targets use 2 cm spacing. Path selection presents one option at a time, and guidance presents one instruction at a time.
 - Added a separate More Actions screen for Back, Repeat, and End Session. Repeat visibly re-presents the current instruction. End Session requires explicit confirmation; Cancel/Keep Guidance restores the active flow.
 - Emergency home immediately displays India 112, the instruction to call emergency services, and the alternative to ask someone nearby to call. The `I HAVE CALLED 112` control remains a user acknowledgement, not a call-success claim.
