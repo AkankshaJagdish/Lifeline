@@ -22,6 +22,10 @@ export const LIFELINE_GUIDANCE: Record<Exclude<LifelinePath, "other">, readonly 
       id: "embedded_object",
       text: "If an object is embedded, leave it in place. Press around it.",
     },
+    {
+      id: "secure_dressing",
+      text: "When severe bleeding is controlled, a dressing may help keep the material in place.",
+    },
   ],
   adult_collapse: [
     { id: "adult_only", text: "This guided CPR path is for adults." },
