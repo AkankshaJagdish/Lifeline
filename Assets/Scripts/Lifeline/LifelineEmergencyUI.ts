@@ -131,7 +131,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     switch (snapshot.state) {
       case "IDLE": this.renderIdle(column); break;
-      case "EMERGENCY_HOME": this.renderEmergencyHome(column); break;
+      case "EMERGENCY_HOME": this.renderEmergencyHome(column, snapshot); break;
       case "CALL_IN_PROGRESS_OR_MANUAL_CALL": this.renderCallInstructions(column); break;
       case "PATH_SELECTION": this.renderPathSelection(column, snapshot); break;
       case "BLEEDING_GUIDANCE":
@@ -163,10 +163,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.6, "center");
   }
 
-  private renderEmergencyHome(parent: SceneObject): void {
+  private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
     this.addLabel(parent, "Emergency help", "Headline2", 1.0);
     this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
     this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.8);
+    if (snapshot.userAcknowledgedCall) {
+      this.addLabel(parent, "Your confirmation is recorded. Lifeline has not verified the call.", "Caption", 1.0);
+    }
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET + TARGET_GAP + PRIMARY_TARGET, TARGET_GAP);
     this.addButton(actions, "CALL 112", CONTENT_WIDTH, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
     this.addButton(actions, "CONTINUE TO GUIDANCE", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
