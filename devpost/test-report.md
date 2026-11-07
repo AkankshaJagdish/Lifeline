@@ -39,6 +39,7 @@ The Live Lens Tester requires Lens Studio MCP for current package verification, 
 - [CLAD ASR skill](https://github.com/lens-studio-devs/ls-extensions/blob/main/plugins/ls-clad/skills/specs-asr/SKILL.md) — explicitly cautions that ASR is not recommended for voice commands / keyword spotting because short trigger words are often misrecognized.
 - [Official Agent Manager VoiceInputController.ts](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/Input/VoiceInputController.ts)
 - [Official Agent Manager AgentInputBar.ts](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/UI/AgentInputBar.ts)
+- [Official Agent Manager InputBarController.ts](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/UI/Input/InputBarController.ts)
 - [Official SPECS samples repository](https://github.com/specs-devs/samples)
 
 The API uses transcription update and error callbacks, and documents the `Unauthenticated`, `NoInternet`, and `InternalError` statuses. The Agent Manager sample stops transcription on final/error events and gives a clear fallback when camera + internet permissions prevent microphone access unless Extended Permissions are enabled. The CLAD ASR skill cautions against using ASR as a reliable short-command / keyword-spotting system. Lifeline therefore keeps voice optional and best-effort, with manual pinch fallback.
@@ -91,6 +92,15 @@ The source register itself includes US-source caveats and explicit exclusions. T
 - Updated README and project test/demo documents to remove stale claims that the Lifeline scene is absent from the merged branch.
 
 **Compilation status for these changes: not run.** Lens Studio MCP and local Lens Studio are not available to this cloud session. Recompile locally before accepting this branch.
+
+## Repository LEAF snapshot
+
+The current repository tree contains the editor-side `LeafPlugin` folder, but the committed `MCP-Export/03-packages/installed-packages.json` export lists five package entries and does not identify a LEAF package or version. The committed `MCP-Export/07-mcp/leaf-scenarios.json` is an error response stating that the LEAF panel was not open; it is not a scenario inventory. Therefore the current installed `Leaf.lspkg` version and the live `LeafPlugin` installation cannot be established from this repository snapshot. The live Lens Studio Asset Browser / Plugin Manager must be checked locally, as required by the official install skill. No package source was edited.
+
+The official SPECS samples repository was checked directly. The exact files reviewed are:
+- `Agent Manager/Assets/Scripts/Input/VoiceInputController.ts`
+- `Agent Manager/Assets/Scripts/UI/AgentInputBar.ts`
+- `Agent Manager/Assets/Scripts/UI/Input/InputBarController.ts`
 
 ## Validation matrix
 
