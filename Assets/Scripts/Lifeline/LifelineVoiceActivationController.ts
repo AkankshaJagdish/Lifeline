@@ -58,6 +58,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
       !this.voiceActivationEnabled ||
       this.listening ||
       this.activated ||
+      this.stopFailed ||
       !this.controller ||
       this.controller.getSnapshot().state !== "IDLE"
     ) return;
