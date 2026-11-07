@@ -12,8 +12,8 @@ import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Fl
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
 import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
-const FRAME_INNER_WIDTH = 28.5;
-const FRAME_INNER_HEIGHT = 18.5;
+const FRAME_INNER_WIDTH = 30;
+const FRAME_INNER_HEIGHT = 20;
 const CONTENT_WIDTH = 28.5;
 const CONTENT_HEIGHT = 18.5;
 const PANEL_PADDING = 0.75;
@@ -90,7 +90,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       const frame = this.frame;
       if (!frame) return;
 
-      // The 28.5 x 18.5 cm inner panel plus 0.75 cm padding per edge stays within 30 x 20 cm.
+      // The Frame is capped at 30 x 20 cm; the content layout uses a 28.5 x 18.5 cm inset.
       frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
       frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
       frame.setUseFollow(true);
@@ -272,19 +272,17 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const container = global.scene.createSceneObject("Lifeline Layout");
     container.setParent(parent);
     const flex = container.createComponent(FlexLayout.getTypeName()) as FlexLayout;
-    flex.onInitialized.add(() => {
-      flex.width = width;
-      flex.height = height;
-      flex.direction = direction;
-      flex.alignItems = direction === FlexDirection.Row ? FlexAlign.Center : FlexAlign.Stretch;
-      flex.justifyContent = FlexJustify.Start;
-      if (direction === FlexDirection.Row) flex.columnGap = gap;
-      else flex.rowGap = gap;
-      flex.paddingTop = 0;
-      flex.paddingBottom = 0;
-      flex.paddingLeft = 0;
-      flex.paddingRight = 0;
-    });
+    flex.width = width;
+    flex.height = height;
+    flex.direction = direction;
+    flex.alignItems = direction === FlexDirection.Row ? FlexAlign.Center : FlexAlign.Stretch;
+    flex.justifyContent = FlexJustify.Start;
+    if (direction === FlexDirection.Row) flex.columnGap = gap;
+    else flex.rowGap = gap;
+    flex.paddingTop = 0;
+    flex.paddingBottom = 0;
+    flex.paddingLeft = 0;
+    flex.paddingRight = 0;
     return container;
   }
 
@@ -317,18 +315,16 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const host = global.scene.createSceneObject("Lifeline Label Host");
     host.setParent(parent);
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
-    hostFlex.onInitialized.add(() => {
-      hostFlex.width = width;
-      hostFlex.height = height;
-      hostFlex.direction = FlexDirection.Column;
-      hostFlex.alignItems = FlexAlign.Stretch;
-      hostFlex.justifyContent = FlexJustify.Center;
-      hostFlex.rowGap = 0;
-      hostFlex.paddingTop = 0;
-      hostFlex.paddingBottom = 0;
-      hostFlex.paddingLeft = 0;
-      hostFlex.paddingRight = 0;
-    });
+    hostFlex.width = width;
+    hostFlex.height = height;
+    hostFlex.direction = FlexDirection.Column;
+    hostFlex.alignItems = FlexAlign.Stretch;
+    hostFlex.justifyContent = FlexJustify.Center;
+    hostFlex.rowGap = 0;
+    hostFlex.paddingTop = 0;
+    hostFlex.paddingBottom = 0;
+    hostFlex.paddingLeft = 0;
+    hostFlex.paddingRight = 0;
 
     const contentObject = global.scene.createSceneObject("Lifeline Label Content");
     contentObject.setParent(host);
