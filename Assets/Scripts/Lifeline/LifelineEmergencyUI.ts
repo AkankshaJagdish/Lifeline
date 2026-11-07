@@ -17,7 +17,7 @@ const FRAME_INNER_HEIGHT = 18.5;
 const CONTENT_WIDTH = 28.5;
 const CONTENT_HEIGHT = 18.5;
 const PANEL_PADDING = 0.75;
-const CONTENT_GAP = 0.1;
+const CONTENT_GAP = 0.05;
 const PRIMARY_TARGET = 5.6;
 const SECONDARY_TARGET = 3.9;
 const TARGET_GAP = 2.0;
@@ -160,13 +160,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     if (global.deviceInfoSystem.isEditor()) {
       this.addButton(actions, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, PRIMARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
-    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 1.8, "center");
+    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.6, "center");
   }
 
   private renderEmergencyHome(parent: SceneObject): void {
     this.addLabel(parent, "Emergency help", "Headline2", 1.0);
     this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
-    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.5);
+    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.8);
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET + TARGET_GAP + PRIMARY_TARGET, TARGET_GAP);
     this.addButton(actions, "CALL 112", CONTENT_WIDTH, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
     this.addButton(actions, "CONTINUE TO GUIDANCE", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
@@ -194,7 +194,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     ];
     const current = options[this.pathOptionIndex % options.length];
     this.addLabel(parent, "Option " + (this.pathOptionIndex + 1) + " of " + options.length, "Caption", 0.9, "center");
-    this.addLabel(parent, current.label, "Subheadline", 1.8, "center");
+    this.addLabel(parent, current.label, "Subheadline", 2.0, "center");
 
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
     this.addButton(actions, "SELECT THIS PATH", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.selectPath(current.path), "primary");
@@ -215,7 +215,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const instruction = this.repeatMessage
       ? "REPEATED — " + this.repeatMessage
       : (snapshot.instruction ?? "Follow the emergency operator’s instructions.");
-    this.addLabel(parent, instruction, "Body", 2.6);
+    this.addLabel(parent, instruction, "Body", 2.8);
 
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
     this.addButton(actions, "NEXT", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
@@ -226,7 +226,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderGuidanceActions(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "More actions — 112 is on the instruction screen", "Subheadline", 1.0);
+    this.addLabel(parent, "India emergency number: 112. Return to the instruction screen for call actions.", "Subheadline", 1.8);
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET * 3 + TARGET_GAP * 2, TARGET_GAP);
     this.addButton(actions, "BACK", CONTENT_WIDTH, SECONDARY_TARGET, () => {
       this.showMoreActions = false;
