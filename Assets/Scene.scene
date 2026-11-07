@@ -505,7 +505,7 @@
   Enabled: true
   ScriptAsset: !<reference> d9358ab1-5dd3-4644-a130-a53695795da1
   ScriptInputsDefault:
-      controllerObject: true
+    controllerObject: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -1228,8 +1228,8 @@
   Enabled: true
   ScriptAsset: !<reference> a0d0f42e-cdff-4a90-b5fe-af00eecdb107
   ScriptInputsDefault:
-      controllerObject: true
-      previewSimulationEnabled: true
+    controllerObject: true
+    previewSimulationEnabled: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -1667,8 +1667,8 @@
   Enabled: true
   ScriptAsset: !<reference> 2c08df80-f416-4b74-9de0-347374156f97
   ScriptInputsDefault:
-      controllerObject: true
-      voiceActivationEnabled: true
+    controllerObject: true
+    voiceActivationEnabled: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -2729,8 +2729,8 @@
   Enabled: true
   ScriptAsset: !<reference> 456aaf74-d1d6-4b58-b27f-33b29b5d13ab
   ScriptInputsDefault:
-      controllerObject: true
-      activationAdaptersObject: true
+    controllerObject: true
+    activationAdaptersObject: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
