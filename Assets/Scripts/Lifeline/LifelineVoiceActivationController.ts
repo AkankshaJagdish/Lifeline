@@ -90,6 +90,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
       this.notifyStatus(this.currentStatus());
     } catch (_error) {
       this.listening = false;
+      this.stopAsrSession();
       this.notifyStatus("Voice activation could not start. Check microphone access or use ACTIVATE.");
     }
   }
