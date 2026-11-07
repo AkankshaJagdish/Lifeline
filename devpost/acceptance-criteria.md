@@ -1,21 +1,35 @@
-﻿# Lifeline acceptance criteria
+# Lifeline acceptance criteria
 
-**Status: none of the runtime criteria has passed.** Each criterion is binary and requires actual Lens Studio Preview or supported hardware evidence as described.
+The four original acceptance criteria remain unchanged in scope. This branch records the user's report that the core Lifeline interaction passed actual Lens Studio Interactive Preview testing. The exact action-by-action results, screenshot, and runtime log were not supplied to this cloud review, so that report is recorded as user-reported evidence rather than independently verified evidence. No criterion below is marked independently passed by this session.
 
 | ID | Done when | Verification | Current status |
 |---|---|---|---|
-| AC-1 Activation and emergency access | In Preview, manual pinch and the clearly labelled voice simulation enter the same emergency home; 112 and the helper alternative are immediately visible. | Interact with both controls and inspect the resulting screen. Simulation is not ASR evidence. | Scene authored in branch; compile/Preview pending. |
-| AC-2 Call honesty | UI never claims a call was placed or confirmed by the platform; user acknowledgement appears only after explicit selection. | Inspect and exercise call instructions and acknowledgement. | Scene authored in branch; compile/Preview pending. |
-| AC-3 Severe bleeding | Approved safety, help, barrier, direct pressure, maintain-pressure, and sourced follow-up steps appear one at a time; no packing or tourniquet instructions. | Walk the actual Preview sequence and compare each string with `medical-content-sources.md`. | Scene authored in branch; runtime path not verified. |
-| AC-4 Adult collapse | Adult-only boundary, unresponsiveness and abnormal breathing/gasping guidance, emergency activation, verified adult compression guidance; no pulse check or paediatric CPR. | Walk the Preview path and compare each string with `medical-content-sources.md`. | Not yet — no runtime path. |
+| AC-1 Activation and emergency access | Manual pinch and the clearly labelled Preview voice simulation enter the same emergency home; India 112 and the helper alternative are immediately visible. | Exercise both controls in actual Interactive Preview; capture the emergency home and verify the label. Simulation is not ASR evidence. | User reports the core Preview interaction passed. Exact AC-1 actions and screenshot/log evidence are not attached; local evidence capture remains open. |
+| AC-2 Call honesty | UI never claims a call was placed or confirmed by the platform; user acknowledgement appears only after explicit selection. | Exercise call instructions, return, and acknowledgement. Confirm the acknowledgement is separate from any claim that a call was placed. | Static source review finds no call-success claim in the UI code. Runtime interaction evidence is not attached; not independently passed here. |
+| AC-3 Severe bleeding | Approved safety, help, barrier, direct pressure, maintain-pressure, and sourced follow-up steps appear one at a time; no packing or tourniquet instructions. | Walk every bleeding step in actual Preview and compare each displayed sentence with `medical-content-sources.md`. | Source-copy review completed. Full step-by-step Preview evidence is not attached; not independently passed here. |
+| AC-4 Adult collapse | Adult-only boundary, unresponsiveness and abnormal breathing/gasping guidance, emergency activation, and reviewed adult compression guidance appear in sequence; no pulse check or paediatric CPR. | Walk every adult-collapse step in actual Preview and compare each displayed sentence with `medical-content-sources.md`. | Source-copy review completed. Full step-by-step Preview evidence is not attached; not independently passed here. |
+
+## Cross-cutting MVP checks
+
+These are required alongside the four criteria and are not new acceptance criteria:
+
+- Other emergency displays only the 112 / emergency-operator fallback.
+- Back, Next, Repeat, End Session, Cancel, and confirmed return to IDLE work.
+- Emergency access remains available throughout active paths.
+- The Preview simulation does not request or depend on microphone access.
+- Optional ASR stops when an emergency session begins and only restarts after explicit session end and return to IDLE.
+- The physical-person stand-in remains visible; the panel does not obstruct the central view; placement remains stable and readable while the Preview camera moves.
+- No real call, patient recognition, diagnosis, or clinical performance is claimed.
 
 ## Current validation snapshot — 2026-11-07
 
-- Project target remains Spectacles; Lens Studio 5.23.2.26081320 Public.
-- Installed packages remain SIK 2.0.0, UI Kit 2.0.0, LEAF 2.0.2.
-- The user reports that the actual Lifeline project is confirmed and the prior TypeScript compilation issue was repaired. This cloud branch adds further scene/UI changes and has not yet been recompiled.
-- The repository scene now serializes a Lifeline root, Input Adapters child, Instruction Panel child, and typed SceneObject input references. This is not yet Lens Studio or Preview verification.
-- Voice activation is disabled pending successful visual-flow compile and Preview verification. Preview simulation and manual activation remain available in the authored UI.
-- No runtime acceptance criterion has passed; LEAF and hardware ASR have not been run.
+- PR #1 and PR #2 are merged into the repository's default branch, `master`. The Lifeline scene root, Input Adapters child, Instruction Panel child, and typed SceneObject references are present in `Assets/Scene.scene`.
+- The user reports that the core interaction passed actual Lens Studio Interactive Preview testing. This is user-reported; no screenshot or fresh logs were supplied in this cloud review.
+- This verification branch changes optional ASR lifecycle/error handling and documentation. The changed TypeScript has not been recompiled in Lens Studio.
+- The scene's serialized `voiceActivationEnabled` value remains false by default. Manual ACTIVATE and the labelled Preview simulation remain available.
+- Snap's ASR API exposes `Unauthenticated`, `NoInternet`, and `InternalError` statuses. The official CLAD ASR skill cautions that short commands / keyword spotting are unreliable; voice remains optional and best-effort.
+- No hardware ASR result is claimed.
+- No LEAF scenarios or LeafIndex are registered in this repository. The official Live Lens Tester procedure requires Lens Studio MCP; that connection is unavailable in this cloud session, so LEAF authoring, attachment, installed-version verification, compilation, and execution are blocked.
+- No real emergency call is implemented or claimed.
 
-See `test-report.md` for the detailed test matrix. Do not mark a criterion passed until the Lens compiles, is integrated in the scene, and the actual interaction is exercised.
+See `test-report.md` for the detailed evidence matrix and local test instructions. Do not change a status to passed until the corresponding interaction has actually been exercised and its evidence recorded.
