@@ -20,6 +20,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   private listening = false;
   private activated = false;
   private stoppingPromise: Promise<void> | null = null;
+  private stopFailed = false;
   private previousState: LifelineState | null = null;
   private statusListener: ((status: string) => void) | null = null;
 
@@ -48,7 +49,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   }
 
   public async startListening(): Promise<void> {
-    if (!this.voiceActivationEnabled || this.listening || this.activated || !this.controller) return;
+    if (!this.voiceActivationEnabled || this.listening || this.activated || this.stopFailed || !this.controller) return;
 
     // Do not start a new ASR session until a previous emergency-session stop has completed.
     if (this.stoppingPromise) await this.stoppingPromise;
@@ -107,6 +108,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
 
     try {
       const pendingStop = Promise.resolve(this.asrModule.stopTranscribing()).catch((_error) => {
+        this.stopFailed = true;
         this.notifyStatus("Voice input could not stop; use ACTIVATE.");
       });
       this.stoppingPromise = pendingStop;
@@ -114,6 +116,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
         if (this.stoppingPromise === pendingStop) this.stoppingPromise = null;
       });
     } catch (_error) {
+      this.stopFailed = true;
       this.stoppingPromise = null;
       this.notifyStatus("Voice input could not stop; use ACTIVATE.");
     }
