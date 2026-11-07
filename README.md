@@ -1,67 +1,88 @@
-﻿# Lifeline
+# Lifeline
 
-> **Current readiness: not ready to record or submit as a working Lens.** Lifeline's TypeScript source and planning materials are present, but the open scene is still the Spectacles Base Template, the Lifeline UI is not integrated into the scene, and Lens Studio compilation currently fails in installed package sources. See [`devpost/test-report.md`](devpost/test-report.md) for observed results. This README separates intended MVP behavior from what is actually verified.
+> **Current status:** The Lifeline root, input adapters, and UIKit instruction panel are integrated in the merged `master` scene. The user reports that the core interaction passed actual Lens Studio Interactive Preview testing. That result is recorded as user-reported; no screenshot or fresh runtime log was supplied to this cloud review. This verification branch hardens optional ASR lifecycle handling, but its new TypeScript changes still require a local Lens Studio compile and Preview check. LEAF scenarios have not been registered or run.
 
 ## Project overview
 
-Lifeline is a proposed hands-free first-aid companion for ordinary people in India who may be frightened and unsure what to do when someone nearby suffers severe bleeding or collapses. It is designed to keep the user's attention on the person and both hands available while presenting short, reviewed guidance and the India emergency number, 112. SPECS glasses can keep a glanceable instruction in the user's field of view without requiring the bystander to hold and look down at a phone. Lifeline does not detect or diagnose the person.
+Lifeline is a hands-free first-aid companion prototype for ordinary bystanders in India. It keeps the India emergency number, 112, readily accessible and presents short, reviewed instructions one at a time so the bystander can keep looking toward the person and use both hands. Lifeline does not detect or diagnose a person, place a call, or replace emergency services.
 
-## Features and current implementation status
+## MVP behavior
 
-The following are the **specified MVP behaviors**. Their presence in project source is not evidence that they currently run: the scene integration and Preview journey have not passed validation.
+- Manual pinch activation through the visible ACTIVATE control.
+- Optional spoken “Emergency” activation through Spectacles ASR on compatible hardware. The scene input is disabled by default; manual activation remains available.
+- A clearly labelled Preview-only control: `SIMULATION — trigger voice: EMERGENCY`. It exercises the same state transition without microphone access and is not an ASR test.
+- Immediate India emergency access (112), including the instruction to call emergency services and the alternative to ask someone nearby to call.
+- A separate user acknowledgement that must never be presented as proof that a call was placed or connected.
+- Sequential severe-bleeding, adult-collapse / possible cardiac-arrest, and other-emergency paths.
+- Back, Next, Repeat, End Session, and Cancel controls, with explicit confirmation before ending a session.
 
-- Emergency activation through a supported spoken “Emergency” command, with manual pinch fallback.
-- India region configuration for emergency number **112**. It is India-specific, not a universal number.
-- A visibly labelled Preview voice-trigger simulation that is intended to call the same state transition as spoken activation. It does not test microphone recognition.
-- Short, sequential severe external bleeding guidance.
-- A separate adult-only collapse / possible cardiac arrest guidance path.
-- An “other emergency” fallback that prioritizes 112 and the operator's instructions.
-- Step-by-step controls intended to support repeat, back, and next actions.
+## Voice and permission boundaries
 
-**Actual platform vs simulation:** No successful ASR hardware test or real emergency call was observed. No phone-call launch capability is claimed. Preview simulation, when available, is a test trigger only; it must never be presented as real microphone recognition. The current scene does not yet display the Lifeline UI.
+The Spectacles ASR API provides transcription, but the official CLAD ASR skill warns that short voice commands and keyword spotting are unreliable. Treat “Emergency” as an optional best-effort shortcut, not the only entry path. ASR requires compatible Spectacles hardware/OS, internet, authentication, and microphone permissions. For a Lens using camera plus internet, microphone access may require Extended Permissions.
+
+The voice controller now stops listening when the emergency state begins. It only starts a fresh listening session after an active session returns to IDLE through explicit user confirmation. Unauthenticated, no-internet, and internal/permission failures surface a short fallback while ACTIVATE remains available. This branch has not yet been compiled or hardware-tested. Do not describe Preview simulation as real ASR.
 
 ## Safety boundaries
 
-- Lifeline does not diagnose, triage, or determine a person's condition.
-- It does not contact emergency services and does not replace emergency responders or professional care.
-- Follow the emergency operator's instructions; they take precedence over Lifeline.
-- The guided CPR pathway is for adults only. The MVP contains no paediatric or infant CPR instructions.
-- The specified scope is severe external bleeding, adult collapse / possible cardiac arrest, and a generic other-emergency fallback.
-- It does not provide medication advice, dosages, wound packing, tourniquet guidance, or other advanced trauma instructions.
-- The medical copy and its references are recorded in [`devpost/medical-content-sources.md`](devpost/medical-content-sources.md). That register is not clinical validation or regulatory approval.
+- India region only for the current number: 112. It is not a universal emergency number.
+- Lifeline does not place or verify a phone call.
+- Follow emergency operator instructions; they take precedence over Lifeline.
+- The guided CPR path is adult-only. No pediatric or infant CPR instructions are provided.
+- No diagnosis, triage, patient recognition, camera-based assessment, pulse checks, wound packing, tourniquet instructions, medication advice, or advanced trauma techniques.
+- Displayed medical copy is governed by [medical-content-sources.md](devpost/medical-content-sources.md). That register is not clinical validation or regulatory approval.
 
-## Technology
+## Technology and project files
 
-- Lens Studio 5.23.2.26081320 Public; project target: Spectacles.
+- Lens Studio 5.23.2.26081320 Public; target platform: Spectacles.
 - TypeScript Lens source under `Assets/Scripts/Lifeline/`.
-- Spectacles Interaction Kit (SIK) 2.0.0 and Spectacles UI Kit 2.0.0 are installed in the project.
-- LEAF 2.0.2 is installed, but its current package path/import mismatch blocks compilation; no Lifeline LEAF scenarios have been integrated or run.
-- CLAD skills, Lens Studio MCP, and Codex CLI were used in the development workflow. MCP inspection and project-open operations were observed; this does not imply a successful runtime build.
+- Scene hierarchy in `Assets/Scene.scene`: `Lifeline Experience` root, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`.
+- The UI uses the installed Spectacles UIKit Frame, Button, ElementContent, FlexLayout, and FlexItem components; the main controller remains UI-independent.
+- The current scene keeps voice activation disabled by default. Do not enable it for a Preview-only demonstration.
+- Package sources and `.lspkg` contents are not modified by this verification branch.
 
-## Open and inspect the project
+## Open and verify locally
 
-1. Install/open Lens Studio 5.23.2.26081320 Public or a compatible version that supports this project. Do not migrate the target automatically.
-2. Open `Lifeline.esproj` from this folder. The manifest target is `Spectacles`. The current manifest metadata and scene still identify the Specs Base Template, not an integrated Lifeline Lens.
-3. Allow Lens Studio to generate its local `Cache/` and `Support/` files; these are intentionally not versioned.
-4. Check the Logger and compile status. At this snapshot, compilation fails on LEAF's `Leaf 2.lspkg` versus `Leaf.lspkg` imports and stale package aliases in AI Preview Agent Inspect example files. Until those are resolved through supported package workflows, a valid Lifeline Preview is unavailable.
+1. Sync this branch / PR into the Lifeline repository.
+2. Open the exact `Lifeline.esproj` from this repository in Lens Studio 5.23.2.26081320 Public, targeting Spectacles.
+3. Recompile TypeScript. If it fails, stop and share the complete inline compiler output before running Preview.
+4. After a clean compile, collect fresh runtime logs and check errors, prints, and `firstActivityAtMs`.
+5. Open or refresh Interactive Preview and capture a fresh screenshot. Inspect the actual rendered panel, the physical-person stand-in, central-view obstruction, text readability, and camera movement stability.
+6. Exercise manual ACTIVATE and the labelled Preview simulation separately. Then test 112, call instructions, return, user acknowledgement, path selection, every guidance step, Back, Repeat, Next, End Session confirmation, Cancel, and confirmed return to IDLE.
+7. Keep hardware ASR separate from Preview. Test it only on compatible Spectacles hardware with the required OS, internet, authentication, and permissions. Record the actual error/result; do not infer hardware behavior from simulation.
 
-## Preview and tests
+## LEAF status and local run instructions
 
-The intended test flow, after successful integration, is:
+**No Lifeline LEAF scenario files or LeafIndex are currently registered in this repository.** The four planned scenario mappings are:
 
-1. Open Lens Studio's Preview panel and select the project's interactive Spectacles preview configuration.
-2. Pinch the large manual activation control to enter the emergency home screen.
-3. Use `SIMULATE VOICE: EMERGENCY` only as a clearly labelled Preview test control. It is not ASR evidence.
-4. Check that the India number 112 appears immediately, then exercise the bleeding, adult collapse, and other-emergency paths with repeat/back/next.
-5. Open the LEAF panel and run the persistent registered scenarios after they exist and compile.
+| Acceptance criterion | Planned scenario ID | Coverage |
+|---|---|---|
+| AC-1 Activation and emergency access | `ac_1_activation_and_112` | Manual activation, Preview simulation, shared emergency home, immediate 112 |
+| AC-2 Call honesty | `ac_2_call_acknowledgement_honesty` | Call instructions, explicit user acknowledgement, no platform call-success claim |
+| AC-3 Severe bleeding | `ac_3_severe_bleeding_steps` | Every bleeding step, one at a time, plus Back / Next / Repeat |
+| AC-4 Adult collapse | `ac_4_adult_collapse_steps` | Adult-only boundary, responsiveness, abnormal breathing including gasping, help first, adult compression steps |
 
-**This test flow is not currently executable end to end.** No Lifeline screen or LEAF scenario is integrated into the current scene. Consult [`devpost/test-report.md`](devpost/test-report.md) and [`devpost/submission-checklist.md`](devpost/submission-checklist.md) for pass/fail/not-yet statuses. A checklist item is not complete merely because the corresponding source or document exists.
+These are planned IDs, not existing or runnable scenarios. The official Live Lens Tester procedure requires Lens Studio MCP to verify the installed LEAF package, inspect the scene, attach LeafIndex, compile, and run scenarios. That MCP connection is unavailable in this cloud session, so no scenario files are being fabricated or claimed as registered.
+
+When scenarios are added locally:
+
+1. Confirm the current installed `Leaf.lspkg` version in Lens Studio's Asset Browser / package list and confirm the LeafPlugin is installed. Do not modify LEAF package sources or change package versions to work around a test.
+2. Open the LEAF panel from Window → LEAF and reset Preview to a clean state.
+3. Confirm the four scenario IDs appear in the panel.
+4. Run scenarios **serially**, waiting for each to finish before starting the next. A scenario run resets the Lens; parallel runs can abort one another.
+5. Treat the Lens-side scenario-manager PASSED / FAILED log line as authoritative. If a run times out or does not return a status, inspect the log before retrying; do not infer success from the plugin UI alone.
+6. Record the exact result and error line in `devpost/test-report.md`.
+
+## Demo and public release
+
+The under-three-minute recording sequence is in [demo-video-script.md](devpost/demo-video-script.md). Record only actual Preview behavior. Keep the physical stand-in visible, show the simulation label when using it, and disclose that it does not test ASR or a real emergency call.
+
+Before public submission, use [submission-checklist.md](devpost/submission-checklist.md). Do not mark a compile, Preview, LEAF, hardware ASR, or medical-validation item as passed without its corresponding evidence. Recheck the public repository for secrets before release.
 
 ## Repository contents
 
-- `Lifeline.esproj`, scene, project assets, and installed package archives.
-- Lifeline TypeScript source and project setup files.
+- `Lifeline.esproj`, scene, project assets, and installed package references.
+- Lifeline TypeScript source and setup files.
 - `codexsources/` contains the supplied project research corpus, including the immutable Game Plan.
-- `devpost/` contains the planning brief, journey, architecture, medical source register, safety boundaries, acceptance criteria, source audit, demo plan, test report, reconstructed prompt log, submission description, and final checklist.
+- `devpost/` contains the design brief, user journey, technical architecture, medical source register, safety boundaries, acceptance criteria, demo plan, test report, source audit, submission description, and final checklist.
 
-The original Game Plan at `codexsources/GAME PLAN do not change arwithspecs.txt` is preserved unchanged. Local credentials, signing keys, generated caches, editor workspace state, and lock files are excluded by `.gitignore`.
+The original `codexsources/GAME PLAN do not change arwithspecs.txt` is preserved unchanged.
