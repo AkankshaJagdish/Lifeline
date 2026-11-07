@@ -1,4 +1,5 @@
 import { LifelineController } from "./LifelineController";
+import { LifelineState } from "./LifelineTypes";
 
 /** SPECS ASR phrase matcher; ASR is not a dependable keyword-spotting system. */
 @component
@@ -15,6 +16,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   private controller: LifelineController | null = null;
   private listening = false;
   private activated = false;
+  private previousState: LifelineState | null = null;
   private statusListener: ((status: string) => void) | null = null;
 
   onAwake(): void {
@@ -24,6 +26,8 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
     if (!this.controller) {
       this.voiceActivationEnabled = false;
       print("Lifeline voice activation: controllerObject is not wired to LifelineController; manual activation remains available.");
+    } else {
+      this.controller.subscribe((snapshot) => this.handleStateChange(snapshot.state));
     }
     this.createEvent("OnStartEvent").bind(() => this.startListening());
     this.createEvent("OnDestroyEvent").bind(() => this.stopListening());
@@ -40,7 +44,7 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   }
 
   public startListening(): void {
-    if (!this.voiceActivationEnabled || this.listening || this.activated) return;
+    if (!this.voiceActivationEnabled || this.listening || this.activated || !this.controller) return;
     try {
       if (!this.asrModule) this.asrModule = require("LensStudio:AsrModule");
       const options = AsrModule.AsrTranscriptionOptions.create();
@@ -68,9 +72,15 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
     this.asrModule.stopTranscribing().then(() => this.notifyStatus("Voice listening stopped."));
   }
 
-  public resetAndStartListening(): void {
-    this.activated = false;
-    this.startListening();
+  private handleStateChange(state: LifelineState): void {
+    const wasActive = this.previousState !== null && this.previousState !== "IDLE";
+    this.previousState = state;
+    if (state === "IDLE") {
+      if (wasActive) this.activated = false;
+      if (wasActive) this.startListening();
+    } else {
+      this.stopListening();
+    }
   }
 
   private handleFinalTranscript(transcript: string): void {
