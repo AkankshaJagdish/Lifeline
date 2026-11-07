@@ -82,7 +82,7 @@ The source register itself includes US-source caveats and explicit exclusions. T
 ## Changes in this verification branch
 
 - Kept the scene's serialized `voiceActivationEnabled` value false by default.
-- Added a stop-promise guard so a new ASR session waits for the previous stop operation to finish.
+- Added a stop-promise guard so a new ASR session waits for the previous stop operation to finish; if stop fails, automatic voice restart is blocked and the manual fallback remains available.
 - Ignored late transcription callbacks after listening stops or while the controller is outside IDLE, preventing a delayed callback from re-entering an active session.
 - Ensured voice stops when the controller enters any active emergency state.
 - Restarted listening only when the state machine transitions from an active session back to IDLE; that transition is reached through the explicit end-session confirmation.
