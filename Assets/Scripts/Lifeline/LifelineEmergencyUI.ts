@@ -275,17 +275,19 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const container = global.scene.createSceneObject("Lifeline Layout");
     container.setParent(parent);
     const flex = container.createComponent(FlexLayout.getTypeName()) as FlexLayout;
-    flex.width = width;
-    flex.height = height;
-    flex.direction = direction;
-    flex.alignItems = direction === FlexDirection.Row ? FlexAlign.Center : FlexAlign.Stretch;
-    flex.justifyContent = FlexJustify.Start;
-    if (direction === FlexDirection.Row) flex.columnGap = gap;
-    else flex.rowGap = gap;
-    flex.paddingTop = 0;
-    flex.paddingBottom = 0;
-    flex.paddingLeft = 0;
-    flex.paddingRight = 0;
+    flex.onInitialized.add(() => {
+      flex.width = width;
+      flex.height = height;
+      flex.direction = direction;
+      flex.alignItems = direction === FlexDirection.Row ? FlexAlign.Center : FlexAlign.Stretch;
+      flex.justifyContent = FlexJustify.Start;
+      if (direction === FlexDirection.Row) flex.columnGap = gap;
+      else flex.rowGap = gap;
+      flex.paddingTop = 0;
+      flex.paddingBottom = 0;
+      flex.paddingLeft = 0;
+      flex.paddingRight = 0;
+    });
     return container;
   }
 
@@ -318,16 +320,18 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const host = global.scene.createSceneObject("Lifeline Label Host");
     host.setParent(parent);
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
-    hostFlex.width = width;
-    hostFlex.height = height;
-    hostFlex.direction = FlexDirection.Column;
-    hostFlex.alignItems = FlexAlign.Stretch;
-    hostFlex.justifyContent = FlexJustify.Center;
-    hostFlex.rowGap = 0;
-    hostFlex.paddingTop = 0;
-    hostFlex.paddingBottom = 0;
-    hostFlex.paddingLeft = 0;
-    hostFlex.paddingRight = 0;
+    hostFlex.onInitialized.add(() => {
+      hostFlex.width = width;
+      hostFlex.height = height;
+      hostFlex.direction = FlexDirection.Column;
+      hostFlex.alignItems = FlexAlign.Stretch;
+      hostFlex.justifyContent = FlexJustify.Center;
+      hostFlex.rowGap = 0;
+      hostFlex.paddingTop = 0;
+      hostFlex.paddingBottom = 0;
+      hostFlex.paddingLeft = 0;
+      hostFlex.paddingRight = 0;
+    });
 
     const contentObject = global.scene.createSceneObject("Lifeline Label Content");
     contentObject.setParent(host);
@@ -356,12 +360,17 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const obj = global.scene.createSceneObject("Lifeline Button " + label.replace(/[^A-Z0-9]+/g, "_"));
     obj.setParent(parent);
     const button = obj.createComponent(Button.getTypeName()) as Button;
-    // Button geometry is assigned before initialization, as required by UIKit.
-    button.size = new vec3(width, height, 1);
-    button.opacity = tone === "neutral" ? 0.9 : 1;
+    button.onInitialized.add(() => {
+      button.size = new vec3(width, height, 1);
+      button.opacity = tone === "neutral" ? 0.9 : 1;
+    });
     button.onTriggerUp.add(action);
 
-    const content = obj.createComponent(ElementContent.getTypeName()) as ElementContent;
+    // Keep button-face text on a child object and lift it 0.08 cm in front of the face.
+    const labelObject = global.scene.createSceneObject("Lifeline Button Label");
+    labelObject.setParent(obj);
+    labelObject.getTransform().setLocalPosition(new vec3(0, 0, 0.08));
+    const content = labelObject.createComponent(ElementContent.getTypeName()) as ElementContent;
     content.text = label;
     content.textSize = roleSize("Button");
     content.contentAlignment = "center";
