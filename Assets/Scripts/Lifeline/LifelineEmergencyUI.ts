@@ -58,7 +58,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private snapshot: LifelineSnapshot | null = null;
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
-  private showMoreActions = false;
   private pathOptionIndex = 0;
 
   onAwake(): void {
@@ -91,7 +90,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       const frame = this.frame;
       if (!frame) return;
 
-      // The Frame is capped at 30 x 20 cm; the content layout uses a 28.5 x 18.5 cm inset.
+      // Frame remains within the 30 x 20 cm design limit; content uses a 0.75 cm inset.
       frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
       frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
       frame.setUseFollow(true);
@@ -110,7 +109,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
           this.pathOptionIndex = 0;
         }
         this.snapshot = snapshot;
-        this.showMoreActions = false;
         this.repeatMessage = null;
         this.render(snapshot);
       });
@@ -135,18 +133,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       case "EMERGENCY_HOME": this.renderEmergencyHome(column, snapshot); break;
       case "CALL_IN_PROGRESS_OR_MANUAL_CALL": this.renderCallInstructions(column); break;
       case "PATH_SELECTION": this.renderPathSelection(column, snapshot); break;
-      case "BLEEDING_GUIDANCE":
-        if (this.showMoreActions) this.renderGuidanceActions(column, snapshot);
-        else this.renderGuidance(column, "Severe bleeding", snapshot);
-        break;
-      case "ADULT_COLLAPSE_GUIDANCE":
-        if (this.showMoreActions) this.renderGuidanceActions(column, snapshot);
-        else this.renderGuidance(column, "Adult collapse", snapshot);
-        break;
-      case "OTHER_EMERGENCY":
-        if (this.showMoreActions) this.renderGuidanceActions(column, snapshot);
-        else this.renderGuidance(column, "Other emergency", snapshot);
-        break;
+      case "BLEEDING_GUIDANCE": this.renderGuidance(column, "Severe bleeding", snapshot); break;
+      case "ADULT_COLLAPSE_GUIDANCE": this.renderGuidance(column, "Adult collapse", snapshot); break;
+      case "OTHER_EMERGENCY": this.renderGuidance(column, "Other emergency", snapshot); break;
       case "HELP_ARRIVED_OR_SESSION_END": this.renderEndScreen(column); break;
       case "CANCEL_CONFIRMATION": this.renderCancelConfirmation(column, snapshot); break;
       case "ACTIVATING": this.addLabel(column, "Starting Lifeline…", "Headline2", 1.2); break;
@@ -156,10 +145,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private renderIdle(parent: SceneObject): void {
     this.addLabel(parent, "Lifeline", "Headline2", 1.0, "center");
     this.addLabel(parent, this.voiceStatus, "Caption", 1.0, "center");
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET * 2 + TARGET_GAP, TARGET_GAP);
+    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
     this.addButton(actions, "ACTIVATE", CONTENT_WIDTH, PRIMARY_TARGET, () => this.manualActivation?.activateManually(), "primary");
     if (global.deviceInfoSystem.isEditor()) {
-      this.addButton(actions, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, PRIMARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
+      this.addButton(actions, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, SECONDARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
     this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.6, "center");
   }
@@ -167,7 +156,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
     this.addLabel(parent, "Emergency help", "Headline2", 1.0);
     this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
-    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.8);
+    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.5);
     if (snapshot.userAcknowledgedCall) {
       this.addLabel(parent, "Your confirmation is recorded. Lifeline has not verified the call.", "Caption", 1.0);
     }
@@ -177,18 +166,18 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderCallInstructions(parent: SceneObject): void {
-    this.addLabel(parent, "Call emergency services", "Headline2", 1.0);
+    const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
+    this.addLabel(header, "Call emergency services", "Headline2", SECONDARY_TARGET, "left", CONTENT_WIDTH - 5.9);
+    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
     this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber, "Subheadline", 1.8);
     this.addLabel(parent, INDIA_EMERGENCY_CONFIG.callActionInstruction + " Lifeline has not placed or verified a call.", "Body", 2.8);
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "I HAVE CALLED 112", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.acknowledgeUserCalled112(), "primary");
-    this.addButton(actions, "BACK", CONTENT_WIDTH, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+    this.addButton(parent, "I HAVE CALLED 112", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.acknowledgeUserCalled112(), "primary");
   }
 
   private renderPathSelection(parent: SceneObject, snapshot: LifelineSnapshot): void {
     const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
     this.addLabel(header, "Choose a pathway", "Headline2", SECONDARY_TARGET, "left", 14.6);
-    this.addButton(header, "BACK", 3.9, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
     this.addButton(header, "CALL 112", 6.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
 
     const options: { path: LifelinePath; label: string }[] = [
@@ -212,45 +201,31 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
   private renderGuidance(parent: SceneObject, title: string, snapshot: LifelineSnapshot): void {
     const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
-    this.addLabel(header, title + " — Step " + (snapshot.stepIndex + 1) + " of " + snapshot.stepCount,
-      "Headline2", SECONDARY_TARGET, "left", CONTENT_WIDTH - 8.0);
+    this.addLabel(header, title, "Headline2", SECONDARY_TARGET, "left", 14.6);
+    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
     this.addButton(header, "CALL 112", 6.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
 
+    this.addLabel(parent, "Step " + (snapshot.stepIndex + 1) + " of " + snapshot.stepCount, "Caption", 0.8);
     const instruction = this.repeatMessage
       ? "REPEATED — " + this.repeatMessage
       : (snapshot.instruction ?? "Follow the emergency operator’s instructions.");
-    this.addLabel(parent, instruction, "Body", 2.8);
+    this.addLabel(parent, instruction, "Body", 2.0);
 
     const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
     this.addButton(actions, "NEXT", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
-    this.addButton(actions, "MORE ACTIONS", CONTENT_WIDTH, SECONDARY_TARGET, () => {
-      this.showMoreActions = true;
-      this.render(snapshot);
-    }, "neutral");
-  }
-
-  private renderGuidanceActions(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "India emergency number: 112. Return to the instruction screen for call actions.", "Subheadline", 1.8);
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET * 3 + TARGET_GAP * 2, TARGET_GAP);
-    this.addButton(actions, "BACK", CONTENT_WIDTH, SECONDARY_TARGET, () => {
-      this.showMoreActions = false;
-      this.controller?.back();
-    }, "neutral");
-    this.addButton(actions, "REPEAT / RETURN", CONTENT_WIDTH, SECONDARY_TARGET, () => this.repeatCurrentInstruction(), "neutral");
-    this.addButton(actions, "END SESSION", CONTENT_WIDTH, SECONDARY_TARGET, () => {
-      this.showMoreActions = false;
-      this.controller?.requestEndSession();
-    }, "primary");
+    const secondary = this.createRow(actions, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
+    const half = (CONTENT_WIDTH - TARGET_GAP) / 2;
+    this.addButton(secondary, "REPEAT", half, SECONDARY_TARGET, () => this.repeatCurrentInstruction(), "neutral");
+    this.addButton(secondary, "END SESSION", half, SECONDARY_TARGET, () => this.controller?.requestEndSession(), "neutral");
   }
 
   private renderEndScreen(parent: SceneObject): void {
     const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
-    this.addLabel(header, "Stay with the person", "Headline2", SECONDARY_TARGET, "left", CONTENT_WIDTH - 8.0);
+    this.addLabel(header, "Stay with the person", "Headline2", SECONDARY_TARGET, "left", 14.6);
+    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
     this.addButton(header, "CALL 112", 6.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, "Follow the emergency operator’s instructions.", "Body", 2.0);
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET + TARGET_GAP + PRIMARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "BACK TO LAST STEP", CONTENT_WIDTH, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
-    this.addButton(actions, "END SESSION", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.requestEndSession(), "primary");
+    this.addButton(parent, "END SESSION", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.requestEndSession(), "primary");
   }
 
   private renderCancelConfirmation(parent: SceneObject, snapshot: LifelineSnapshot): void {
@@ -268,7 +243,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const repeated = this.controller?.repeatCurrentInstruction();
     if (!repeated || !this.snapshot) return;
     this.repeatMessage = repeated;
-    this.showMoreActions = false;
     this.render(this.snapshot);
   }
 
