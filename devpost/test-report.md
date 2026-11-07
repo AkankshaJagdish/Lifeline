@@ -1,38 +1,44 @@
-﻿# Lifeline validation report
+# Lifeline validation report
 
-Date: 2026-11-06
+Date: 2026-11-07
 
-## Summary
+## Current verdict
 
-Validation did not reach runtime. No Preview interaction or LEAF scenario is claimed as passed. Lens Studio MCP confirmed the Lifeline project and Spectacles target, but the live scene has no Lifeline root or LEAF scenario index. TypeScript compilation is currently blocked by installed package resolution errors.
+**Not yet runnable or validated in Preview.** This branch is a source-side repair pass. It does not claim a successful TypeScript compile, scene integration, runtime launch, Preview interaction, hardware ASR test, or LEAF pass.
 
-## Checks
+## MCP evidence
 
-| Test | What it checks | Result | Evidence / limitation |
-|---|---|---|---|
-| Project and target inspection | Correct project and target | Pass (inspection only) | MCP reported `Lifeline.esproj`; project manifest targets Spectacles. |
-| Scene integration inspection | Lifeline controller/UI and LEAF index are in scene | Fail | Virtual scene snapshot contained 119 objects and no Lifeline root or LeafIndex. |
-| TypeScript compile | Project compiles | Fail | `RecompileTypeScriptTool` reports unresolved `Leaf.lspkg/*` imports from the installed `Leaf 2.lspkg` package, plus stale `UIKit.lspkg` and `InteractionKit.lspkg` imports in AI Preview Agent Inspect examples. |
-| Lifeline controller/UI API | UI calls methods exposed by controller | Fixed, compile blocked | UI method names were corrected to call `requestFalseAlarm()` and `requestEndSession()`. No successful compile followed because package errors remain. |
-| Manual activation | Pinch enters emergency home | Not run | No integrated Lifeline scene; Preview interaction cannot target Lifeline UI. |
-| Preview simulated activation | Simulation enters the same flow | Not run | No integrated Lifeline scene. |
-| Voice activation | Actual ASR and lifecycle | Not run | Hardware microphone/permission/network verification not performed. Preview simulation is not ASR evidence. |
-| Emergency action / 112 honesty | Number appears; no false call result | Not run | No runtime screen. Existing UI source instructs use of a phone or another bystander; no platform call was observed. |
-| Severe bleeding path | Sequence, navigation, repeat, source constraints | Not run | No runtime screen or LEAF test. |
-| Adult collapse path | Adult-only sequence, no pulse check, sourced cadence | Not run | No runtime screen or LEAF test. |
-| Other emergency path | Call 112 and follow operator | Not run | No runtime screen or LEAF test. |
-| Cancel/reset safety | Confirmation and reset | Not run | No runtime screen or LEAF test. |
-| Visual/layout inspection | Placement, contrast, target sizing, occlusion | Not run | Preview screenshot/interactions unavailable without compilation and scene integration. |
-| Persistent LEAF scenarios | Re-runnable interaction scenarios | Not run | No LeafIndex or scenario files integrated; LEAF package import paths currently fail compilation. |
+The 2026-11-07 MCP export reports an Editor API project path under:
+`C:/Users/akank/AppData/Local/Temp/LensStudio_CmBeZT/Default/Project.esproj`
 
-## Fix applied
+The checked-in repo contains `Lifeline.esproj`. The exported scene GraphQL response contains five objects: Camera Object, Lighting, Envmap, Light, and AiPreviewAgent Handler. No Lifeline root appears in that snapshot. Confirm the correct project is open before treating MCP state as current Lifeline scene state.
 
-Corrected two Lifeline UI callbacks that referenced controller method names that did not exist. The controller exposes `requestFalseAlarm()` and `requestEndSession()`.
+The logger tail records TypeScript compilation failure with unresolved `SpecsInteractionModule` namespace/name errors in `Packages/InteractionKit.lspkg`. The export did not run a new compile. The exported LEAF scenario query failed because the LEAF panel was not open. Runtime introspection timed out because the AI Preview Agent handler did not respond.
 
-## Current blockers
+## Changes in this branch
 
-1. LEAF 2.0.2 is installed at `Packages/Leaf 2.lspkg`, but its TypeScript sources import modules from `Leaf.lspkg/...`. Lens Studio MCP `asset_graphql.renameAsset` returned `success:false` for the package descriptor. No alternate package writer was used.
-2. AI Preview Agent Inspect example scripts use obsolete package aliases and prevent the current TypeScript compile.
-3. The live scene contains no Lifeline objects or LEAF index. Earlier scene apply via VirtualScene failed with an immutable-model error; no alternate scene mutation API was used.
+- Added explicit serialized `controllerObject` inputs to manual activation, Preview simulation, voice activation and UI components.
+- Corrected cancellation restoration in the state machine.
+- Preserved India 112 configuration and reviewed medical content.
+- No package archive, project target, or immutable Game Plan was changed.
 
-The package and scene integration blockers must be resolved through supported Lens Studio package/scene workflows before these tests can honestly run.
+## Tests
+
+| Test | Result | Evidence |
+|---|---|---|
+| Repository inspection | Pass | Public GitHub source and MCP export inspected. |
+| MCP export inspection | Pass | Export files read; open editor path points to a temporary project. |
+| TypeScript compile | Not run in this branch | Export was read-only; historical logger reports unresolved `SpecsInteractionModule`. |
+| Scene integration | Not run | Captured scene contains no Lifeline root. |
+| Manual activation | Not run | Requires compiled and integrated Lens in Preview. |
+| Preview simulation | Not run | Requires compiled and integrated Lens in Preview. |
+| Emergency home / 112 | Not run | Requires runtime screen. |
+| Bleeding / adult collapse / other paths | Not run | Requires runtime screens and content review in Preview. |
+| Navigation / cancellation | Source updated; runtime not run | State restoration corrected; requires Preview exercise. |
+| ASR on hardware | Not run | No supported hardware run. Preview simulation is not ASR evidence. |
+| LEAF | Not run | Export says LEAF panel was not open and no scenario registry result was available. |
+| Real phone call | Not implemented | No platform call mechanism is claimed or simulated. |
+
+## Next validation action
+
+Open the actual local `Lifeline.esproj` from the synced repository folder in Lens Studio. Check the loaded project path, compile once, and collect the full fresh diagnostics. Fix errors in that project before adding or enabling scene objects. Do not delete LEAF or other packages as a speculative workaround.
