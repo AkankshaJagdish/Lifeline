@@ -216,22 +216,22 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderEndScreen(parent: SceneObject): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     this.addLabel(header, "Stay with the person", "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, "Follow the emergency operator’s instructions.", "Body", 3.2);
-    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     const half = (CONTENT_WIDTH - 2.0) / 2;
     this.addButton(actions, "BACK TO LAST STEP", half, TARGET_SIZE, () => this.controller?.back(), "neutral");
     this.addButton(actions, "END SESSION", half, TARGET_SIZE, () => this.controller?.requestEndSession(), "primary");
   }
 
   private renderCancelConfirmation(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     this.addLabel(header, snapshot.confirmationPurpose === "false_alarm" ? "End this session?" : "End guidance?", "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, "Emergency help remains available. Choose only if you intend to return to the start.", "Body", 3.2);
-    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     const half = (CONTENT_WIDTH - 0.4) / 2;
     this.addButton(actions, "YES, END SESSION", half, TARGET_SIZE, () => this.controller?.confirmEndSession(), "neutral");
     this.addButton(actions, "CANCEL / KEEP GUIDANCE", half, TARGET_SIZE, () => this.controller?.cancelEndSession(), "primary");
