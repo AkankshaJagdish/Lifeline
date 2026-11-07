@@ -1,17 +1,21 @@
-﻿# Lifeline — technical architecture
+# Lifeline — technical architecture
 
-**Implementation status checked 2026-11-06: not runnable or validated.** This document separates the intended runtime design from the current project state. The source scripts are present, but the scene remains the Specs Base Template and does not contain a Lifeline root or LEAF scenario index. TypeScript compilation fails in installed package sources; no Lifeline Preview or LEAF test has passed.
+**Implementation status checked 2026-11-07: scene and UI authored in the cloud branch; fresh Lens Studio compilation and runtime verification are pending.** The user's latest report says the actual Lifeline project is confirmed and TypeScript compilation was repaired before this scene pass. The changes described here have not yet been compiled or run in Lens Studio.
 
 ## Current project facts
 
 - Project: `Lifeline.esproj`; Lens Studio 5.23.2.26081320 Public; target platform `Spectacles`.
-- Package versions from Lens Studio MCP: SIK 2.0.0, Spectacles UI Kit 2.0.0, LEAF 2.0.2.
-- LEAF is present as `Packages/Leaf 2.lspkg`, while its TypeScript modules import `Leaf.lspkg/...`. Lens Studio MCP `renameAsset` returned `success:false` for the descriptor.
-- AI Preview Agent Inspect examples import old `UIKit.lspkg` and `InteractionKit.lspkg` aliases. `RecompileTypeScriptTool` reports these and LEAF import errors; the Lifeline UI/controller method mismatch was fixed, but compile is still failing.
-- The live scene is the Specs Base Template. It has no Lifeline app root or LEAF scenario index. Earlier `VirtualScene apply` failed with an immutable-model error; no alternate scene-writer was used.
-- The project now has nine unique Lifeline TypeScript modules (and an identical extra `LifelineTypes 2.ts`). Source presence does not establish that components are registered or attached.
-- Actual microphone ASR, emergency call placement, visual layout, and any full Preview journey remain unverified. No real phone call API or medical sensing is claimed. No TTS or cadence loop is implemented.
-- Local Git was absent during initial audit. GitHub CLI (`gh`) is not installed, and no public remote URL is known.
+- Installed packages remain unchanged: SIK 2.0.0, Spectacles UI Kit 2.0.0, LEAF 2.0.2. No `.lspkg` contents were modified.
+- The existing Specs Base Template scene contains World Device Tracking and its SIK setup. The Lifeline scene now has one `Lifeline Experience` root at `(x=0, y=-8, z=-105)` cm, with two named children: `Lifeline Input Adapters` and `Lifeline Instruction Panel`.
+- `LifelineController` is attached to the root. Manual activation, Preview simulation, and voice activation components are attached to `Lifeline Input Adapters`. `LifelineEmergencyUI` is attached to `Lifeline Instruction Panel`.
+- All current `@input` contracts are SceneObject-typed and are serialized as SceneObject references: the adapters point to the controller root; the UI points to the controller root and the adapter child. No component-typed input is being wired through a SceneObject reference.
+- The UI module uses installed UIKit `Frame`, `Button`, `ElementContent`, `FlexLayout`, and `FlexItem` components. The main controller does not construct UI. Labels use ElementContent layout hosts; layout children are explicitly registered with `FlexLayout.addItems()`.
+- The instruction frame is head-following, initially authored at 105 cm viewing distance and 8 cm below the horizon. The Frame is capped at 30 × 20 cm; its content layout is 28.5 × 18.5 cm after the 0.75 cm inset. Primary targets are 5.6 cm; secondary targets are 3.9 cm; adjacent interactive targets are separated by 2 cm.
+- Path selection shows one option at a time. Guidance shows one approved instruction at a time. Back and Call 112 remain in the header on path-selection and guidance screens; Next is the primary action; Repeat and End Session are clearly separated lower actions. Repeat visibly re-presents the current instruction.
+- Voice activation is deliberately disabled in the scene until the basic visual flow compiles and runs. The Preview-only simulation remains editor-visible and calls the same emergency transition as manual activation. This does not test hardware ASR.
+- The severe-bleeding path includes the reviewed follow-up about securing material with a dressing after severe bleeding is controlled. No medical content outside the reviewed sources was added.
+- No actual phone-call launch or call confirmation is implemented. `I HAVE CALLED 112` remains an explicit user acknowledgement only.
+- The serialized scene and script wiring have been edited in GitHub, but have not been loaded by Lens Studio in this environment. Do not treat repository serialization as evidence that the scene compiles or runs.
 
 ## Intended minimal runtime
 
@@ -25,7 +29,7 @@
 
 ## Voice and Preview facts
 
-Snap documents `AsrModule` for Spectacles only, with Lens Studio 5.9+ and Spectacles OS 5.61+ prerequisites and transcription/error callbacks. The current editor version satisfies the stated editor minimum, but OS state and hardware behavior were not verified. The official Agent Manager `VoiceInputController.ts` starts/stops transcription, distinguishes partial/final transcript events, and surfaces errors. `AgentInputBar.ts` handles NoInternet and reports that microphone use can be disabled by the OS for a Lens with camera + internet unless Extended Permissions are enabled. Reuse only this narrow lifecycle/error pattern, not Agent Manager's architecture. Voice cannot be treated as guaranteed. The current project compile blocker prevents a meaningful integration test.
+Snap documents `AsrModule` for Spectacles only, with Lens Studio 5.9+ and Spectacles OS 5.61+ prerequisites and transcription/error callbacks. The current editor version satisfies the stated editor minimum, but OS state and hardware behavior were not verified. The official Agent Manager `VoiceInputController.ts` starts/stops transcription, distinguishes partial/final transcript events, and surfaces errors. `AgentInputBar.ts` handles NoInternet and reports that microphone use can be disabled by the OS for a Lens with camera + internet unless Extended Permissions are enabled. Reuse only this narrow lifecycle/error pattern, not Agent Manager's architecture. Voice cannot be treated as guaranteed. The current cloud branch has not yet been recompiled after its UI and scene changes; the earlier package diagnostics are historical, not fresh compiler output.
 
 Snap's Preview page documents additive rendering simulation for Spectacles (2024), interactive preview and device-type override. It does not establish that actual microphone input/ASR or emergency calling can be validated in the local Preview. The voice simulation is therefore a logic demonstrator only. [ASR Module](https://developers.snap.com/spectacles/about-spectacles-features/apis/asr-module) Â· [Preview Panel](https://developers.snap.com/spectacles/get-started/start-building/preview-panel)
 
