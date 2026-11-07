@@ -36,6 +36,7 @@ The Live Lens Tester requires Lens Studio MCP for current package verification, 
 ### ASR API and official samples
 
 - [Snap ASR Module API](https://developers.snap.com/spectacles/about-spectacles-features/apis/asr-module)
+- [CLAD ASR skill](https://github.com/lens-studio-devs/ls-extensions/blob/main/plugins/ls-clad/skills/specs-asr/SKILL.md) — explicitly cautions that ASR is not recommended for voice commands / keyword spotting because short trigger words are often misrecognized.
 - [Official Agent Manager VoiceInputController.ts](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/Input/VoiceInputController.ts)
 - [Official Agent Manager AgentInputBar.ts](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/UI/AgentInputBar.ts)
 - [Official SPECS samples repository](https://github.com/specs-devs/samples)
