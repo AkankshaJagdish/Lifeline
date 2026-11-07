@@ -5,6 +5,9 @@
 | Checklist item | Status | Evidence / remaining action |
 |---|---|---|
 | Public GitHub repository exists | **Pass (repository available)** | `AkankshaJagdish/Lifeline` is accessible on GitHub; default branch is `master`. |
+| New project / no reused old code | **Owner confirmation required** | Learn AR rules require a new Lens project started during the submission period; old ideas are allowed, old code is not. Confirm the project start date and provenance before submission. |
+| Devpost Learn planning docs | **Pass (repository contents)** | The `devpost/` planning documents are present. |
+| CLAD / Lens Studio MCP build provenance | **Owner confirmation required** | The repository contains CLAD/MCP research and project exports, but this cloud review did not operate Lens Studio MCP. Confirm the final build was produced through the required CLAD workflow. |
 | Merged Lifeline scene integration | **Pass (static repository inspection)** | Merged scene contains Lifeline Experience root, Input Adapters child, Instruction Panel child, and serialized references. |
 | Project opens in Lens Studio | **User-reported / not independently checked here** | User reports actual Interactive Preview testing of the core interaction. No current editor screenshot or project-open log supplied to this cloud review. |
 | Core Interactive Preview interaction | **User-reported pass** | User reports the core interaction passed actual Lens Studio Interactive Preview. Exact action list, screenshot, and fresh runtime logs are not attached here. |
