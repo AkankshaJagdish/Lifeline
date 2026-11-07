@@ -1,53 +1,67 @@
 # Lifeline — technical architecture
 
-**Implementation status checked 2026-11-07: scene and UI authored in the cloud branch; fresh Lens Studio compilation and runtime verification are pending.** The user's latest report says the actual Lifeline project is confirmed and TypeScript compilation was repaired before this scene pass. The changes described here have not yet been compiled or run in Lens Studio.
+**Implementation status checked 2026-11-07:** The Lifeline scene and UIKit flow are present in merged `master`. The user reports that the core interaction passed actual Lens Studio Interactive Preview testing. This verification branch adds a narrow optional-ASR lifecycle/error-handling correction and updated documentation; those new changes have not been recompiled in Lens Studio from this cloud session. LEAF scenarios remain unregistered because the official Live Lens Tester requires a Lens Studio MCP connection that is unavailable here.
 
 ## Current project facts
 
 - Project: `Lifeline.esproj`; Lens Studio 5.23.2.26081320 Public; target platform `Spectacles`.
-- Installed packages remain unchanged: SIK 2.0.0, Spectacles UI Kit 2.0.0, LEAF 2.0.2. No `.lspkg` contents were modified.
-- The existing Specs Base Template scene contains World Device Tracking and its SIK setup. The Lifeline scene now has one `Lifeline Experience` root at `(x=0, y=-8, z=-105)` cm, with two named children: `Lifeline Input Adapters` and `Lifeline Instruction Panel`.
+- The scene hierarchy contains one `Lifeline Experience` root and two named children: `Lifeline Input Adapters` and `Lifeline Instruction Panel`.
 - `LifelineController` is attached to the root. Manual activation, Preview simulation, and voice activation components are attached to `Lifeline Input Adapters`. `LifelineEmergencyUI` is attached to `Lifeline Instruction Panel`.
-- All current `@input` contracts are SceneObject-typed and are serialized as SceneObject references: the adapters point to the controller root; the UI points to the controller root and the adapter child. No component-typed input is being wired through a SceneObject reference.
-- The UI module uses installed UIKit `Frame`, `Button`, `ElementContent`, `FlexLayout`, and `FlexItem` components. The main controller does not construct UI. Labels use ElementContent layout hosts; layout children are explicitly registered with `FlexLayout.addItems()`.
-- The instruction frame is head-following, initially authored at 105 cm viewing distance and 8 cm below the horizon. The Frame is capped at 30 × 20 cm; its content layout is 28.5 × 18.5 cm after the 0.75 cm inset. Primary targets are 5.6 cm; secondary targets are 3.9 cm; adjacent interactive targets are separated by 2 cm.
-- Path selection shows one option at a time. Guidance shows one approved instruction at a time. Back and Call 112 remain in the header on path-selection and guidance screens; Next is the primary action; Repeat and End Session are clearly separated lower actions. Repeat visibly re-presents the current instruction.
-- Voice activation is deliberately disabled in the scene until the basic visual flow compiles and runs. The Preview-only simulation remains editor-visible and calls the same emergency transition as manual activation. This does not test hardware ASR.
-- The severe-bleeding path includes the reviewed follow-up about securing material with a dressing after severe bleeding is controlled. No medical content outside the reviewed sources was added.
-- No actual phone-call launch or call confirmation is implemented. `I HAVE CALLED 112` remains an explicit user acknowledgement only.
-- The serialized scene and script wiring have been edited in GitHub, but have not been loaded by Lens Studio in this environment. Do not treat repository serialization as evidence that the scene compiles or runs.
+- All current `@input` contracts are SceneObject-typed and serialized as SceneObject references: the adapters point to the controller root; the UI points to the controller root and adapter child.
+- The UI module uses installed UIKit `Frame`, `Button`, `ElementContent`, `FlexLayout`, and `FlexItem`. The main controller does not construct UI. Labels use ElementContent layout hosts; layout children are explicitly registered with `FlexLayout.addItems()`.
+- The instruction frame is head-following, initially authored at 105 cm viewing distance and 8 cm below the horizon. The Frame is capped at 30 × 20 cm; content layout is 28.5 × 18.5 cm after the 0.75 cm inset. Primary targets are 5.6 cm; secondary targets are 3.9 cm; adjacent targets are separated by 2 cm.
+- Path selection shows one option at a time. Guidance shows one approved instruction at a time. Back and Call 112 remain in the header on path-selection and guidance screens; Next is the primary action; Repeat and End Session are separated lower actions. End Session requires explicit confirmation; Cancel restores the active flow.
+- Emergency home displays India 112, the instruction to call emergency services, and the alternative to ask someone nearby to call. The `I HAVE CALLED 112` control is user acknowledgement only.
+- The Preview control is labelled exactly `SIMULATION — trigger voice: EMERGENCY`. It calls the same emergency transition as manual/voice activation without using the microphone.
+- The serialized `voiceActivationEnabled` value remains false by default. Manual ACTIVATE and Preview simulation remain available.
+- The original Game Plan, project manifest, target platform, and package sources are unchanged.
 
 ## Intended minimal runtime
 
-1. **Single Lifeline controller** owns a small explicit state machine: `idle â†’ emergency â†’ help_acknowledged? â†’ bleeding | adult_collapse | other â†’ step_n â†’ handoff`. The actual screen state may not depend on inferred health status.
-2. **Activation adapter** supports manual SIK pinch from idle and a Spectacles `AsrModule` transcription callback for the configured trigger phrase. The ASR event calls the same `enterEmergency()` transition as the manual control. ASR listening must be explicitly started/stopped and its listening state made clear; guard duplicate activations. Handle no internet, unauthenticated and microphone/Extended Permissions errors by preserving manual entry and showing a concise fallback.
-3. **Preview adapter** exposes the clearly labelled `SIMULATION â€” trigger voice: EMERGENCY` control. It calls the same `enterEmergency()` state transition; it must never call a claim that a mic recognized speech.
-4. **UI** uses installed SIK/UI Kit components and normal accessible SIK focus/hover/pinch patterns. It presents one instruction at a time and keeps 112 accessible. The lens does not require a custom collider UI or camera-based recognition.
-5. **Content** is a small, static, versioned set of India region configuration and reviewed medical strings. `countryCode = "IN"`, `emergencyNumber = "112"`; the only user-facing localization in the MVP is India English. No network content fetch is required for instructions.
-6. **Cadence aid** is optional, local, deterministic audio/visual rhythm at 100â€“120 compressions/minute. If stable timing and a clear stop/pause control cannot be validated, omit it rather than ship an inaccurate metronome. It does not measure compressions.
-7. **LEAF** scenarios map to the four acceptance criteria when LEAF can open and the project compiles. Otherwise report which scenario could not run; do not describe a blocked test as passing.
+1. **Controller:** `LifelineController` owns the explicit state machine: IDLE → emergency home → call instructions / acknowledgement → path selection → one of the three fixed paths → end/handoff → explicit end confirmation → IDLE. It does not infer health status.
+2. **Manual activation:** SIK pinch calls the controller's shared `activateEmergency("manual")` transition. It remains available if ASR is disabled, unauthenticated, offline, or permission-blocked.
+3. **Optional voice activation:** Spectacles `AsrModule` transcription checks for the configured word “Emergency” and calls the same controller transition. ASR is transcription, not dependable keyword spotting; voice is an optional best-effort shortcut, not the primary reliability assumption.
+4. **Preview simulation:** The visibly labelled `SIMULATION — trigger voice: EMERGENCY` control calls `activateEmergency("preview_simulation")` directly. It has no dependency on ASR, microphone permission, network, or authentication.
+5. **UI:** Installed SIK/UI Kit components provide buttons, layout, and targeting feedback. One instruction is shown at a time; 112 remains accessible during active paths.
+6. **Content:** A small static set of India region configuration and reviewed medical strings. `countryCode = "IN"`, `emergencyNumber = "112"`. No network content fetch is required for the instructions.
+7. **LEAF:** Four scenarios are planned to map to AC-1 through AC-4. No scenario source files or LeafIndex are currently registered. The official Live Lens Tester needs Lens Studio MCP to inspect exact objects, verify the installed LEAF package, attach LeafIndex, compile, and run; no substitute execution is claimed here.
 
-## Voice and Preview facts
+## Voice lifecycle and fallback behavior
 
-Snap documents `AsrModule` for Spectacles only, with Lens Studio 5.9+ and Spectacles OS 5.61+ prerequisites and transcription/error callbacks. The current editor version satisfies the stated editor minimum, but OS state and hardware behavior were not verified. The official Agent Manager `VoiceInputController.ts` starts/stops transcription, distinguishes partial/final transcript events, and surfaces errors. `AgentInputBar.ts` handles NoInternet and reports that microphone use can be disabled by the OS for a Lens with camera + internet unless Extended Permissions are enabled. Reuse only this narrow lifecycle/error pattern, not Agent Manager's architecture. Voice cannot be treated as guaranteed. The current cloud branch has not yet been recompiled after its UI and scene changes; the earlier package diagnostics are historical, not fresh compiler output.
+The voice controller is optional and is disabled in the serialized scene by default. When enabled on compatible hardware:
 
-Snap's Preview page documents additive rendering simulation for Spectacles (2024), interactive preview and device-type override. It does not establish that actual microphone input/ASR or emergency calling can be validated in the local Preview. The voice simulation is therefore a logic demonstrator only. [ASR Module](https://developers.snap.com/spectacles/about-spectacles-features/apis/asr-module) Â· [Preview Panel](https://developers.snap.com/spectacles/get-started/start-building/preview-panel)
+- It starts listening only while the controller is IDLE.
+- Any transition into an active emergency state stops transcription.
+- A late transcript callback is ignored if listening has stopped or the controller is no longer IDLE.
+- A new ASR session is not started until the previous `stopTranscribing()` promise has completed. If that stop fails, the controller fails closed and leaves voice off; manual activation remains available.
+- Listening restarts only on an active-session → IDLE transition, which follows the user's explicit End Session confirmation. Cancel returns to the active guidance state and does not restart listening.
+- `Unauthenticated` shows an authorization fallback; `NoInternet` shows an internet fallback; `InternalError` / start failure directs the user to check microphone access or Extended Permissions. Each leaves ACTIVATE available.
+- A failed ASR session does not block manual activation or the emergency UI.
+
+Snap's ASR API documents transcription callbacks and the `Unauthenticated`, `NoInternet`, and `InternalError` statuses. The official Agent Manager sample stops transcription on final/error events and surfaces a permission fallback for camera + internet Lenses where the OS may disable microphone access unless Extended Permissions are enabled. The [CLAD ASR skill](https://github.com/lens-studio-devs/ls-extensions/blob/main/plugins/ls-clad/skills/specs-asr/SKILL.md) explicitly cautions that short commands / keyword spotting are unreliable. Hardware ASR has not been tested in this cloud session.
+
+References: [Snap ASR Module](https://developers.snap.com/spectacles/about-spectacles-features/apis/asr-module) · [Agent Manager VoiceInputController](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/Input/VoiceInputController.ts) · [Agent Manager AgentInputBar](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/UI/AgentInputBar.ts).
+
+## Learn AR with SPECS / spatial design review
+
+The design uses two core strengths of glasses: sharing the user's view of the real scene and leaving hands free for assistance and pinch navigation. It does not anchor text to a patient or wound because patient recognition is explicitly out of scope. The UI is a compact head-relative card rather than a full dashboard; idle is restrained, active guidance is one-step-at-a-time, and the Preview demonstration uses only standard pinch interactions plus a clearly labelled simulation.
+
+The 105 cm distance is near Snap's recommended approximately 1 m detailed-content plane. At 105 cm, the 5.6 cm primary target is about 3.1° angular size, the 3.9 cm secondary target about 2.1°, and the 2 cm spacing about 1.1°. The 30 × 20 cm panel fits within the documented far-field usable region at approximately 110 cm. These calculations are not a substitute for Preview inspection of actual colliders, binocular overlap, readability, head-follow stability, or physical-person obstruction.
+
+The Learn AR with SPECS rules also emphasize show-only-when-needed, few large targets, content kept in view, and Preview-demonstrable criteria. The current layout is structurally aligned. Actual central-view obstruction and camera-movement stability still require the local Preview screenshot and camera test.
+
+References: [Learn AR plan-lens skill](https://github.com/challengepost/learn-specs/blob/main/skills/plan-lens/SKILL.md) · [AR design rules](https://github.com/challengepost/learn-specs/blob/main/skills/plan-lens/references/ar-design-rules.md) · [Preview limits](https://github.com/challengepost/learn-specs/blob/main/skills/plan-lens/references/preview-limits.md) · [Snap design best practices](https://developers.snap.com/spectacles/best-practices/design-for-spectacles/design-best-practices) · [Positioning and sizing](https://developers.snap.com/spectacles/best-practices/design-for-spectacles/positioning-sizing-content) · [Designing for movement](https://developers.snap.com/spectacles/best-practices/design-for-spectacles/designing-for-movement).
 
 ## Emergency calling decision
 
-No supported phone-call launch API was found in the official Spectacles documentation reviewed. Treat direct calling as unavailable/unverified for this project. A â€œCall 112â€ control must not be a fake button success; use a clear instruction to call using a phone or ask a nearby person. The independent â€œI have called 112â€ acknowledgement only records the user's manual confirmation in the UI.
+No supported phone-call launch mechanism is implemented or claimed. A “Call 112” action displays instructions; it does not place a call. The separate “I have called 112” action records only the user's acknowledgement. Do not describe the UI as having contacted emergency services.
 
-## CLAD development sequence (later implementation phase)
+## Validation state
 
-Use the existing project and MCP connection. First resolve the current package example TypeScript import failure with a narrow, reviewed compatibility fix; recompile and establish Preview rendering. Then implement the smallest vertical path (manual activation â†’ 112 â†’ one route), validate placement in Preview, add the two fixed guidance paths, verify UI Kit/SIK pinch behavior, then author/run LEAF scenarios. Add ASR only after compile and hardware/OS constraints are confirmed; preserve manual activation regardless. Do not update Lens Studio, migrate targets, replace packages, or import the Agent Manager architecture as part of this plan.
+- The user reports that the core interaction passed actual Lens Studio Interactive Preview testing. No screenshot or fresh logs were supplied to this cloud review, so the result is user-reported and not independently re-run here.
+- This branch's ASR lifecycle changes are authored but not recompiled in Lens Studio.
+- No fresh runtime logs, `firstActivityAtMs`, screenshot, or camera-movement inspection are available here.
+- LEAF installed-version verification, scenario authoring, LeafIndex attachment, and scenario runs are blocked by the missing Lens Studio MCP connection. The official Live Lens Tester procedure requires stopping in this situation.
+- Hardware ASR and actual emergency calling have not been tested.
 
-## Official implementation references
-
-- [CLAD](https://developers.specs.com/docs/clad), [agents and skills](https://developers.specs.com/docs/clad/overview-section/agents-and-skills), [development loop](https://developers.specs.com/docs/clad/how-clad-works), [LEAF](https://developers.specs.com/docs/clad/tools/test-your-lens-with-leaf)
-- [Official SPECS samples](https://github.com/specs-devs/samples), including [Agent Manager voice controller](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/Input/VoiceInputController.ts) and [voice error UI](https://github.com/specs-devs/samples/blob/main/Agent%20Manager/Assets/Scripts/UI/AgentInputBar.ts); inspected current source. Reuse only narrow ASR lifecycle/error-handling patterns after compatibility check.
-- [Essentials sample](https://github.com/specs-devs/samples/tree/main/Essentials)
-- [Spectacles Interaction Kit](https://developers.snap.com/spectacles/spectacles-frameworks/spectacles-interaction-kit/get-started), [Spectacles UI Kit](https://developers.snap.com/spectacles/spectacles-frameworks/spectacles-ui-kit/get-started)
-- [Compatibility list](https://developers.snap.com/spectacles/about-spectacles-features/compatibility-list); do not infer SPECS 27 compatibility from Spectacles (2024) samples.
-
-
-
+See `devpost/test-report.md` for the complete test matrix and local instructions. Do not mark an acceptance criterion passed without corresponding evidence.
