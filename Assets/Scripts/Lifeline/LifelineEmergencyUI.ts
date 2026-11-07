@@ -123,7 +123,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     switch (snapshot.state) {
       case "IDLE": this.renderIdle(column); break;
-      case "EMERGENCY_HOME": this.renderEmergencyHome(column, snapshot); break;
+      case "EMERGENCY_HOME": this.renderEmergencyHome(column); break;
       case "CALL_IN_PROGRESS_OR_MANUAL_CALL": this.renderCallInstructions(column, snapshot); break;
       case "PATH_SELECTION": this.renderPathSelection(column); break;
       case "BLEEDING_GUIDANCE": this.renderGuidance(column, "Severe bleeding", snapshot); break;
@@ -146,7 +146,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.2, "center");
   }
 
-  private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
+  private renderEmergencyHome(parent: SceneObject): void {
     this.addLabel(parent, "Emergency help", "Headline2", 1.2);
     this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
     this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.5);
@@ -173,6 +173,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(parent, "Choose a pathway", "Headline2", 1.6);
     this.addLabel(parent, "112 remains available. Choose the closest situation.", "Caption", 1.2);
     const paths = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const pathRowItem = paths.getComponent(FlexItem.getTypeName()) as FlexItem;
+    pathRowItem.marginBottom = 2.0;
     const w = (CONTENT_WIDTH - 4.0) / 3;
     this.addButton(paths, "SEVERE BLEEDING", w, TARGET_SIZE, () => this.controller?.selectPath("bleeding"), "primary");
     this.addButton(paths, "UNRESPONSIVE / ABNORMAL BREATHING", w, TARGET_SIZE, () => this.controller?.selectPath("adult_collapse"), "neutral");
@@ -185,7 +187,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
   private renderGuidance(parent: SceneObject, title: string, snapshot: LifelineSnapshot): void {
     const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
-    this.addLabel(header, title, "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
+    this.addLabel(header, title, "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 10.0);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
 
     this.addLabel(parent, "Step " + (snapshot.stepIndex + 1) + " of " + snapshot.stepCount, "Caption", 1.0);
@@ -202,7 +204,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderOtherEmergency(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     this.addLabel(header, "Other emergency", "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, snapshot.instruction ?? "Call 112 now.", "Body", 3.2);
@@ -219,7 +221,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, "Follow the emergency operator’s instructions.", "Body", 3.2);
     const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
-    const half = (CONTENT_WIDTH - 0.4) / 2;
+    const half = (CONTENT_WIDTH - 2.0) / 2;
     this.addButton(actions, "BACK TO LAST STEP", half, TARGET_SIZE, () => this.controller?.back(), "neutral");
     this.addButton(actions, "END SESSION", half, TARGET_SIZE, () => this.controller?.requestEndSession(), "primary");
   }
