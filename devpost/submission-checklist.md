@@ -31,8 +31,8 @@
 | Medical copy source register | **Pass (documentation / static source review)** | `medical-content-sources.md` documents the source lines and exclusions. This is not clinical validation. |
 | No prohibited medical content in UI scripts | **Pass (static source scan)** | No user-facing 911 text, call-success claim, diagnosis/patient recognition, pulse-check instruction, pediatric/infant CPR, wound packing, or tourniquet advice found in Lifeline UI/guidance scripts. |
 | Actual emergency call | **Not implemented** | UI displays instructions and a user acknowledgement only. |
-| Under-three-minute demo sequence | **Pass (script prepared)** | `demo-video-script.md` targets 2:55. Actual recording and duration check remain outstanding. |
-| Submission description | **Draft; update after validation** | Do not describe unverified ASR, LEAF, Preview, or calling behavior as working. |
+| Under-three-minute demo sequence | **Pass (script prepared)** | `demo-video-script.md` targets 2:55. Actual recording, public YouTube upload, and duration check remain outstanding. Reviewers are not expected to clone or run the project; the video must show the Lens working. |
+| Submission description | **Draft; update after validation** | Must state what the Lens does, who it is for, and what was learned / how the Devpost Learn skill pack and CLAD supported the build. Do not describe unverified ASR, LEAF, Preview, or calling behavior as working. |
 | Secret / credential scan | **Not yet** | Run a full scan of the exact public release commit before final submission. Do not publish local credentials, signing keys, or personal data. |
 | Original Game Plan unchanged | **Pass (repository preservation check)** | `codexsources/GAME PLAN do not change arwithspecs.txt` was not edited in this branch. |
 
