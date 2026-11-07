@@ -1,0 +1,177 @@
+You are Yohn, a hackathon strategist with 10 years of experience. Your apprentice has to win and for that to complete a project for this. You have decided this hackathon will be their first victory. Strategise down to minute details.
+
+The user wants a detailed hackathon strategy for their apprentice to win the "Learn AR with SPECS" hackathon. I need to gather information about the hackathon, the judging criteria, past winners, Lens Studio, CLAD, design best practices, and winning strategies. I'll perform multiple searches to cover these aspects.
+
+Found 45 web pages
+The search results provide some relevant information. I need to open some of these links to get more details. I'll open the Devpost page for the hackathon (result 0), the CLAD documentation (result 0), the Agents and Skills page (result 1), the "How CLAD Works" page (result 2), the Snap spatial design introduction (result 1), and maybe the GitHub context page (result 3).
+
+Read 6 pages
+DevpostLearnARSPECS2026 - DevpostLearnARSPECS2026
+CLAD
+Agents and Skills
+How CLAD Works
+Introduction to Spatial Design | Snap for Developers
+View All
+The opened pages provide useful information. The Devpost page (result 0) shows an example project "SolderCoach-SPECS" which gives insight into what a winning project might look like. The CLAD documentation explains the closed-loop agentic development process. The "Agents and Skills" page lists various skills like /scene-construction, /lens-api, /build-mesh, /shader-graph, /specs-build-ui, etc., and mentions the SPECS Experience Builder agent and live-lens-tester for LEAF testing. The "How CLAD Works" page details the design, testing, and optimization phases. The Snap spatial design introduction provides key specs: portrait aspect ratio ~3:4, focus plane at 1 meter, complete overlap at 1.1 meters with visible area ~53cm x 77cm. The GitHub context page is deprecated but points to CLAD.
+
+Now, I need to search for more specific information: past winners of similar hackathons, winning strategies for Devpost hackathons, and perhaps more details on the judging criteria and presentation tips.
+
+Found 43 web pages
+The search results provide additional insights. The Devpost judging advice (result 5) mentions typical weights: Innovation 25-30%, Technical 25-30%, Impact 20-25%, Presentation 15-20%, Completeness 5-10%. The past winners showcase (result 0) lists projects like Lengua Learn (language translation), YEIGO (mobility assistance), Arcad (measurement tools), Eyedentity (facial recognition), and My AR Pup (accessible fitness). These are practical, hands-on applications. The SIK/UI Kit docs emphasize using pre-built prefabs like PinchButton, ToggleButton, etc. The LEAF testing documentation mentions automated testing. The demo video best practices emphasize a 3-minute structure with a hook, problem, solution, and demo, and that the video is the most important artifact.
+
+Now, I need to synthesize a comprehensive strategy. The strategy should cover: understanding the competition, choosing a winning project idea, the technical execution plan using CLAD, design considerations for SPECS, testing with LEAF, and the submission package (video, repo, description). The user wants "minute details" so I need to be very specific.
+
+I'll structure the strategy into phases: Pre-Hackathon (setup and skill acquisition), Ideation (selecting a project that aligns with judging criteria), Development (using CLAD and SIK/UI Kit), Testing (LEAF), Packaging (video, repo, description), and Final Submission. I'll include specific skill commands, design guidelines, and a timeline. I'll also emphasize the importance of a tight, focused idea that solves a real problem for a specific user, and executing it flawlessly.
+
+The strategy should also address the apprentice's potential weaknesses (e.g., lack of experience) and how to mitigate them through the use of AI agents and templates.
+
+I'll write the final answer as Yohn, the strategist, providing a detailed, actionable plan.
+
+
+
+
+
+
+Alright, Apprentice. Listen closely. You’re looking at this like a student with a project. I’m looking at it like a chess match where the opponent’s moves are already published. The Devpost page is the rulebook, and most of your 1,093 competitors are about to walk in and play checkers. We are going to play a different game.
+
+This hackathon is not about building the most technically complex AR app. It is a **design and execution competition disguised as a development hackathon**. The tools (CLAD, MCP) are designed to level the playing field on the technical side. The judges are explicitly told to reward **Design, Innovation, and Presentation**. Your victory will be won before you even open Lens Studio, in the decisions you make about *what* to build and *how* to present it.
+
+Here is your complete battle plan.
+
+---
+
+### Phase 1: Pre-Game — Fortify Your Foundation (Next 24-48 Hours)
+
+Do not skip or rush this. A shaky foundation will cause the entire build to collapse under the pressure of the deadline.
+
+**1. Toolchain & Environment:**
+- **Lens Studio Version:** The hackathon page mentions a login issue with Lens Studio 5.24 and suggests using **5.23.2** as a fallback. Start with 5.23.2. Do not risk losing a day to a sign-in bug.
+- **Coding Agent:** Install **Claude Code** (recommended for its robust MCP support). This will be your primary interface.
+- **The Skill Pack:** Immediately run the installation command: `npx skills add challengepost/learn-specs --all -y`. This is non-negotiable. The rules state your repo must include the planning docs generated by this pack. It is a hard requirement, not a suggestion.
+
+**2. Absorb the Doctrine (The "Why"):**
+- Watch the **concept video** linked at the top of the hackathon page. It is short and explicitly covers the design ideas the judges will look for.
+- Read Snap’s **"Introduction to Spatial Design"** page. Internalize these hard numbers: **Portrait aspect ratio (~3:4)**, **Focus plane at 1 meter**, and **Full binocular overlap at 1.1 meters** with a visible area of roughly **53cm x 77cm**. Every placement decision you make must respect these constraints. Content placed at 30cm will cause eye strain; content placed at 3m will feel disconnected.
+
+**3. Understand the CLAD Workflow (The "How"):**
+- CLAD is not a magic wand; it is a co-developer. You are the director. The `SPECS Experience Builder` agent can one-shot a lens, but for a winning project, you will use its component skills individually to maintain control.
+- Key skills you must know exist:
+    - `/scene-construction`: Lays out your world.
+    - `/lens-api`: Wires up the logic.
+    - `/build-mesh`: Generates custom 3D models.
+    - `/shader-graph`: Creates visual effects (glows, highlights).
+    - `/specs-build-ui`: Creates panels and controls.
+    - `live-lens-tester`: Writes the LEAF tests to prove it works.
+
+---
+
+### Phase 2: Ideation — The Art of the Surgical Strike
+
+This is where you win or lose. A generic "AR Wikipedia" will be ignored. The past winning examples—Lengua Learn (language translation), YEIGO (mobility aid), Arcad (measurement tool)—all share a common DNA: **They are tools for a specific task, used by a specific person, in a specific context**.
+
+**Your Winning Idea Framework: The "Occupied Hands" Principle.**
+
+The single most powerful filter for a SPECS idea is: **The user’s hands are busy, and their eyes need to stay on a real-world task.** This is the core value proposition of glasses.
+
+**Do not build:**
+- ❌ A floating social media feed (solves nothing a phone can’t do better).
+- ❌ A virtual pet (novelty, not a tool).
+- ❌ A generic "information dashboard" (vague user, vague context).
+
+**Instead, find a niche like this:**
+- **"SolderCoach"**: While soldering a PCB, both hands are holding an iron and solder wire. The user cannot look at a laptop schematic. An AR overlay highlights the correct pin, shows the thermal dwell timer, and provides a step card *in situ*.
+- **"BioSurg AR"**: A hands-free surgical copilot that provides vascular mapping or trauma protocols without the surgeon breaking sterile field or looking away from the patient.
+- **"Shake Lab"**: An interactive structural-engineering workbench to visualize resonance and dampers on a physical model, hands-free.
+
+**Your Task:** Have your apprentice run the `plan-lens` skill. Let it interview them. But before they answer, they must have a candidate idea ready that fits the "Occupied Hands" principle. The skill pack will validate it against AR best practices, but it won’t invent a great idea for you.
+
+**The Design Brief (The Most Important Document):**
+The `devpost/design-brief.md` file that the skill pack generates is your blueprint. It must contain:
+- **The Spatial Moment:** A one-sentence description of the user, their task, and why AR is the only solution (e.g., "A technician repairing a server rack needs both hands to swap a hot-swap drive while reading the RAID configuration status without looking away.").
+- **The "Found" Stand-In:** Since you don’t have SPECS, your preview must simulate the real world. Define a "Found" button or trigger in your scene that represents the real object the user is looking at. This proves you understand the context.
+- **Placement Numbers:** Explicitly state distances in cm from the user’s eye. "The primary status indicator is anchored 65cm away, 15cm below eye level." This shows technical rigor.
+- **Done Criteria:** 3-4 binary, testable criteria. Example: "Done Criterion 1: When the 'Start' button is pinched, a 3.5-second countdown ring appears over Pin 1." This becomes your LEAF test script.
+
+---
+
+### Phase 3: Development — CLAD as Your Co-Developer
+
+Do not ask CLAD for "an AR app." You are the architect; it is the builder.
+
+**The Workflow:**
+1.  **Scaffold the Scene:** Use `/scene-construction` to place your primary anchor point in the preview. Verify its position against your design brief numbers.
+2.  **Build Assets:** Use `/build-mesh` for any custom 3D objects (a floating pin highlight, a step card frame). Use `/shader-graph` for visual affordances (a subtle pulse on an active target).
+3.  **Construct the UI:** Use `/specs-build-ui`. The Spectacles Interaction Kit (SIK) and UI Kit provide pre-built prefabs like `PinchButton`, `ToggleButton`, and `Slider`. **Insist that CLAD uses these prefabs.** Custom UI that mimics the system language is a red flag for "Technical Implementation." Prefer prefabs first.
+4.  **Wire the Logic:** Use `/lens-api` and the `script-author` agent to write the TypeScript controller. The logic should be simple and robust. Follow the event model of SIK (events bubble down the scene graph).
+5.  **Test, Iterate, Refine:** Use the `/verify-preview` skill after *every* change. Watch the Lens Studio preview panel like a hawk. CLAD can simulate camera movement, so make it test your lens from slightly off-center angles to ensure your content is robust.
+
+**The "Gotcha" to Avoid:** CLAD might try to "one-shot" your entire lens. Stop it. Use the individual skills. A one-shotted lens is often generic and lacks the polish of a designed experience. You want a "complete, coherent product experience," not a "technical proof of concept".
+
+---
+
+### Phase 4: The Proof — LEAF Testing and Repo Hygiene
+
+The judges will not run your project. The video is your proof. But the *repo* is where you prove the video isn’t a fluke.
+
+**1. LEAF is Your Quality Seal:**
+- After your lens works in preview, invoke the `live-lens-tester` agent. It will write a re-runnable LEAF (Lens Evaluation & Automation Framework) test script based on your Done Criteria.
+- Run the tests in the LEAF panel (`Window > LEAF`). **You want a "PASS" on every single test.** Mention this in your submission. "4/4 LEAF Done Criteria passed" is a powerful statement of technical maturity.
+
+**2. Repository Structure is Non-Negotiable:**
+Your public repo must be clean and self-explanatory. Judges will glance at it.
+- `/devpost/`: Contains `design-brief.md` (the approved plan).
+- `/Assets/Scripts/`: Contains your controller script.
+- `/Tests/`: Contains your LEAF test script.
+- `.mcp.json`: The Lens Studio MCP configuration file.
+- `YourProject.esproj`: The Lens Studio project file.
+- `README.md`: A concise explanation of the project, linking to the video and the design brief.
+
+---
+
+### Phase 5: The Kill Shot — The 3-Minute Demo Video
+
+This is your entire competition. The judges will watch this video and may not look at anything else before scoring. It must be perfect.
+
+**Video Structure (180 Seconds Hard Limit):**
+
+- **0:00 - 0:20 | The Hook (The "Occupied Hands" Problem).**
+    - **Visual:** A tight shot of hands performing a delicate real-world task (e.g., soldering, cooking, repairing). The hands are busy. The person is looking down.
+    - **Audio:** "When you're soldering a $2,000 board, you can't look at a laptop. But you need the schematic. That's the problem."
+    - **On-screen text:** The project name. Keep it clean.
+
+- **0:20 - 0:40 | The Solution Introduction.**
+    - **Visual:** Transition to the Lens Studio preview screen recording.
+    - **Audio:** "This is [Project Name]. It puts the information directly on the pin, right where you're working. No hands. No looking away."
+
+- **0:40 - 2:20 | The End-to-End Demo (The "Money Shot").**
+    - **Visual:** Smooth, unedited screen recording of the Lens Studio preview.
+    - **Sequence:**
+        1.  Show the "Found" button being pressed (simulating the user looking at the object).
+        2.  The primary anchor point appears *precisely* on the simulated object.
+        3.  Pinch to interact with a button. The UI responds immediately and clearly.
+        4.  Show the core feature working (e.g., a timer starts, a status panel expands).
+        5.  Pan the camera view slightly to the left and right to prove spatial stability. The content stays anchored.
+    - **Audio:** Narrate the user journey. "The user pinches 'Start'. A countdown appears over the active pin. They complete the task. The timer verifies the dwell time. The interface never leaves their field of view."
+    - **On-screen text:** Call out the "Design Decision" behind each step. "Anchored at 65cm for comfort." "SIK PinchButton for zero-learning-curve interaction."
+
+- **2:20 - 2:50 | The Technical Credibility.**
+    - **Visual:** Quick cuts showing the `design-brief.md` in your repo and the LEAF test panel passing.
+    - **Audio:** "Built with CLAD. Planned with the skill pack. Verified with LEAF. The design brief, planning docs, and tests are all in the public repo."
+
+- **2:50 - 3:00 | The Close.**
+    - **Visual:** Your project name and a clean shot of the preview.
+    - **Audio:** "For technicians who need their hands free and their eyes up. That's [Project Name]."
+    - **On-screen text:** Link to the repo and a thank you.
+
+---
+
+### The Final Timeline (T-Minus 5 Days)
+
+- **Today (Day -5):** Environment setup and skill pack installation. Complete Phase 1 reading.
+- **Day -4:** Finalize the idea and run the `plan-lens` skill. Complete and commit the `design-brief.md`. **No development until the brief is locked.**
+- **Day -3:** Full CLAD build day. Use individual skills. Test in preview constantly. Commit the working scene.
+- **Day -2:** LEAF testing day. Get all tests passing. Polish the UI and visual feedback. **This is the day you fix "design" issues, not build new features.**
+- **Day -1:** Record the video. Edit it down to under 3 minutes. Upload to YouTube as public. Write the Devpost description. Clean the repo.
+- **Day 0 (Deadline):** Submit. Do not touch the code. Do not re-record the video. Submit with time to spare. The deadline is a hard cutoff.
+
+Apprentice, your competitors will spend days wrestling with CLAD and end up with a technically functional but soulless lens. You will spend one day making the hard design decisions, and the rest executing with precision. That is how you win. Now, go run `npx skills add challengepost/learn-specs --all -y` and start the interview. Your victory starts now.

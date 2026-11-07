@@ -1,0 +1,73 @@
+0:000 secondsAugmented reality glasses are getting more and more popular. But if you don't know the best practices behind building apps for them, you might end up creating
+0:088 secondswebsites that live on your face instead of genuinely useful, original new applications for this new medium. Stay
+0:1515 secondstuned if you want to learn how to do it right. Hey everyone, welcome to Learn AR with Specs. In this learning hackathon, we're going to learn to design for the
+0:2323 secondsworld in front of you instead of designing for the glowing screen. And we're doing that because screens almost
+0:3232 secondscertainly won't be the only way we use computers. The next form factors are on their way now. And glasses you can wear
+0:4040 secondsthat have computer screens inside of them are becoming more and more popular.
+0:4646 secondsIn particular, we are going to practice building augmented reality applications for specs, the wearable uh AR glasses
+0:5555 secondsfrom Snap. So, Snap's AR glasses have a really strong set of developer tools which will make developing these
+1:031 minute, 3 secondsaugmented reality applications uh a lot easier even though we won't have the glasses themselves. So, they have see-through lenses. They track your
+1:101 minute, 10 secondshands and voice. But most importantly, they come with these developer tools, Lens Studio, this really powerful IDE,
+1:171 minute, 17 secondsas well as an MCP server for that Lens Studio and CLAD, which is a plug-in for your coding agent. Stands for closed
+1:241 minute, 24 secondsloop agentic development um that you can use to develop these AR apps uh with your coding agent taking care of a lot
+1:321 minute, 32 secondsof the work basically. So because the agent writes so much of the code, um we are going to practice bringing the ideas, taste, and judgment to design
+1:411 minute, 41 secondsreally, really awesome AR applications instead. So the things we're going to practice doing are creating things that are real apps, not just demos that you
+1:491 minute, 49 secondswatch for a couple seconds and think are cool and then don't use, but things that would genuinely be useful in this new paradigm. We're going to try and design things that are comfortable for the user
+1:571 minute, 57 secondsto to interact with um and that doesn't tire out their eyes or their body by wearing the the device. And we're going
+2:052 minutes, 5 secondsto try to meaningfully improve on a laptop version of the app. So, not just a website that lives on your face, but
+2:122 minutes, 12 secondssomething that's built for the new device that you'll be, you know, coding on top of. So what actually changes when
+2:192 minutes, 19 secondswe move from laptop or phone app design to app design for glasses? Well, we have to think about the capabilities of these
+2:272 minutes, 27 secondstools. For one, it shares our view of the world with itself. So it has a camera that can see what we're looking at, where we're looking, and it knows
+2:362 minutes, 36 secondshow to respond to it. So um for instance, we could translate signs. We could look up information about things that we're looking at. We could line up
+2:432 minutes, 43 secondsshots on pool tables, for instance. Um, here's a cool example of that. It can also draw in the world. So, instead of
+2:502 minutes, 50 secondsdrawing on a screen, um, the things that it renders take place in physical reality. As we can see in the Lens Studio uh, preview environment that
+2:592 minutes, 59 secondswe'll be developing in, you can set things on tables and sort of like draw things that then live in an actual physical location. Here's a cool example
+3:063 minutes, 6 secondsof that. And then finally, it leaves your body free. So, your hands can move around. you can make gestures with your hands that sort of feel like the
+3:153 minutes, 15 secondsinteractions you have on a keyboard uh or on a phone screen. Um, and you're able to walk around and keep doing things in real life, which really like
+3:223 minutes, 22 secondsfrees up what you can do with yourself while using your computer compared to just sitting in place and looking at a screen. So, here's a cool example of something you could do with your hands.
+3:323 minutes, 32 secondsAnd good AR can use all of these different design modalities, but great augmented reality applications combine all of them together into something
+3:403 minutes, 40 secondsthat's greater than the sum of their parts. So, how do you share your view with an app that can then draw things in your world and have you doing meaningful
+3:483 minutes, 48 secondsstuff in that world while you're using the application? That's the design challenge we're going to try and wrap our minds around in this learning
+3:553 minutes, 55 secondshackathon. So, just a few pointers um for designing for glasses instead of a screen. Again, make sure that you don't put a website floating in front of your
+4:034 minutes, 3 secondsface, but instead put information on the thing it's about or in the world in a way that visually and sort of like uh
+4:124 minutes, 12 secondsphysically makes sense. Try not to show everything all at once. You can imagine if on the glasses you have a bunch of
+4:194 minutes, 19 secondspop-up ads covering your your eyesight, uh you're going to like walk into something, right? You want to be really tasteful about when you show things and
+4:264 minutes, 26 secondswhen you don't show things. Um, kind of along the same lines, make sure there aren't too many small buttons or or big user interfaces that expect too much uh
+4:354 minutes, 35 secondsmanipulation. Uh, pinching is the new clicking between the thumb and the forefinger. Uh, the glasses recognize that on the specs platform. So, make
+4:434 minutes, 43 secondssure you have big targets that can easily be pinched and that are kind of forgiving when you develop those tools.
+4:484 minutes, 48 secondsUm, and then when you're going to render UI or visual elements, make sure you keep it where they're already looking.
+4:534 minutes, 53 secondsIf you can imagine, if I have some heads up display here in the corner of my eye and I got to keep moving my eye or turning my neck, it's not going to feel very good and you're going to get tired
+5:015 minutes, 1 secondof the app. So, try and keep everything sort of where the user is already looking as you develop your application.
+5:075 minutes, 7 secondsUm, and we're going to build these in lens studio and not in the glasses themselves. You do not need a pair of specs glasses to participate in this
+5:155 minutes, 15 secondslearning hackathon. Um, and that's going to be a really useful skill in its own right, too. Uh so you imagine if you're
+5:225 minutes, 22 secondsdeveloping mobile apps or you develop the application on your computer and you emulate what it feels like to interact
+5:305 minutes, 30 secondswith a phone on your computer. Um so we're going to practice what it feels like to prototype for this new technology uh without having it on hand
+5:385 minutes, 38 secondsfor. So in the preview uh you can walk around, you can do WD and and go different places uh in these different
+5:465 minutes, 46 secondspre-rendered environments. You can place things, you can pinch and grab and use the hand recognition. Um, the harder stuff is recognizing real things like a
+5:555 minutes, 55 secondssign or a ball. Um, that we need the camera to actually be recording things wearing the glasses and the preview can't really stand in for that. But the
+6:036 minutes, 3 secondsgood way to sort of build something that assumes that that's possible um, is to kind of mock it up. So, uh, assume that
+6:116 minutes, 11 secondsthe app has already recognized the thing that you want to look at and then build on top of it from there. That's that's what you would want to try and replicate if you want to build on top of sort of
+6:206 minutes, 20 secondsseeing and manipulating things in the world. Um, so here's the rough sketch of what you're going to do in this learning hackathon. You'll start by installing
+6:266 minutes, 26 secondsthe Devpostlearn skill pack and that's going to do a flipped interaction interview of you and your idea, help you brainstorm a cool AR app uh to build in lens studio for this the specs glasses.
+6:386 minutes, 38 secondsUm, it'll sort of stress test your idea, pressure test it, sort of look up um, the best practices as well as the very
+6:466 minutes, 46 secondsextensive thorough documentation on the snap site to make sure that you're building the best version of your idea.
+6:516 minutes, 51 secondsThen it'll write it down in a brief and ship it off to clad closed loop agentic development which is a really awesome plugin from Snap that hooks into the
+7:007 minutesLens Studio MCP and builds out your lens or or your specs app uh autonomously with your coding agent. Um once it's
+7:097 minutes, 9 secondsdone, you can go and open up the Lens Studio preview and walk around, kick the tires, try it out. Um, and then go back to your coding agent, iterate, polish it
+7:177 minutes, 17 secondsuntil you get a project that you feel good about that's ready to submit to our hackathon. Um, okay. So, next steps for you. After you finish this video, which
+7:257 minutes, 25 secondsyou just have, um, make sure you're registered for learn AR with specs on devost if you haven't already. Uh, then join our Discord. There's a special channel just for learn AR with specs.
+7:367 minutes, 36 secondsUm, and we'll be talking in there, troubleshooting. We'll be there to answer your questions. Real humans available to talk to. Um, also open the resources page. We've got a really
+7:457 minutes, 45 secondsextensive quick start guide. There are a few different things you need to install, new software, new plugins.
+7:517 minutes, 51 secondsEverything will uh be walked through on that page. And we've also got a lot more. Um, Snap has really awesome documentation and tutorials and videos
+7:597 minutes, 59 secondsthat you can look up if you want to learn more about building on this platform. We've assembled everything in a nice little location right there. And
+8:068 minutes, 6 secondsthen we also have some more uh links and resources on best augmented reality design practices since we want you to
+8:148 minutes, 14 secondstry and think like a designer as well as a coder in this challenge. Um then we want you to fire up your coding agent and uh install the Devpostle learn skill
+8:228 minutes, 22 secondspack which will interview you, help you come up with your app idea and then get off to the races actually developing on the specs platform. So um once you do
+8:308 minutes, 30 secondsthat, be sure to check out the community events we have going this month. We're going to have a live build session where uh DevPostle learn staff are going to
+8:378 minutes, 37 secondstry building our own version um of an awesome AR app in Lens Studio. Uh and you can follow along and ask questions.
+8:448 minutes, 44 secondsIt'll be live. And then we'll also have a will it ship feedback session also live for those of you who submit your
+8:528 minutes, 52 secondswork in progress app to the forum on Discord. We'll go through several of them and offer constructive feedback for the hackathon. Um, so as we close this
+9:019 minutes, 1 secondout, uh, I just want to salute you for being an early adopter and, um, prototyping for a new tech before you have it is a really valuable skill to
+9:099 minutes, 9 secondshave. Um, try thinking in terms of this new medium. Good luck on your your hackathon submission and I'll see you on the other
+
+Sync to video time

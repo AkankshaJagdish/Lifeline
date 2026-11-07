@@ -1,0 +1,46 @@
+- !<AssetImportMetadata/04941db7-35fc-4bf7-b731-a6bfdaaf2507>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> a0d0f42e-cdff-4a90-b5fe-af00eecdb107
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> a0d0f42e-cdff-4a90-b5fe-af00eecdb107
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 9b1ea4d5-2a8f-4b9a-810c-403319e6c135
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/9b1ea4d5-2a8f-4b9a-810c-403319e6c135>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 5b610ad0-3767-40a6-90cd-e56c719c2020
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    previewSimulationEnabled: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - previewSimulationEnabled: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input bool previewSimulationEnabled {"hint":"Enable only for an explicitly labelled Lens Studio Preview simulation control."}'

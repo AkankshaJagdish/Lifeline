@@ -1,0 +1,330 @@
+https://learn-specs.devpost.com/
+
+link to hackathon.
+
+Devpost
+Join a hackathon 
+Host a hackathon 
+Resources 
+ 
+AkankshaJagdish
+Notifications
+Loading...
+
+Learn AR with SPECS
+Overview
+My projects
+Participants (1093)
+Resources
+Rules
+Project gallery
+Updates
+Discussions
+FAQs
+Learn AR with SPECS
+Learn to design for glasses. Your coding agent builds the Lens, no SPECS required.
+Join hackathon
+Who can participate
+Above legal age of majority in country of residence
+All countries/territories, excluding standard exceptions 
+View full rules
+5 days to deadline
+View schedule
+
+Deadline
+
+Nov 10, 2026 @ 3:30am GMT+5:30 
+Online
+Public
+$2,500 in cash	1093 participants
+Devpost
+Devpost icon rgb30px
+Managed by Devpost
+AR/VR Machine Learning/AI Design
+
+Design an augmented reality app for glasses, and let an AI coding agent build it in Lens Studio. You don't need the glasses, because everything runs in Lens Studio's preview on your laptop. You'll get a short concept video, a skill pack for your coding agent, a live build session, and a live project review. $2,500 in prizes each round.
+
+ 
+ABOUT THE CHALLENGE
+Screens won't be the only place we use computers. Glasses are coming, and building for them is different from building for a laptop or a phone.
+
+Most first tries at AR end up as a website floating in front of your face. Good AR does things a laptop can't do:
+
+It shares your view. The camera sees what you see, so the app can respond to it.
+It draws in the world. Content sits on the table, over the stove, at real size, right where it belongs.
+It leaves your body free. Your hands stay available and your eyes stay up, so you can keep doing the real thing.
+Coding agents can now build a working Lens from a good description. So the hard part is deciding what's worth building and how it should feel. That's what this hackathon teaches.
+
+You'll install our Devpost Learn skill pack in your coding agent. It interviews you about your idea, checks it against AR design best practices, and writes a design brief. Then Snap's CLAD agents build the Lens in Lens Studio from that brief, and you try it in the preview. You'll finish with a working Lens, the plan behind it, and a way of thinking about AR you can use on every project after this one.
+
+ 
+WHY JOIN
+Learn what makes a good AR app, from the design decisions an agent can't make for you.
+Build for SPECS, Snap's AR glasses, without owning a pair.
+Try Snap's newest agent tools: CLAD, the Lens Studio MCP, and LEAF testing.
+Get help from real people in a live build session and a live project review.
+Compete to win a share of $2,500. First place takes $1,250, and every winner gets a feature in the Devpost newsletter and on Devpost's socials. Everyone who submits an eligible project gets a Devpost Learn badge and a special role in the Devpost Discord.
+ 
+GET STARTED
+You'll need a computer that runs Lens Studio, Node.js and Git, and a coding agent that supports skills.
+Set up your tools with the quick start on the Resources tab: your coding agent, Lens Studio, the Lens Studio MCP, and the CLAD plugin. Can't sign in to the developer platform on Lens Studio 5.24? Use Lens Studio 5.23.2 instead.
+Watch the concept video (at the top of this page). It's short, and it covers the design ideas the judges look for.
+Install the skill pack: npx skills add challengepost/learn-specs --all -y. Then open your coding agent and say "Run the plan-lens skill." It takes it from there.
+Join the SPECS channel in the Devpost Discord for questions and to see what other builders are making.
+Register for the Build for SPECS: AR Design with Lens Studio and CLAD live build session on Thursday, Oct 29 at 12PM ET. We build a Lens start to finish. It's recorded if you can't make it.
+Come to the SPECS Live Review: Inside the Judging Criteria on Thursday, Nov 5 at 12PM ET. We review a few projects in progress against the judging criteria, so you still have time to act on the feedback before the deadline. Want yours reviewed live? Post it in the #devpost-learn-feedback channel in the Discord and tag it "Learn AR with SPECS" and "Will It Ship."
+Stuck? Ask in the Discord channel. Setup help, the FAQ, and event details are on the Resources tab.
+Requirements
+WHAT TO BUILD
+A new Lens for SPECS, planned with the Devpost Learn skill pack and built by an AI coding agent through CLAD in Lens Studio. Don't have an idea? The skill pack will interview one out of you.
+
+Requirements:
+
+New project. Started during the submission period. Old ideas are fine, old code is not.
+Planned with the skill pack. Your repo should include the planning docs the skill pack writes to the devpost folder.
+Built with CLAD. Your coding agent builds the Lens in Lens Studio through the CLAD plugin and the Lens Studio MCP.
+Runs in the Lens Studio preview. You don't need SPECS glasses.
+ 
+WHAT TO SUBMIT
+A demo video, public on YouTube, that shows your Lens working. Keep it under 3 minutes. A screen recording of the Lens Studio preview is perfect. If you can, also talk about your design process.
+A public repo on GitHub, GitLab, or Bitbucket. It should include your Lens Studio project files and the devpost folder.
+A short description: what your Lens does, who it's for, and what you learned.
+Reviewers won't clone or run your project, so the video has to show it working.
+
+Prizes
+$2,500 in prizes
+First Place
+$1,250 in cash
+1 winner
+$1,250 in cash
+
+Second Place
+$750 in cash
+1 winner
+$750 in cash
+
+Third Place
+$500 in cash
+1 winner
+$500 in cash
+
+Devpost Achievements
+Submitting to this hackathon could earn you:
+
+
+X Hackathons
+ level 2
+
+Hackathon Winner
+ level 1
+Judges
+Joe Holmes
+Joe Holmes
+AI Learning Hackathon Architect, Devpost
+
+Darlyze Calixte
+Darlyze Calixte
+Developer Marketing Manager | Devpost
+
+Judging Criteria
+Design
+Does the project deliver a complete, coherent product experience, not just a technical proof of concept?
+Technical Implementation
+How well is the project built and how well did it use CLAD, Lens Studio, and the Lens Studio MCP?
+Innovation/Idea
+How creative and novel is the concept and does the project differ from existing concepts?
+Presentation
+Does the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?
+Questions? Email the hackathon manager
+
+This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+
+Devpost
+About
+Careers
+Contact
+Help
+Hackathons
+Browse hackathons
+Explore projects
+Host a hackathon
+Hackathon guides
+Portfolio
+Your projects
+Your hackathons
+Settings
+Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+© 2026 Devpost, Inc. All rights reserved.
+Community guidelines
+Security
+CA notice
+Privacy policy
+Terms of service
+
+
+Devpost
+Join a hackathon 
+Host a hackathon 
+Resources 
+ 
+AkankshaJagdish
+Notifications
+Loading...
+
+Learn AR with SPECS
+Overview
+My projects
+Participants (1093)
+Resources
+Rules
+Project gallery
+Updates
+Discussions
+FAQs
+Learn AR with SPECS
+Learn to design for glasses. Your coding agent builds the Lens, no SPECS required.
+Join hackathon
+Who can participate
+Above legal age of majority in country of residence
+All countries/territories, excluding standard exceptions 
+View full rules
+5 days to deadline
+View schedule
+
+Deadline
+
+Nov 10, 2026 @ 3:30am GMT+5:30 
+Online
+Public
+$2,500 in cash	1093 participants
+Devpost
+Devpost icon rgb30px
+Managed by Devpost
+AR/VR Machine Learning/AI Design
+
+Design an augmented reality app for glasses, and let an AI coding agent build it in Lens Studio. You don't need the glasses, because everything runs in Lens Studio's preview on your laptop. You'll get a short concept video, a skill pack for your coding agent, a live build session, and a live project review. $2,500 in prizes each round.
+
+ 
+ABOUT THE CHALLENGE
+Screens won't be the only place we use computers. Glasses are coming, and building for them is different from building for a laptop or a phone.
+
+Most first tries at AR end up as a website floating in front of your face. Good AR does things a laptop can't do:
+
+It shares your view. The camera sees what you see, so the app can respond to it.
+It draws in the world. Content sits on the table, over the stove, at real size, right where it belongs.
+It leaves your body free. Your hands stay available and your eyes stay up, so you can keep doing the real thing.
+Coding agents can now build a working Lens from a good description. So the hard part is deciding what's worth building and how it should feel. That's what this hackathon teaches.
+
+You'll install our Devpost Learn skill pack in your coding agent. It interviews you about your idea, checks it against AR design best practices, and writes a design brief. Then Snap's CLAD agents build the Lens in Lens Studio from that brief, and you try it in the preview. You'll finish with a working Lens, the plan behind it, and a way of thinking about AR you can use on every project after this one.
+
+ 
+WHY JOIN
+Learn what makes a good AR app, from the design decisions an agent can't make for you.
+Build for SPECS, Snap's AR glasses, without owning a pair.
+Try Snap's newest agent tools: CLAD, the Lens Studio MCP, and LEAF testing.
+Get help from real people in a live build session and a live project review.
+Compete to win a share of $2,500. First place takes $1,250, and every winner gets a feature in the Devpost newsletter and on Devpost's socials. Everyone who submits an eligible project gets a Devpost Learn badge and a special role in the Devpost Discord.
+ 
+GET STARTED
+You'll need a computer that runs Lens Studio, Node.js and Git, and a coding agent that supports skills.
+Set up your tools with the quick start on the Resources tab: your coding agent, Lens Studio, the Lens Studio MCP, and the CLAD plugin. Can't sign in to the developer platform on Lens Studio 5.24? Use Lens Studio 5.23.2 instead.
+Watch the concept video (at the top of this page). It's short, and it covers the design ideas the judges look for.
+Install the skill pack: npx skills add challengepost/learn-specs --all -y. Then open your coding agent and say "Run the plan-lens skill." It takes it from there.
+Join the SPECS channel in the Devpost Discord for questions and to see what other builders are making.
+Register for the Build for SPECS: AR Design with Lens Studio and CLAD live build session on Thursday, Oct 29 at 12PM ET. We build a Lens start to finish. It's recorded if you can't make it.
+Come to the SPECS Live Review: Inside the Judging Criteria on Thursday, Nov 5 at 12PM ET. We review a few projects in progress against the judging criteria, so you still have time to act on the feedback before the deadline. Want yours reviewed live? Post it in the #devpost-learn-feedback channel in the Discord and tag it "Learn AR with SPECS" and "Will It Ship."
+Stuck? Ask in the Discord channel. Setup help, the FAQ, and event details are on the Resources tab.
+Requirements
+WHAT TO BUILD
+A new Lens for SPECS, planned with the Devpost Learn skill pack and built by an AI coding agent through CLAD in Lens Studio. Don't have an idea? The skill pack will interview one out of you.
+
+Requirements:
+
+New project. Started during the submission period. Old ideas are fine, old code is not.
+Planned with the skill pack. Your repo should include the planning docs the skill pack writes to the devpost folder.
+Built with CLAD. Your coding agent builds the Lens in Lens Studio through the CLAD plugin and the Lens Studio MCP.
+Runs in the Lens Studio preview. You don't need SPECS glasses.
+ 
+WHAT TO SUBMIT
+A demo video, public on YouTube, that shows your Lens working. Keep it under 3 minutes. A screen recording of the Lens Studio preview is perfect. If you can, also talk about your design process.
+A public repo on GitHub, GitLab, or Bitbucket. It should include your Lens Studio project files and the devpost folder.
+A short description: what your Lens does, who it's for, and what you learned.
+Reviewers won't clone or run your project, so the video has to show it working.
+
+Prizes
+$2,500 in prizes
+First Place
+$1,250 in cash
+1 winner
+$1,250 in cash
+
+Second Place
+$750 in cash
+1 winner
+$750 in cash
+
+Third Place
+$500 in cash
+1 winner
+$500 in cash
+
+Devpost Achievements
+Submitting to this hackathon could earn you:
+
+
+X Hackathons
+ level 2
+
+Hackathon Winner
+ level 1
+Judges
+Joe Holmes
+Joe Holmes
+AI Learning Hackathon Architect, Devpost
+
+Darlyze Calixte
+Darlyze Calixte
+Developer Marketing Manager | Devpost
+
+Judging Criteria
+Design
+Does the project deliver a complete, coherent product experience, not just a technical proof of concept?
+Technical Implementation
+How well is the project built and how well did it use CLAD, Lens Studio, and the Lens Studio MCP?
+Innovation/Idea
+How creative and novel is the concept and does the project differ from existing concepts?
+Presentation
+Does the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?
+Questions? Email the hackathon manager
+
+This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+
+Devpost
+About
+Careers
+Contact
+Help
+Hackathons
+Browse hackathons
+Explore projects
+Host a hackathon
+Hackathon guides
+Portfolio
+Your projects
+Your hackathons
+Settings
+Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+© 2026 Devpost, Inc. All rights reserved.
+Community guidelines
+Security
+CA notice
+Privacy policy
+Terms of service

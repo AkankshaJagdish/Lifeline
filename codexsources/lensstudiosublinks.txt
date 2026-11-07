@@ -1,0 +1,2405 @@
+https://learn-specs.devpost.com/resources
+
+https://skills.sh/
+
+https://ar.snap.com/download
+
+https://ar.snap.com/download/v5-23-2
+
+https://developers.specs.com/docs/clad/setup/setup-lens-studio
+
+https://developers.specs.com/docs/clad/setup/setup-ai/codex-setup44
+
+https://github.com/challengepost/learn-specs
+
+https://developers.specs.com/docs/clad/troubleshooting/troubleshoot-lens-studio-mcp
+
+https://developers.specs.com/docs/clad/troubleshooting/troubleshoot-lens-studio-plugin
+
+https://github.com/challengepost/learn-specs
+
+https://developers.specs.com/docs/clad/overview-section/how-clad-works
+
+https://developers.specs.com/docs/clad/overview-section/how-clad-works
+
+https://developers.specs.com/docs/clad/overview-section/agents-and-skills
+
+https://www.youtube.com/watch?v=p4SRSJrRUj4
+
+https://www.youtube.com/watch?v=lA0T8A-6AzI
+
+https://www.youtube.com/watch?v=_-SPzLTY5pY
+
+https://blog.lenslist.co/2026/09/15/from-prompt-to-specs-%f0%9f%95%b6%ef%b8%8f-inside-the-clad-summer-hackathon/
+
+https://developers.snap.com/spectacles/best-practices/design-for-spectacles/design-best-practices
+
+https://developers.snap.com/spectacles/best-practices/design-for-spectacles/positioning-sizing-content
+
+https://developers.snap.com/spectacles/best-practices/design-for-spectacles/designing-for-movement
+
+https://developers.snap.com/spectacles/best-practices/design-for-spectacles/designing-for-movement
+
+https://developers.snap.com/spectacles/get-started/start-building/preview-panel
+
+https://developers.specs.com/docs/clad/tools/test-your-lens-with-leaf
+
+https://github.com/specs-devs/samples
+
+https://www.specs.com/lens-experiences
+
+https://design.google/library/early-challenges-in-ar-ux
+
+https://design.google/library/transparent-screens
+
+https://developers.google.com/glass/design/principles
+
+https://developers.meta.com/horizon/design/hands-best-practices/
+
+https://learn.microsoft.com/en-us/windows/mixed-reality/design/holographic-frame
+
+https://developers.specs.com/docs/clad/overview-section/how-clad-works
+
+https://developers.specs.com/docs/clad/overview-section/agents-and-skills
+
+https://developers.specs.com/docs/clad/setup/setup-ai/codex-setup
+
+
+
+Getting Started with CLAD Week 1 Organise
+
+0:03
+Hello everyone. It is very excited to be very excited to be here today. Um hope
+0:09
+you're all as excited as I am to learn more about clads the community hackathon
+0:14
+as a whole. So just give it a few minutes, wait for some more people to show up and then we'll we'll hop into
+0:19
+it. But just as we're going over things today, feel free to just chuck your
+0:24
+questions in the chat as we go along and hopefully I'll be able to answer them uh when needs be. But yeah, how's
+0:31
+everyone's days going today? Anyone been up to anything interesting so far?
+0:55
+Yeah, just give it another two or three minutes and then we'll we'll jump into it. Really excited to be chatting to you
+1:01
+all though about Clad. I've used it a bunch the past few weeks ever since it was announced and every single time I
+1:07
+use it, I think I'm just more and more impressed which just it's such a good and useful tool. So hopefully you'll all
+1:14
+get that excitement towards it as well.
+1:29
+Okay, you know what? Looks like we've got about yeah quite a few people in here. So without further ado, let's just
+1:34
+get started. So this is for the specs cloud hackathon and this is week one with a focus on organize as the theme.
+1:42
+So we're going to cover a bunch of things today. Mostly we're going to cover what is cloud as a whole. We're going to go over that, what it is, how
+1:49
+you can use it, uh different sort of use cases of it, all of that. Then we're going to cover the setup. Then we're
+1:55
+going to look at some strengths and limitations of cloud. Then we're going to talk in a bit more detail about the actual hackathon as a whole. So without
+2:02
+further ado, what is cloud? I'm sure you've seen the word cloud everywhere recently, especially if you're frequent
+2:10
+on all things Snap AR and specs. So yeah, what is cloud? So clad stands for
+2:15
+the closed loop agentic development and it's essentially a suite of agents and skills which allow AI to create in lens
+2:21
+studio kind of experiences facial experiences and lenses optimized for specs. So the C stands for closed which
+2:29
+means the AI is able to work by itself. So this is fantastic. It does mean that you are able to give cloud just one
+2:36
+prompt and it's able to work by itself to create a full lens which is super
+2:41
+super impressive. The L stands for loop. So this means it's able to work through a full development loop like you have a
+2:47
+team of people but just as a set of agents. So instead of it just doing you know just building or maybe just being
+2:53
+able to handle design it's able to do the full thing. So it can design your lens and your project then move on to
+2:59
+building it actually creating the code implementing it and then it's able to test it especially through things such
+3:06
+as leaf which I'll touch on more a bit later. Um, and then once it's tested it, if it finds maybe something isn't
+3:12
+working as intended, it's able to go back to design or build and go again. So, it's great. It's like a full loop,
+3:19
+which is amazing. And then the A stands for agentic. So, it's able to divide tasks and assign them to dedicated
+3:25
+agents. Maybe there's one agent which is super good at generating 3D models or creating sound effects. If so, is able
+3:32
+to pass that task onto that agent and get that stuff done by itself. And then D is development. So this is where cloud
+3:40
+I think really stands out. It can develop by itself or with you. So you can really make cloud work for your sort
+3:48
+of workflow. So it is possible to give it one prompt and it's able to produce a full lens from there. Or if you prefer
+3:55
+to be a bit more handson with your programming and development, you can get cloud to just do certain tasks. Maybe
+4:01
+you just want to make a 3D model or just make some audio for your lens. It can do that too. So, however you work, cloud
+4:08
+can fit into your workflow, which is something I really like because I've been using cloud in a bunch of different
+4:13
+ways so far. So, often I'll give it just one complete prompt to get a full prototype, but at the same time, I also
+4:19
+quite like working almost like a pair programmer. You know, I'll do a little bit and then when I get stuck, I'll hand over to clad and go back and forth. So,
+4:26
+however you work, clad can fit around you. So, down here, there's a little diagram kind of showing how it works at
+4:33
+quite high level. So we have clad which is a set of skills and agents and then we pair this with an AI harness so
+4:39
+claude codec and cursor which we'll touch on a bit later and then through this it connects through an MCP server
+4:45
+to lens studio to allow it to insert things into the scene check things are running the scripts all of that and from
+4:52
+lens studio you're able to test on the specs device obviously not right now because the specs aren't out yet but in
+4:59
+the future you'll be able to and currently the lens studio simulator is really really good for most of the
+5:04
+things. So you're fine there. Now agents within cloud. So I think this
+5:10
+was probably the most standout thing to me. So I have quite a developer based
+5:16
+background. Um very happy with programming code, all of that, but I'm not as good when it comes to things such
+5:22
+as VFX, 3D models, or the pretty stuff as I like to call it. So what blew me
+5:28
+away about clad was its ability to create things like shaders, 3D models by itself and pretty good results at that
+5:35
+which we we'll show you in some live examples in a bit. So clad can create a lot more than just basic code like I
+5:42
+said VFX shaders 3D models and it can test. I'd wanted spatial unit tests for
+5:50
+ages and through cloud with leaf which stands for lens evaluation automation
+5:55
+framework you essentially get spatial unit tests within lens studio. So this is just another thing that just makes
+6:02
+cloud stand out that wee bit more. It's honestly such a great tool and there's so many more dedicated agents within
+6:09
+cloud. So one prompt is enough to create a full lens. Maybe you just want a basic
+6:14
+weather lens to show you the weather in your current location. You can do that. You can type out a simple prompt just
+6:19
+like build me a lens that shows me the weather in my current location. Hit enter, you know, go away, grab a coffee,
+6:25
+come back. It'll be made for you. Or sometimes you might just need help with one specific aspect. Maybe you just want
+6:31
+a mesh. So you can do /bu mesh and it will, you know, describe what you want. Maybe you want a cloud 3D model and it
+6:37
+will create that. Or maybe you want some SFX, some sound effects. So you do build SFX and it could create rain noise.
+6:44
+Let's say you're making a weather lens. or even things just as updating basic lens packages to very specific versions.
+6:50
+You can do that too from the individual agents which is just great. Saves a lot of time with things like this.
+6:57
+Now a uh yeah so cloud works with your favorite AI tools. Main three being codeex, cloud code and cursor. If you're
+7:05
+just getting started though this your first time using cloud, the one I would personally recommend and the one that I
+7:10
+use when using cloud is cursor. my opinion, it's just one of the easier ones to get set up with and uh it does
+7:17
+have a free tier as well, so you can get started with that. It's quite useful. Perfect. So, now that we've covered sort
+7:23
+of what cloud is and what it can do, uh let's talk about setting it up and we'll
+7:28
+go through a live example so you can see it all working. So, first things first, you're going to
+7:34
+want to make sure you've got Lens Gio installed and you need to make sure it's version 5.22 or greater. any version
+7:41
+before won't work. So, ensure it's version 5.22 or newer. And you also need the cursor app. And then the little QR
+7:48
+code in the corner there, that will take you to the documentation for setting up cursor uh with clad, which we will go
+7:55
+over live now. So, first things first, I have cursor open here. Uh, and if I go
+8:03
+So, when you open it for the first time once you've signed into your account, it look a bit like this. And if we go into customize, we can see our sort of
+8:10
+plugins and MCP. These are the two we're going to use most. So, as you can see right now, no plugins available. And I
+8:17
+do have an MCP because I was doing it later earlier, but we'll go over that again. So, first things first, what we
+8:23
+want to do is we want to navigate to uh your file app and just want to make a
+8:30
+kind of folder for cloud stuff. So, that's what I've done. Just call it clad lenses. Now within here going to make a
+8:36
+new folder. I'm going to call this extensions and I will open that. And then if I go
+8:42
+to the cursor setup page here, we've got all different steps. So have we
+8:48
+installed lens studio? Yes. Have we installed cursor? Yes. And we do have
+8:54
+cursor open. So then we need to install them the plugin. So what we do is we
+8:59
+grab this URL here or command here and we can copy that and then we can head
+9:05
+back into our file app and we can just open
+9:10
+terminal and it will clone in and download this
+9:15
+little folder called ls extensions. So this is what we'll need to give to clad so it's able to have a sort of reference
+9:23
+to this is what we can cursor so it has reference to the cloud stuff. bunch stuff in here. We don't need to worry about that. So now we can open this
+9:30
+again and let's go back to the website and there's just two more commands we
+9:35
+got to run and that's us running. So this first one what it does is it makes a directory in your user folder uh to
+9:42
+check that the cursor plug-in folder exists. If if it does exist, it doesn't do anything. So I can run this. There we
+9:49
+go. Nothing happens because it already exists. And then what we need to do is we do the second one which just copies
+9:55
+the repo we just downloaded into a local plug-in folder called lscloud. So back
+10:01
+we go into there we can run that and then to check that worked all we need to
+10:06
+do is we just need to open up cursor and then we should see lscloud and when we press it we should see a bunch of
+10:12
+things. So like we've got a bunch of different skills bunch of different sub aents all of that. Amazing. So, next
+10:21
+step is we want to open up lens studio which I have up here
+10:31
+and you'll be greeted with a screen such as this. So, what we want to do is we want to open up specs and then we just
+10:39
+want to slide it. So, we can open that and then it will
+10:45
+load up here. Just need to wait on it to load. Perfect. So, I'm thinking for our first
+10:50
+example, we're just going to make a very basic weather lens. And then we'll kind of iterate on this throughout. And then
+10:56
+we'll try another little sample a bit more related to this week's theme later on. So, perfect. Let's save this. So,
+11:03
+I'm just going to pop it in my cloud folder. We're just going to call this weather example.
+11:09
+And then we just need to complete our final step, which is going up here. And we're going to want to go to AI
+11:15
+assistance MCP and then configure server. Should be running by default,
+11:21
+but if not, just press start server. And we want to go and we want to copy the MCP config. It copies it to your
+11:27
+clipboard automatically. And then if we go back over to uh
+11:33
+cursor, we can go into MCPS, add new MCP server. If you're doing it for the first
+11:40
+time, copy and paste it in there. Hit save. And then at the top, we should see
+11:45
+this. Then once we reload it, it will connect. Once it's green, that means MCP stuff is set up. So that's all the
+11:52
+cursor stuff set up. We're ready to go. So we can go from there. So now we want
+11:57
+to open our folder where our weather lens is located. So we can go into cloud
+12:03
+weather example and we can open that there. Perfect. So, let's just create a new
+12:13
+agent and let's type in our prompt. So, I'm going to go with
+12:19
+uh we're going to make a basic weather lens. And I think we want it to show the current temperature and probably the
+12:24
+condition for the current city we're in. And then it'd be really cool if there's a button to toggle the time of day. So,
+12:30
+we can have our prediction for during the day and at night. I think that'd be pretty cool, especially if it's using
+12:36
+real live data. So let's just type in a detailed prompt so we get that. So build
+12:41
+me a basic weather lens. It should show the current
+12:51
+and condition for my current city.
+12:57
+There should be a button to toggle the time of day
+13:04
+so that so it will give the prediction
+13:14
+for for during the day or at night.
+13:20
+When in editor, expose a field for a city name. By
+13:27
+default, use Edinburgh. That's where I'm currently based. And then use real data.
+13:34
+And then let's get that running. You can choose your different agents.
+13:39
+Personally, I quite like composer or different LLMs. We'll go with composer.
+13:44
+That's what I've had some really good results with. So, we'll go with that. Now you may notice within that prompt I
+13:50
+did specify you know when an editor suppose a field for a city name by default use Edinburgh. So I'll touch on
+13:57
+that a bit more in a little bit but essentially there's some things that don't work fully within the editor such
+14:03
+as getting your GPS location. So some of them when editor it's best to have a little fallback but again we'll cover
+14:10
+all of that in a little bit. So it's running now. Everything seems to be going well. Um,
+14:17
+yeah, perfect. So, let's go back to our slides while it's doing that. Hopefully, when we come back, we have a little
+14:24
+project waiting for us. So, strengths and limitations. I think this is a really good one to cover. So, the
+14:30
+overall strengths, I'd say, is the ability to create more than just code. This is so valuable in my opinion. The
+14:37
+ability for it to create 3D models, designs, SFX. Again, I I really can't
+14:43
+recommend this enough. So great for be able to produce a full project instead of just write the code for it. And the
+14:49
+ability to work by itself, it works really well, especially just based off one prompt. It's amazing sort of
+14:54
+detailed results you can get just from that testing. We'll show a live example
+15:00
+of the testing once initial lens is created. um using leaf. This is really
+15:06
+good for s for testing things like complex hand gestures and movements all within the editor, especially without
+15:13
+being able to test on device makes it a breeze. And as well the iterative development, the ability to just work
+15:18
+with clad the way you want is phenomenal. Um so regardless of how you
+15:24
+code or how you'd like to make your projects, you can pick and choose and work with cloud the way you want to. Now
+15:30
+for things to consider, the first one is your sort of the capability knowledge.
+15:36
+So if you're a complete beginner, you've not touched Lens Studio, you've not touched specs before, what I would
+15:41
+recommend doing before even touching cloud is going through a bunch of the examples in the specs homepage. And this
+15:48
+will give you a really good understanding for what things can work in Lens Studio, how things do work in
+15:55
+Lens Studio, how to use things maybe like the remote service gateway. Because what I find when I'm prompting with
+16:01
+cloud is the more detail I give it, the more suggestions I give it and individual sort of Lens Studio APIs,
+16:08
+capabilities I want it to use, the better the finished product. Um, yeah.
+16:13
+So I would recommend just picking two or three of the samples, walking through them, understanding how it works, trying
+16:20
+it in the simulator, and then going to cloud for your first time to give it some prompts from there. Another thing
+16:25
+to think about is colors. So due to spectacles or specs, having holographic
+16:31
+waveguide displays, which essentially means light projected on and that's how you see your digital content, black
+16:37
+doesn't really show up at all. So avoid blacks and maybe use things like grays
+16:43
+or try, you know, a completely different color theme. Um, yeah, often lighter colors feel a bit more punchy in my
+16:49
+opinion. So it's worth considering that. And as well there's also a few editor limitations. So there's a few different
+16:56
+things which work on specs on the actual device which don't really work in editor. So one of those being like GPS.
+17:04
+Uh, so obviously there's no GPS so it can't work out where I am. So for that case you have to give it a city. Uh
+17:11
+other things such as motion controllers and um you know like actually came
+17:18
+there's a bunch of things which maybe don't work quite the best in editor. So just keep these in mind. Often the API
+17:23
+can kind of help you understand if they'll work in editor or not but it's just something to be aware of. And let's
+17:29
+go back see how it's getting on. Okay it is writing some of the script
+17:34
+inputs. Perfect. So, we should be should be almost awesome. How can we test hand
+17:41
+gestures in preview? So, at the moment, the easiest way I found to do it is writing some leaf unit tests, which
+17:49
+we'll go over in a little minute. Um, that just makes the whole thing quite quite easy. Uh, there's no Yeah, that's
+17:56
+the best way I found so far. And we'll just wait on this being a little bit
+18:01
+slower today than usual, but that is fine. And again, it's fantastic just the
+18:07
+results you can get just from one prompt. So looking forward to this being
+18:12
+done to show you. There we go. Just keep waiting on that.
+18:19
+And if we explore the package, as we can see, stuff's already been generated. Got a few scripts made. Got some SFX made,
+18:26
+some icons. So it's perfect. It's working working as expected.
+18:33
+Okay. Um, I guess while we wait, we can talk about the actual hackathon. So,
+18:38
+this week's theme is organization. So, the tagline is build a spatial
+18:44
+experience that helps people organize, plan, or be more productive.
+18:50
+So, a few different starter ideas I had when creating this presentation was first one that sprung to my mind was
+18:56
+spatial note-taking. I would love it if I was able to just pop all my specs,
+19:02
+walk around my house, and see different notes I'd placed on each wall. Maybe in the kitchen it was reminding me, oh, got
+19:08
+to get bread, got to get more milk. Maybe in the office it was reminding me to water my plants, something like that,
+19:15
+because I don't always have my, you know, post-it notes or whatever on me, but I often have my spectacles on me. So
+19:20
+just being able to quickly place a spatial note which stays in space until
+19:25
+next time I come back would be amazing. Another idea I had was a location aware
+19:31
+calendar. So I think this would be a really interesting one. So I could maybe
+19:36
+open up specs and I could create a basic sort of note. Maybe next time I'm at the
+19:42
+food shop to get X and Y or next time I'm at my friend's house remember to mention like their cat or something. And
+19:49
+then as the GPS detected your right location, it could show these sort of notifications in front of you. I think
+19:54
+that's the sort of tool I could really see myself using. I love those sort of spatially aware experiences. I think
+19:59
+there's so much you can do with that. And let's just go back and Oh, I think we're almost there. We can see it's
+20:06
+getting produced there. Looks quite nice with all the UI and everything. Um, yeah, should be there soon. Or like
+20:14
+a Pomodoro timer. So for those of you that don't know, a pomodoro timer is a
+20:20
+essentially it's like five minutes of work and then a five minute break in between. So I was thinking we could
+20:25
+produce one of those stick on the desk and then um you could have a timer which
+20:31
+works like that which we will do this prompt again live once this one is produced which I think think is getting
+20:36
+pretty close. So I see there's a question in the chat
+20:42
+about can you use cloud to detect real world objects. So clad is able to use things like the
+20:48
+remote service gateway which is how you can make AI requests within lens studio.
+20:54
+So you could do this. So you could send a picture to Gemini get Gemini to understand you know where know the
+21:00
+carrot is within the lens and then show that uh within preview you are able to
+21:06
+test these things. There's a bunch of really good simulated rooms. Again, they might not have the exact items you're
+21:11
+looking for, but there's like a sunlet house, which is a bunch of different things. So, you are able to see a bunch
+21:17
+of items sort of in use there, which is good. There we go. It's,
+21:24
+as you can see, it's trying to use leaf. So, leaf is the way is able to test the lens. Um, now it's removing leaf, but we
+21:32
+should see this finishing up soon.
+21:39
+Yeah. Uh, guess we can continue on from here. So, how do you enter the
+21:44
+hackathon? Three easy steps. First, you just need to register for the hackathon. And you can do that by scanning the QR
+21:51
+code here, which I see my webcam is covering in the YouTube live stream. Or you can alternatively just go to the
+21:57
+lensless website and it'll make it quite obvious where you can register. Then you've just got to build the lens.
+22:03
+That's time to submit. So, what do you need to submit? First off, you need to submit a public link to your finished
+22:10
+project repo. So, I probably just put my project onto GitHub. So, this is just all the files within your L studio uh
+22:17
+project. So, that's what we use. And then you also need a demo video. So,
+22:22
+walk through your lens, show off its key features, and talk about how clouds was used. And then just upload this to a
+22:27
+video hosting service such as Google Drive or Dropbox, and you can share the video link there. And then the cloud
+22:34
+prompt log. So, a document or transcript showing all of the prompts you've used to create a lens with cloud. One of the
+22:40
+easiest ways of doing this is just every time you send a new prompt, copying and pasting and popping it in a Google doc,
+22:48
+then just sending that off. And then a project description. So, describe your lens, how it relates to the weekly
+22:53
+theme, and who it's for, how it would be used. And that's it. Just four four simple
+22:58
+things to submit with your project, and that should be you. So, let's see how this is. There we go. Okay. Perfect.
+23:05
+Looks like it is done. So, we can refresh this here. And then it says it
+23:10
+is 20° today, which is correct. It is 20° in Edinburgh, which is a great day here.
+23:16
+Phenomenal. And then I should be able to hit show night. There we go. And it changes and it tells us that it shows us
+23:23
+going to be cloudy and a different temperature, all of that. And you might not be able to hear it. It's got a
+23:28
+really nice satisfying click every time you press this. So, this isn't a very complex example at all, but what we can
+23:35
+do is we can ask clad to test the button press. Maybe we've got a much more complex lens uh then we're having to
+23:42
+test some, you know, advanced interactions, but for now we can just test the button press. So, we can ask
+23:47
+clad to use leaf to test this. So, use leaf to test the button press is working
+23:57
+as expected.
+24:03
+Perfect. So you are able to write the individual leaf test yourself, but I
+24:09
+found cloud to be really good at just parsing, you know, your plain text, turning that into a leaf test itself,
+24:15
+and then running it. So we should see it opening up some of the leaf dialogue within inside Lens Studio to create our
+24:23
+leaf test. Um, again, it can take a take a little bit. So let's just go back and
+24:29
+let's talk about the judging criteria until then. So submissions are based on three main categories. First one is your
+24:37
+cloud execution and this is half of the how the points are scored. So it's mostly just how meaningfully and
+24:42
+effectively cloud would use to build a project. So you know are you thinking really outside the box? Uh is it
+24:48
+impressive and you know the overall quality and ambition of what you're trying to build. So that's 50% of it.
+24:55
+25% is overall user experience. Is it clear, intuitive, and engaging are the
+25:01
+main points. This is quite an important one in my opinion as you can really separate lenses with just how easy they
+25:08
+are to use and understand. If it's got massive walls of text as soon as you open it, it's probably not going to be
+25:14
+that good. But guiding the user through other things such as intuitive buttons, intuitive places to look makes a lot of
+25:21
+difference. So that's quite a good way of showing user experience. And then
+25:26
+you've also got the creativity and usefulness. So that's 25% again. So this is just how original, thoughtful, and
+25:32
+useful ideas. Is it something I can actually see myself using on a daily basis? Is it best spatial as there are
+25:39
+some things which are, you know, as much as spatial is great, some things can be better flat. So is it just a really
+25:44
+useful spatial idea? Can I see myself using it every day? You know, does it fit the theme well as well? So that's
+25:50
+something else to consider. And if you're looking for some, you know, previous examples of what people have
+25:56
+made using cloud, I would highly recommend checking out r/sp spectacles. There are so many phenomenal creators
+26:03
+there creating really cool things with cloud. Just two shout outs at the top of my head. Uh there was a really cool one
+26:10
+yesterday by someone called Natasha. She made this really cool sort of tabletop
+26:15
+board game using a bunch of bit emmojis and things like that using clad and it looked phenomenal. Looked like it played
+26:22
+really well as well. It's super cool to see. And there's also this super talented person called Pablo who made a
+26:29
+very cool end using clad a little bit back to control a vector robot on his desk. And there's so much you can do
+26:36
+with cloud. So if you're struggling for inspiration or maybe you just need like a helping hand along the way but a
+26:42
+question about clad just throw in r/sp spectacles and someone will always be
+26:47
+happy to help. So okay back to this it is opening leaf can see there hopefully
+26:53
+you managed to see that it was just testing it there. We can see at the top that it has tried um
+27:01
+you know the weather day toggle test that's passed. So that's perfect. So clad, sorry, leaf even for running unit
+27:08
+tests is very useful. I would recommend incorporating these if you've got more complex lines. Uh you've got quite a lot
+27:16
+of things going on. So well worth using. Okay. Uh so that did take a little bit
+27:23
+longer than expected. So we can now go back and do the Pomodoro timer one as
+27:29
+well since we've got a little bit of time to spare. So I'm just going to close this. Uh we can save the project
+27:35
+and then we can open up Lens Studio again.
+27:43
+Perfect. And we can select specs. And these are the sample projects I was
+27:48
+mentioning earlier once they load. There's a bunch here. So again, before even touching cloud, if you're brand new
+27:54
+to language studio, it's worth just opening a few of these. You can understand how things within specs and
+27:59
+lens studio works. The two I would recommend testing out are AI playground as this has a lot of the AI APIs to
+28:07
+allow you to do things like live voice chat, generate images and 3D models using um AI tools or even just basic
+28:15
+text generation. Really valuable a lot you can learn from this one or even just opening the essentials playing around
+28:20
+with it in the simulator seeing how it all feels and going from there. But anyway, let us do that Pomodoro timer
+28:27
+example. So we'll open up a new project. Just wait on that. Perfect. And then
+28:34
+we'll save this once everything's done compiling, which should just be a second.
+28:45
+We go. And we'll just save this as promo.
+28:50
+And then we can go back to cursor and we'll just file open folder cloud
+28:58
+lenses. There we go.
+29:03
+And we can create a new agent. And then if we go back to our slides,
+29:13
+there we go. We can just use that prompt. So build an interactive Pomodoro timer. Just open up here. So I can copy
+29:20
+and paste across. It's a bit easier.
+29:25
+So I think starting small with these sort of more basic lenses is a really good place to start. You're able to see
+29:32
+quite quickly how it all works and you can go from there or sort of build on it. As your knowledge of lens studio
+29:37
+increases, you can create more and more interesting lenses. So let's paste that
+29:42
+in there. So just build an interactive pomodor timer the user can place on their desk. After 25 minutes celebration
+29:49
+BFX set a timer five minute break have a start pause button. Make the user interface very clean and minimal. So, I
+29:55
+quite like that look personally. And we can just check everything is working. Yep, MTP is still running. Plugin still
+30:02
+all good. So, perfect. Let's see how cloud does this time. So, yeah, in the
+30:07
+meantime, does anyone in the chat have any questions while we wait on this uh cloud run to to finish?
+30:26
+Yeah. Well, I do think cloud's one of those ones that the more you use, the more you sort of get used to it and uh
+30:32
+yeah, the more powerful you'll find it. Like I remember when I was seeing it being announced for the first time at
+30:38
+AWE. Remember being in the room, seeing it, and I just thinking, okay, that does look pretty cool. But I was reserving my
+30:44
+judgment until I could test it for myself that night. went back to my hotel room, opened up my Mac, installed
+30:50
+everything, and just got to produce a basic I think it was some sort of fishing lens. I was blown away. It had
+30:57
+not felt that like mind-b blown in such a long time, opening up some software
+31:02
+and it just exceeded my expectations. Didn't even begin to think I was going to be able to do things like the
+31:07
+testing, creating the different meshes, all that. So, yeah, I hope when all of you guys try this out, if you've not
+31:14
+already, you're also mind-blowing. That'd be super interesting to see how all of you find it. So feel free to be
+31:19
+posting it in our bicycles. People are always looking there and yeah, so much
+31:24
+interesting stuff to share. Perfect. So this should be getting be
+31:30
+starting to to do its do its thing. We can see it's installing some lens studio
+31:36
+packages. Uh which should be good. Quite like it.
+31:41
+You can always tap into it and have a look at, you know, how everything's going. You can see it's installing some
+31:47
+like glitter celebration FFX.
+31:52
+Saw earlier in the chat a lot of different talk about the different AI models everyone prefers. Quite
+31:58
+interesting to see the Yeah, a lot of anti-gravity, a lot of codecs.
+32:05
+Not actually seeing anyone enjoying cursor, but yeah. Can you make an experience related to hands like on a
+32:11
+menu? Yeah, so I I do agree that hand testing
+32:17
+can be a little bit tricky to test within the editor. You can ask Leaf to
+32:22
+produce some sort of tests for these to simulate the hands. It's not a perfect
+32:27
+solution, but uh it can work. It can test some hand gestures. So yeah,
+32:34
+recommend just asking clad do some leaf tests. So test some hand gestures and try from there. And then once you do
+32:40
+have the leaf test made, you're able to just run them from within lens studio. Don't have to ask cloud every time. So
+32:46
+that's how I'd get run the hand stuff. Yeah. So uh everyone's in the same boat
+32:53
+for this um hackathon because you know no one has the device yet and it's not
+32:58
+out yet. So the ideal demo video is just a screen recording of the preview in Lens Studio and yeah, maybe talking over
+33:04
+it, explaining how it works, guiding us through the full thing, why you created it, how cloud was useful, all of that.
+33:11
+And then within Lens Studio, in case you weren't sure or in case you weren't aware, you can slide these different
+33:16
+things to make it bigger. So you can make this more full screen. And then at the top, you may want a different room
+33:23
+or a different preview depending on the sort of experience you're making. So, at the top here, you can toggle a bunch of
+33:28
+different previews. Um, so like this one's evening outdoor. So, if you're like creating an outdoor experience, you
+33:35
+might prefer it there. Uh, so that's just something to keep in mind when developing it.
+33:40
+Okay, so it looks like it's doing well. It's created some code already. Adding the main controllers, all of that. So,
+33:47
+we should have a finished project quite soon, hopefully.
+33:53
+There's also the Lens Studio API documentation which is quite useful just for reading through just to get yourself
+33:59
+a bit more wellversed on what's possible within Lens Studio. Um, a lot of different things there.
+34:06
+So, that's also worth worth keeping in mind.
+34:17
+Yeah. So, we'll just run this should be redone soon. Out of curiosity for those
+34:22
+in the chat, what makes you pick something like cloud code or codeex overcursor or even anti-gravity for for
+34:29
+that matter?
+34:53
+Perfect.
+35:02
+That should be pretty close to being finished now, I expect.
+35:18
+Yes. You can see using all different agents and tools the cloud has. Here's one for capturing the runtime view. So,
+35:24
+it's able to just capture a screenshot, send it back, check everything looks good, and then we can do things like
+35:30
+plan next moves. Again, we can tap through. We go logs, actually see what it's doing. Um, and we
+35:39
+should be pretty much there. It looks like it's created the particles, as we can see. It's done things like it's
+35:44
+added the world query module. Um, it's got some scripts already produced.
+35:50
+So hopefully not too much longer now. Now we can see that and I'll show you a basic example of just using one tool
+35:56
+instead of the full prompt and then we can just wrap it up there. Again, any questions feel free to just
+36:03
+keep chucking them in the chat. There we go.
+36:10
+Look like I was done. Not quite.
+36:18
+Interesting. Okay. Yeah, feels like a feel like a decent reason to just use club then.
+36:27
+It's also quite good to test them all, see what works best for all of you guys. Cursor is just the one I've started
+36:33
+using at the start and I guess just stuck with ever since for cloud.
+36:56
+No. So, the lenses built in version 5.22 don't run on the like fifth gen
+37:02
+developer hardware. Uh, it is possible if you're to spend some time to sort of
+37:08
+reverse engineer it uh to open up in an older version of Blend Studio, but as a whole, no. things mages and clad will
+37:15
+only run on the next gen or in preview once they're out.
+37:24
+Should always be there.
+37:31
+Okay, there we go. Perfect. So, set is done. Let's try that out.
+37:38
+Let's restart the preview.
+37:49
+Uh that I think there might be a small glitch
+37:54
+there which is fine. We can just open up the TypeScript logger.
+38:04
+Okay, there we go. Got a log there and paste those to clads and hopefully it's
+38:09
+able to fix those. Okay, a few more questions. Um,
+38:17
+uh, when creating a lens for this, I would recommend or you've got to stick to the community guidelines. So, those
+38:23
+can be viewed on if you just search for on Google like lens studio community guidelines. Make sure your lens is
+38:29
+following all of those rules. Um, yeah, interesting point about cloud cloud
+38:35
+even. Yeah, that that's fair enough. I've found composer actually quite good to
+38:40
+use in terms of like token usage and everything. Feels feels quite feels quite good all around.
+38:47
+No, I've not I've not tried Google anti-gravity yet. It's one of the ones I keep meaning to
+38:53
+try but not quite given a shot yet. Okay, still a few errors there. But in
+38:59
+the meantime, I'd like to show you how you can just use one individual tool. So
+39:04
+let's say instead of just using, you know, one prompt to create the full thing, maybe just want to create one
+39:09
+thing. So maybe I'm building a lens and I decide actually I need a mesh. So I can just do slashbuild mesh and you can
+39:16
+describe what you want. So maybe make me a mesh of a 3D tomato.
+39:24
+Often ponder timers are represented by tomatoes. So you can just send this one individual command. Although for some of
+39:29
+them, ensure you're signed into lens studio first. Once you see this little icon at top means you are. Some things
+39:36
+work a little bit better once you're signed in to lens studio 3D being one of them. So if we go to the asset browser
+39:44
+uh actually don't make that massive just normal asset browser assets. Uh we
+39:50
+should see it almost there. So there we go. If I wait 30 seconds it should be there. So this is the way I use CL cloud
+39:57
+the most actually is just the individual agents to create little things from a lens instead of the full big flow. I
+40:03
+find the full big flow with one prompt really good for getting started and creating basic prototypes but after that
+40:10
+I much prefer using the individual agents to get things working there.
+40:16
+So hopefully we can see this just about finishing. Again 3D is one of the ones
+40:21
+that blew me away the first time I tried it.
+40:27
+There we go. Should be getting ready to add another actually. We should be able to see it in here.
+40:35
+Oh, still generating halfway there. This one.
+40:53
+I think that depends what you mean about more than one user. Um, are you meaning
+41:00
+like, you know, you swap the the specs with someone else or you mean it's like shared online? Um, yeah, I think it
+41:08
+depends what you mean there.
+41:13
+Okay. Hopefully this 3D model is ready soon.
+41:21
+Yeah. I'm sure sure you could make a lens like that. Um, as long as you sort of talked about the kind of the purpose
+41:27
+of it and you know why you made it that way in your sort of description and everything when submitting it, it' be
+41:34
+quite interesting. Perfect. So, we can now see our 3D mesh has been generated. We can go in here. We can press tomato.
+41:43
+Press tomato. There we go. You can see in the bottom corner. Make that a bit bigger. So, I think my webcam's in the
+41:48
+way. 3D tomato model ready to just be dragged into our scene if we wanted it.
+41:56
+So, it's perfect for stuff like this. So, I do see we are running out of time a little bit. Um, a little bit annoying
+42:03
+there was some errors there, but that can just happen. I'm sure after a few more times of explaining them to Clad, they'd go away. The first lens though,
+42:10
+for example, that worked perfectly. So, sometimes you can just get errors, but just copy and pasting them, giving clad,
+42:16
+that does fix it. So wouldn't worry too much about that one. Just focus on the weather one which we did. Uh yeah. Is
+42:23
+there is there any more questions before we get wrapped up
+42:37
+and we do have a scannable QR code for the spec subreddit there just in case
+42:43
+you want to take a look.
+42:49
+Well, yeah. Thank you so much everyone for tuning in. I hope this was useful. There's going to be one of these every
+42:55
+week for the next three weeks as well. So, there's going to be three more sessions of these. Um, yeah, I'm going
+43:00
+to be paying a lot of attention to see what is posted on the subreddit for all things Cloud Hackathon. And yeah, thank
+43:07
+you all for showing up. Happy building.
+
+
+
+Getting Started with CLAD Week 2 Guide
+
+0:41
+Hello everyone. Can you now hear me? Hopefully you do.
+0:51
+Please let me know if you can.
+1:08
+Hello, let me know. Okay, so the audio is working. I'm not
+1:13
+sure how the live chat is visible now.
+1:21
+I did I did include it, but now it's now it's turned off again. So, I don't know what's going on.
+1:33
+Let me wait a few seconds here and see if we can fix the live chat because I
+1:39
+think that's really important for this little session. If not, we can always answer questions
+1:46
+later.
+2:05
+Sorry for the delay, guys. I think it's going to be delayed by a few minutes here. I tried to fix my audio on my on my
+2:12
+desktop here and normally it always works but now it doesn't. So this is
+2:18
+what always happens if you have something important to share with people. So
+2:25
+I think we're just going to go ahead and I'm going to show you what I've built today for you guys and how we can work
+2:31
+with clad to build amazing spectacle lenses. Um sorry if the audio is a
+2:36
+little bad. I switched to my MacBook and normally I have a very fancy mic setup here, but doesn't work today. So, um,
+2:44
+yeah, we're just going to do it the old way, I guess. Hopefully the, uh, the presentation is fun enough for you guys
+2:50
+to, uh, to learn something today. We're just going to go straight in there.
+3:00
+All right, let me share my screen here.
+3:10
+So there we go. So what I've got for you today, guys, is
+3:16
+how can we build really cool spectacle lenses using clad. It's not cloud, but
+3:22
+it's clad. And clad is a is a is like a a tool tool suite made by snap um that
+3:28
+teaches AI agents to work with lens studio which uh could they couldn't do
+3:34
+before. Obvious obviously we had a little bit of a MCP integration before
+3:39
+these tools. So our agent could talk with Lens Studio and also um use the
+3:45
+preview and access the scene objects etc. But now uh there's a set of tools
+3:50
+available uh called clad and it actually knows how to use certain uh parts of the
+3:56
+lens building experience. So it can add new objects in the scene. It can uh
+4:01
+track the previewer so it knows what's going on and if there's any uh changes to be made and then it can reiterate on
+4:09
+that loop so it can build an actual full experience for you which is really cool.
+4:14
+So today we're going to have these little uh points uh the hackathon.
+4:19
+We have the the what is clad? We have uh the setup on how to install clad. Then
+4:25
+we have a really uh interesting idea I've had which is uh called simple
+4:30
+spaghette and it's a it's a little spectacles lens that will show you how to cook your spaghetti the right way. I
+4:38
+think uh that that really suits this week's theme. And then we have uh maybe if we have the time left uh we have the
+4:45
+API key set up so we can also integrate some AI in there which is really cool.
+4:50
+After that we have refined test and ship on how to publish an actual spectacles
+4:55
+lens which uh some people might not know yet. So we're going to get into the hackathon first. Um this month there's a
+5:02
+really interesting clad hackathon called uh clad summer. [laughter] It's not Brad summer but it's clad
+5:08
+summer. Uh I always oh I also see the the chat is now working. So please if you have any questions or intros or uh
+5:18
+uh you know say hi to me please because I messed up the first stream. So I hopefully you guys got all got into the
+5:24
+new one. Um [clears throat] where were we? Oh we got to the four-week challenge here. So you can use clad to build four
+5:31
+teams. We have organize, we have guide, we have connect, and we have create.
+5:36
+There's a bunch of prices for every week and also for uh the number one, two, and three. Uh there's also uh a little bit
+5:43
+of a score, not about what you submit, but also how you use clad. So you can
+5:48
+also uh submit your prompts and uh you know uh get some points uh that way.
+5:55
+[snorts] And it's free to enter enter. So that's really uh that's really cool as well. I mean, the only thing you have
+6:01
+to invest here are some of the AI model tokens you got lay laying around. So uh
+6:06
+hopefully that those are enough. [gasps] Um then we have these yeah four four uh
+6:12
+teams and also the dates here. Last week we had organize which was for a few days. Now we have the uh the guide one.
+6:20
+So also the spaghette u spectacles lens which I've uh cooked up a little bit. Um
+6:28
+that's going to be like end of the end of the of this week uh the deadline. We have connect next week and then the last
+6:34
+week's going to be create. Uh you can figure out the uh the topics here. I think they make sense for everyone.
+6:42
+Uh we need you to build a spatial experience that guides people on how to learn, complete or improve a real world
+6:47
+task. That's this week's guide. So um it's not going to be an it's going not going to be a game. It's going to be
+6:54
+something which a person actually has to do. And I think that's where spectacles
+6:59
+really shines because I think u guidance and u you know education and all of
+7:05
+those topics are really interesting if you have something on your face. You don't have to watch your phone all the
+7:10
+time. You can actually use your hands to do something. And I think cooking makes a lot of sense in that way. I did make a
+7:17
+cooking lens before but uh I'm just going to make a little bit of an of a small concept here using cloud tools.
+7:25
+These are the points you will be judged on. So it's going to be clad execution. It's going to be user experience. It's
+7:31
+going to be uh creative and usefulness. Uh not for me to decide. That's going to
+7:38
+be the lens list team and and snap snap team. So we'll see about that. And these
+7:44
+are the four things you have to submit. So you have to submit a public repo uh a demo video which uh I suggest making it
+7:52
+also a little bit personal on how you made some of this stuff which is really important
+7:58
+and then uh explaining your thoughts and your concept and you know how you use clad to to build that actual experience.
+8:05
+Um you have to submit your prompt log. you can ask uh cursor or some uh AI agent to keep track of the prompts for
+8:13
+you and then deliver that and obviously what you build and uh if it's working or
+8:18
+not. So what is clad? Just uh to recap uh last week's stream my Andrew uh
+8:24
+talked a lot a lot in depth about this. Uh I'm a little bit less uh technical
+8:29
+experienced but I can try to explain this. Um it's it's a loop it's a closed
+8:35
+loop agentic development uh tool set and it uh it makes um it makes the agents
+8:41
+know how they have to create a full lens in inside of lens studio. So um they
+8:47
+start by cycling through the design and then uh build the the actual scene objects and then the agents will split
+8:54
+that up in different tasks and they can also uh you know develop the actual lens. uh then it will go into the
+9:00
+preview. It will see uh it will see the result it's it's made
+9:06
+and then it can iterate on some of the mistakes. For example, uh in in previous older versions, there were a lot of like
+9:12
+text objects stacked together if you would use AI and it wouldn't really um build a really nice UI flow. Right now,
+9:19
+it knows by using the the previewer and having that input that it's need it
+9:25
+needs to iterate on that and improve. So, I think that's really powerful. Um there's four four different AI tools
+9:31
+in Lens Studio. So if you coming from a regular lens development uh point, you
+9:37
+have the uh the gen AI suite uh which used to be on the web as well. Now you
+9:43
+have easy lens which is on the web and also on your phone u and then you have um some of the developer function inside
+9:49
+of Lensia itself. I'd say that's really similar to easy lens but you can actually see it creating components and
+9:55
+everything. That's really really cool. But now uh in this specific topic we're going to explain how clad works and it's
+10:02
+specifically made for spectacles. So we need like the latest density version etc.
+10:09
+So yeah, what it what it does describe something make X for specs. For example, we're going to prompt it to make a
+10:15
+spaghetti lens. Then it's going to build the whole scene. It's going to write the the scripts, it does the UI for you. And
+10:21
+it's then after if it's if it's done creating the concept, it can actually simulate some of those inputs. So you
+10:28
+have leaf, which is the um which is the framework that can actually test stuff inside of the previewer. So for example,
+10:34
+if you have some buttons or you have some of the like rotations or pinches and everything u the AI knows how to
+10:40
+navigate that which is really cool. I can't explain you how they do it but that's [laughter]
+10:46
+this is something which is auto installed if you install uh clad [snorts] uh and then after it's uh it's
+10:52
+diagnosing some of the problems you might have using typescript and everything and it will fix that. So
+10:57
+that's really interesting. um like the the little [laughter] what is the thumbnail here says it can take up to 30
+11:04
+minutes if you uh if you use uh an AI so that's really really fine I would say
+11:10
+for a first concept so how it works uh I'm going to explain everyone how it
+11:15
+works inside of cursor because you you can also use this in some of the other uh agents like cloud and uh open AAI and
+11:24
+all of those different frameworks if you're able to contact with the MCP server and install extensions then I
+11:30
+think that will work. Uh but we're for now we're going to do cursor and then I'm going to show you how the MCP server
+11:37
+is booted where you can find those things like the settings and [snorts] then uh we'll see what spectacles and
+11:43
+clad can can cook up for spectacles. These are some of the sub aents. It's
+11:49
+not really really important but I would say uh this one of the more interesting ones. And then these are all of the
+11:55
+other uh skills you can invoke if you use slash inside of cursor in your in your chat window. Um Andrew last week in
+12:02
+this live stream also showed you how to build meshes. Uh but you can also build way more things if you want to do really
+12:08
+specific stuff. So we're going into the setup right now. This is what you need. Lens Studio
+12:14
+obviously [snorts] uh 5.22 plus where the MCP server was uh
+12:20
+introduced. Then cursor you need git nojs it's not really necessary u and also it's right
+12:27
+not not anymore you need you don't need a spectacles device anymore which is really really cool
+12:33
+leave will get will sort that for you so what we're going to do we're going to create a spec project so let me go into
+12:39
+bl studio here and I'm going to try and find the live
+12:45
+stream while I'm doing that so I can answer your questions if we have
+12:50
+Let's see. All right, I found myself. Hello
+12:55
+everyone. I am also now in the chat. You see my my desktop. So, I'm going to click specs here. I'm going to go to
+13:02
+base template. I am not on the latest yet. Uh, which is
+13:07
+uh really shameful, but I think it works fine.
+13:13
+We're going to open up Lenso here.
+13:20
+Yes, it may access devices. I did update this uh like a week ago,
+13:26
+but it's not the most recent anymore. That's uh the team at Lensio is cooking.
+13:34
+All right. So, we booted into a spec uh base
+13:42
+project. I'm going to reset my uh default layout here. It's a little bit uh a little bit small on my uh my
+13:47
+MacBook. Normally I connect this to u to a external screen but today uh this is
+13:54
+my uh this is my necess emergency setup I would say. So [snorts] what what we're
+14:00
+going to do is we're going to save this template. I'm going to save it to uh my desktop
+14:05
+here. Going to make a new folder called clad. And then I'm making spaghette.
+14:11
+Simple spaghette was my first first idea to make. So the first thing
+14:18
+we have to set up is the MCP server. So how how can uh for example cursor here
+14:24
+uh talk with uh with the AI uh or the components inside of Lens Studio that's
+14:29
+going to be using uh curs for the MCP server. So what we're going to do is uh
+14:35
+I am not really a developer like a big developer. So if you were talking terminal stuff to me, I I won't know
+14:42
+what's going on. So what I do is I just opened uh the spaghette uh lens studio
+14:48
+folder and I'm going to just go here into u this MCP setup in Studio. It's
+14:55
+going to be all the way up top AI assistant. And then I'm going to configure server. I'm gonna hit the copy
+15:04
+MCP config button here and I'm going to go inside of cursor. And if this is your
+15:10
+first time, I think for for me it's already installed on my uh MacBook, but you I'm just going to ask u hey can you
+15:17
+install this for me and then it's just going to go into the
+15:23
+MCP JSON file uh cursor and it's going to it's going to set up the the right
+15:28
+connection there. So let it think for a little bit of a second.
+15:35
+Yes, it can access please. Hey Roland, nice to see you in the chat
+15:42
+and Pavlo as well. Natasha, hello everyone. I'm glad you guys found the new stream because I messed up earlier.
+15:48
+[laughter] Somehow my my fancy microphone
+15:54
+setup here doesn't work. So that's really sad. I have to look into that.
+16:02
+So for me it's going to say okay there's already an MCP entry. Uh but I think
+16:07
+because maybe this uh the setup here changed a little bit. It might have
+16:13
+changed the uh the IP for the server. So let's see what it says. You can also
+16:19
+check this by going into settings here in cursor and then we go to connections.
+16:26
+Let's see if it can find that. I think it was they moved it somewhere. Let's
+16:32
+see. We can find this together.
+16:38
+MCP. No, it might be
+16:43
+customize and then MCP.
+16:50
+I thought Oh, you can see cloud is already installed. Oh, here. MCP. Okay. Right now it's it's saying that there's
+16:55
+an error. So, it's probably going to fix this for me.
+17:01
+Just going to enable and disable this.
+17:06
+It is really slow, but why is it waiting for approval? You can just go go ahead please. [snorts]
+17:13
+Let me use the uh the regular model
+17:24
+install this MCP coffee please.
+17:29
+Yo never existed. Okay, so my MacBook uh randomly says uh
+17:35
+quotes from um hey cloud fix my fancy mic setup. Yeah,
+17:40
+that would be really nice. Uh, unfortunately it doesn't do that. So if if my uh my my AI is done, it will say
+17:48
+uh random red alert quotes. So please be be ready for that.
+17:54
+I've installed this uh a few months ago and I don't know how to remove it. So it is what it is.
+18:02
+So okay, it should be changing this one.
+18:14
+I'm not sure why it's asking for approval because there's nothing here. It's really weird.
+18:22
+I'm just going to put it right here. Normally, it should just make this
+18:28
+present right now. I'm just going to delete this and then enable this lens
+18:34
+studio. You can see right now it does all of the the connections really well. I'm not sure why it's just waiting for
+18:40
+me, but it is what it is. Not all things have been going really well today as you
+18:45
+can see, [laughter] but it's fine. So, right now we have the uh the MCP connection with Lens Studio.
+18:51
+You can also uh yeah, if you just ask it for to to build, for example, text
+18:56
+object, it will do that. Uh that's really nice. That's what we want. And now the next step is we want to install
+19:02
+clad. So what I told you guys before I'm not really good in the terminal. So I
+19:09
+just copy and paste this into cursor and then I'm going to tell them like
+19:15
+install this please. And it just if it's still waiting for
+19:20
+approval I don't know what's going on. Uh but uh it should just install this. Uh it should al oh right now it's
+19:27
+installing locally inside of the project folder but you can also ask it to install um into like a server or like a
+19:34
+userwide uh folder so it will always access u the the clad tools and that's
+19:41
+something I would recommend because it will always know what's going on. So right now uh if you want to verify
+19:48
+this you can go to um to customize. Yeah, they changed this a few days ago
+19:54
+and it should have uh this plugin called lscl. And if you also want to really
+19:59
+like really verify if it's doing um if it's installed, you can just hit this
+20:05
+and then say build music, for example. If if it shows up all of these skills, then you're you're good to go. Uh it
+20:12
+knows where to find the clad tools. So that's that's good. So right now we've installed the MCP and we also installed
+20:18
+clad. And then right now we're just going to continue inside inside of the presentation a little bit. Uh I verified
+20:25
+this. I was like maybe if we have the time we can quickly verify if it's working, but um I'm I'm okay with that.
+20:32
+So right now we're just going to build this uh amazing simple spaghetti lens. Uh I made this prompt here where it
+20:40
+doesn't it well it it should not make any mistakes. That's the whole idea. I think for prompts it's going to be uh
+20:47
+really important to go step by step for C and for lens studio. So right now
+20:53
+there's going to be a lens where you have these cooking steps and they're really easy u for people that made
+21:00
+spaghetti before. Um but for people who did not do that before uh we really have
+21:06
+to chew this uh for the AI to not go outside of the the scope here. So, I
+21:13
+made this uh this prompt here to just make all of the steps hardcoded. You
+21:19
+should also do this with AI maybe to get like more recipes in there or get some
+21:25
+images in there or whatever. Uh if we have the time, we can also go into that way, but I'm not so sure because I
+21:32
+messed up the first stream. [laughter] So, we're just going to go inside of Lens Studio and then we open cursor.
+21:39
+I'm going to go and close these. And I'm just going to ask my agent here. Hello.
+21:45
+Please make this uh make no mistakes.
+21:51
+So, this prompt has been fired now. And let's see if it's uh it's going to plan
+21:56
+any next moves. Yeah.
+22:02
+So, it has detected the the Lens Studio folder. That's why I navigated inside of the spaghette folder here.
+22:09
+And now it's going to boot up the whole process.
+22:16
+So in the meantime, I think there's some some veterans in the chat which uh can also ask can answer your questions, but
+22:22
+feel free to get any uh questions right now while we're kind of waiting here and
+22:28
+going through this together. It's going to it's going to be taking a
+22:36
+little bit of time here to get everything ready. Should not be really complicated, but right now it's already
+22:42
+moving inside of Lensy as you can see. So that's good. It's uh it's trying to access some of
+22:49
+those things it needs. So it's already Yeah, it's going to Yeah, it's it's
+22:54
+adding icons and everything. So that's good. Just leave let it do its its thing for now.
+23:00
+We're going to go inside of the presentation go a little bit further. Uh what we're going to build is going to be
+23:05
+a window by window cooking coach. So like I said before, I think uh this week's um this week's theme of the
+23:12
+hackathon is going to be u teaching people how to do stuff. And the best way
+23:17
+uh of teaching people using spectacles is having their hands free and having the information in front of them. And I
+23:24
+think having context about whatever you're looking at is really important and really fun. That's something no other device really
+23:31
+can do um outside of a few uh lesser um I don't
+23:37
+know uh immersive devices. Um so what are the cooking steps going to be? Misan
+23:42
+plus uh get all the ingredients ready. Salt the water. Soprito uh you know
+23:48
+hopefully don't burn your onions and your carrot and celery. Then uh yeah brown the mints. Um,
+23:55
+that's going to be uh yeah, that's going to be your protein. And then uh we simmer the the sauce and then we put the
+24:02
+pasta and the sauce together. [snorts] Sounds like an easy job, but some people are not the best at cooking. So maybe we
+24:09
+can guide them a little bit using this spectacle lens. That was my idea.
+24:15
+So yeah, why does this prompt work? I I split it up in a few things. I'm going to read the prompt here. Um I think it's
+24:21
+really important to have a really good prompt. So it knows step by step what to make and what to not make. Um yeah, so
+24:29
+building a spectacle lens called simple spaghette. It's going to be hands-free cooking guide for spaghetti bolognese.
+24:35
+Uh showing six world space UI windows, one per step floating to the right of the user at chest height. So it's going
+24:41
+to be one meter in front of them. That's going to be in the end. Uh each window has step number, short title, two three
+24:47
+instruction lines, uh and a next button. pinch the advance only one window visible at a time. This is some of those
+24:54
+things that you really have to chew out for the AI. So if you have something in mind, I would always always say try to
+25:00
+do a wireframe first or do a sketch and then for every like specific part I would split this up in uh the prompt. So
+25:09
+these are like the hardcoded uh steps here. The AI is going to uh you know
+25:14
+create all of the uh extra content like the descriptions etc. And then we'll say
+25:20
+to use the spectacles UI kit u keep the text large enough. It's going to be little a little bit small because it's a
+25:25
+meter away. And then uh like Andrew said before in the in the the live stream of
+25:31
+last week, uh you also have to kind of play around with colors because um light
+25:36
+and dark stuff in the holographic screens are a little bit hard to read. So let's go back to Lens Tube and see
+25:43
+what it's cooking for us. Do you kind of hear or hear what I did there?
+25:49
+Uh, let's see. Okay. Yeah, it's writing the UI already and it's also writing the scripts. So,
+25:56
+that's really really fast. You can see here it's made a simple spaghetti uh
+26:01
+TypeScript lens or script already. It has the step guide UI and there's a
+26:07
+preview agent which is sending uh screenshots to the uh to the cursor um
+26:13
+or to the model uh to verify if it's uh going well.
+26:18
+Uh there's always going to be if you use uh this cursor setup uh
+26:24
+spaghetti script sounds bad. You should explain that to me. Let's
+26:31
+see. Can you please give some tips on how to explain the design perspective perspective to clad? I also facing
+26:36
+difficulties designing using the prompt like the space between component size and colors. Yeah, I would say um
+26:44
+it's really important to uh say for example here keep the text large enough to read at one meter and also have the u
+26:53
+have the the clad uh setup also test the components in at the end. So make a
+27:01
+separate prompt if you're kind of ready and have if you have a lot of a lot of text etc. It's going to be pretty hard
+27:07
+to resize uh on its own. I think it's not really great at making UI for now
+27:13
+but you would what some that's something also you can prompt to um kind of fix it
+27:18
+at fans. um you can always give the task to make different float inputs for you
+27:25
+to kind of toggle the um the sizes and the spaces between those elements. So
+27:31
+you could like ask it for an extra um little setup in your script. So you could say split up all the panels, give
+27:38
+it uh their own little uh controller scripts and then you could give all of those comp components like float inputs.
+27:45
+So you can really easily uh do it in the front end of L studio.
+27:50
+I think uh because it's uh really AI based, it will do everything inside of code and and I'm more of a visual
+27:58
+designer. Uh I I'm really used to well I started using Lens Studio and just
+28:03
+dragging around stuff and I think that's that really works for me still. Um but the issue here is that it's creating
+28:09
+everything inside of TypeScript. So it's all pre-ompiled and everything. So that's not something you can really uh
+28:15
+do yourself. U that's why I would prompt it to make a
+28:21
+lot of float input so you can adjust it as well as you can using this these sliders. For example,
+28:28
+um can we tell in the prompt saying keep the component public and then import our designs to the script? Is that okay? Uh
+28:35
+let's see. So, you mean that you can kind of drag
+28:41
+in your own components here to the left and just have the the the AI make the
+28:46
+controller script? Is that something you mean? Adios, amigos.
+28:52
+Yeah, I would say if you're making stuff for spectacles, it's a whole different
+28:58
+kind of game of designing for the little panel. Um, so I I would say it's it's
+29:04
+not the best way to do it, but you can also ask it for as many of these scene
+29:10
+objects as possible. So you can you can kind of adjust it yourself using, you know, material inputs, um, screen sizes,
+29:17
+etc. So that's something you could try. You could use your prompt and then uh
+29:23
+say, you know, make as many uh customizable scene objects as as you can for everything we need and then combine
+29:29
+it yourself. That's something you could try out. So, let's see what happened.
+29:36
+Um, we have a hands-free spaghetti bolognese cooking guide. All right. Each panel shows Yeah. blah blah blah. How to
+29:42
+use it. Pinch. Next. Okay. Let's see. We're going to keep this and
+29:48
+we're going to refresh the lens. I'm also going to save.
+29:53
+And I'm just going to Let's see.
+30:00
+I'm just going to reload the project as well. It's something that could work sometimes.
+30:08
+Okay.
+30:16
+So, let's see if it it worked. I I see the window. I saw the window there, but it's kind of um all the way to the
+30:22
+right. Did you guys see that? If we reload this, there's a window right
+30:27
+here. I think uh I don't think that's supposed to happen, but we can ask Glad for it to
+30:35
+fix that. So, what we're going to do, we're just going to go back in. I see a window to the right. Can you put this in
+30:44
+front of the Please?
+30:52
+Yeah. If you guys have any more questions, please hop in now because we're kind of co-creating this lens.
+30:57
+Maybe you also have some uh some ideas for this lens. We can kind of quickly get in there.
+31:04
+Uh there's also a next little step which I want to explain to you guys to make stuff a little bit more interesting. So
+31:11
+what you can do as well, I'm just going to like really roughly show these uh these slides because it's not that
+31:17
+interesting. Uh what you can do is snap also provides u some of the AI tokens if
+31:23
+you're building something inside of Lens Studio. So you have access to sorry for the red alert sound. You have
+31:29
+access to the uh to Gemini and some of the other AI models
+31:34
+and then some some things can get way more interesting if you kind of experiment with cloud. So I'm going to
+31:41
+show you guys how to do API keys later. Uh I I see we we started like uh 15
+31:47
+minutes late. So I'm gonna al also like push this to like like 14 more minutes if that's okay.
+31:54
+So if you can see here it it has put something in front of me. It says get I
+32:00
+think the uh the billboard is kind of below here and it's not draggable. So it
+32:06
+is going through the steps but uh we can just see half of the panel. So I'm just going to ask it. We can see half of
+32:14
+the panel. Can you zoom this out and put it in front of the user?
+32:22
+Okay, let's see what it does. It's kind of getting there.
+32:30
+Maybe I can just kind of Okay. Yeah, she can see here. You can offset this
+32:36
+slightly. All right, we're getting there, guys.
+32:43
+[laughter] [gasps] Let's see what it does. It's still kind of cooking its own solution here.
+32:54
+So, I think yeah, we not we haven't even started like 10 minutes ago. We got something really really cool which is
+33:00
+insane. This used to take me uh weeks before. [laughter] [gasps] I'm not I'm not the best coder
+33:07
+as we can say that. All right. Now, it's really really small. Okay. Okay. So, it's doing the
+33:12
+the Let's see if I can bring it a little bit more forward here slightly. There's in
+33:19
+lens there's a little bit of a cut off with the uh what what is it? The the the wireframe of the actual actual
+33:26
+spectacles. I'm not sure what it's called. Uh the wave guide, sorry. It's the little square inside of uh the
+33:31
+spectacles glasses where um where that's kind of your visible visible area. So,
+33:37
+what what does it say in here? Let's scale it up a little bit more slightly.
+33:43
+Yes. So b plus we have gathered all the the stuff we need for cooking. There's a
+33:48
+next button. All right. It's all the water. So frito
+33:54
+round a mint simmer marry and plate and we should be there. We're making
+34:00
+spaghetti. And then it resets to the first step. Okay. How can we make this a little bit
+34:05
+more interesting? Uh let's add timers where we need them. Create them as
+34:13
+separate world space items. Track
+34:19
+timings of ingredients. I think this is this is really important. If we do uh spaghetti
+34:26
+AI based step completion detection next I think we we're not we don't have to do anything uh in a little bit. We can just
+34:32
+ask clad 2.0 know to just uh build the whole thing for us while we're wearing
+34:38
+the specs. I think that's going to be the uh the next step here. We don't we don't need this uh this silly cursor
+34:44
+anymore in a little bit. But for now, uh this is the best time to be creative and
+34:52
+use these tools wherever you can. Um and they're free for most part. So that's
+34:58
+the that's a really cool really cool part of it. Um let's see. So what we what we also can do is we can
+35:05
+add AI inside of Lensio for our lenses to interact with, but we also have to
+35:11
+kind of get your tokens. So um I'm not going to show my tokens obviously
+35:16
+because we're live streaming. But if you go here, uh I think it should be in here somewhere.
+35:23
+We have the That's not in here. I think you have to install this. Let's go to the asset library.
+35:30
+Um tokens token
+35:36
+that's not token wait what is it uh remote service gateway
+35:44
+service service remote service gateway here I'll just
+35:49
+install this yes obviously trust you trust the process and then
+35:55
+no witnesses yeah you should put in here your tokens what you can There's a window here and
+36:01
+here you can press this little button. Uh it yeah it says remote service
+36:07
+gateway token and then you can uh you can generate your tokens for the AI models and you can put the those API
+36:13
+credentials inside of this uh script here and then if you ask clad to build
+36:20
+something with AI um like context or image recognition or whatever you want
+36:27
+to put in there. For example, my idea for this cooking process was to put a little like question mark in there and
+36:35
+then if you you ask that, it's going to explain you why you need to do that step and maybe list some of the most u most
+36:43
+mistakes, for example. I think that's really interesting. It makes the experience way better. Maybe it can even
+36:49
+take a photo at the end and tell you if if you have a nice spaghetti or not. I think that's pretty funny. Uh so cursor
+36:56
+is right now. It is done. Let's keep everything because we are vi coding.
+37:03
+Um, it's made some of the countdowns. So, let's see if it's done correct. So,
+37:09
+mis plus has no countdown, but this one does. And then it made a timer right here, but it's a little bit to the left.
+37:20
+Let's see if we can find it. Put it somewhere else. Okay.
+37:26
+Um, yeah. So, it's texted to the left of the main panel, but I I I would want a
+37:32
+timer to put it like on top of my pants, for example. So, that's going to be uh the next step. Um, don't put this next
+37:41
+to the uh regular stack, but create a world
+37:50
+um world spaced window. We can pinch and drag somewhere
+37:57
+to start. Put it just
+38:03
+above the regular stack so we can instantly see it. Thank you.
+38:12
+Yeah, cursor can be really slow. That's true. Uh I think it has a good day right now because I'm I'm like moving pretty
+38:18
+quickly, but it can be really slow. Uh you can also use a model that's a little bit faster. For example, I think cursor
+38:24
+Grock 4.6 is really fast and really good. Um, there's some of the payoffs uh in in
+38:32
+all of these models. I think uh GPD 5.6 um it's really smart and opus as well.
+38:39
+Uh but I think cursor Grock is is really quick. So that's just a payoff. Um
+38:45
+depends on what you want and it's all about playing here. It's it's v coding guys. So,
+38:51
+so yeah, we go to Yeah, we we just did this. It's really easy. Just gather one of your tokens, uh, paste it inside of
+38:58
+the component, and then you'll have your API key ready. And then if that's that
+39:03
+remote service gateway script is set up with your API keys, then you can also uh
+39:09
+access uh the AI features inside of cloud where you can tell it to use use
+39:14
+Gemini for example to look at the scene and build different components for you
+39:20
+or make you know return text for example. I think that's really really cool. So, let's see if
+39:27
+it's uh it's going to fix this little issue we had before where it will put the window to the left.
+39:36
+I think it's doing well. Is are there any more questions, guys? Because right now we have 22 people in the chat.
+39:43
+Spring. Um my red alert keeps going like through the the whole stream here, but hopefully
+39:50
+it's not too not too annoying. The next stream is going to be more professional for me, guys. Sorry.
+39:56
+So, let's see what it did. We're gonna save and I'm going to reload.
+40:04
+I think there's a little bit of an error here in the chat, but we're just going to copy paste that inside cursor if it
+40:12
+stays. Okay, so it stays. I'm just going to ask this uh this message, put it in
+40:17
+here, and then we're going to see what it's going to cook for us.
+40:29
+There's always going to be issues uh if you're going to do VIP coding, but I
+40:34
+would say uh the new logger here, the TypeScript logger is really good. And I think AI will always figure this out if
+40:40
+it just knows what the the error is. Maybe the next step in inside of cloud can be just to keep reiterating if if
+40:47
+there's like a an error, so it just fixes itself. Could you tell me more about the
+40:53
+submission for the cloud hackathon? Should we make it open source or do we need to publish a lens?
+40:59
+Yeah, so I I covered this uh during the beginning of the of the live stream. So I you can you can just uh you can just
+41:06
+go back and rewatch rewatch the stream. It's mostly about how you build the lens, the concept, and then the
+41:13
+submission inside of um I think a GitHub like or an Opra repo. So you don't need
+41:18
+to actually publish the lens inside of my lenses, but it has to be inside of a repo and there should be a file where
+41:24
+you explain your prompts and everything. So for example, if you go to cursor here right now, the um the lens is kind of
+41:30
+working. Let's see ingredients. This is something you can drag around. It's also
+41:35
+in world space. So this works. We can put it for example, we can put it above a pan here. And then we have the the
+41:43
+recipe here. We click next. Salt the water. And it's it's made a uh yeah it
+41:48
+changed the timer here. So this is a classic uh AI mistake. It yeah it stacks
+41:55
+these these text objects on top of each other. So what I would say is okay the text is on top of each other. Give me
+42:01
+the float inputs of the different text objects inside of this timer object and then have me uh use the floats to kind
+42:09
+of reposition them. This is a question that was asked before in the in the chat. So this is a classic uh yeah
+42:17
+classic example. So let's just start a timer here. Yeah. So it's it also stacked these
+42:23
+these timers but it's kind of working. Uh this is something we we should definitely report to cloud and it have
+42:30
+that fixed. So we reset it. We go to the next step. I think right now it's just
+42:35
+every every touch here it's just going to advance and also uh do these timers and stack them on top of each other. And
+42:41
+that's kind of the the problem. So, we need to stop
+42:49
+uh accessing uh wait, we need to stop
+42:54
+all touches to uh go to the next step and only the buttons.
+43:02
+All right. So, we have only three more minutes for this live stream. Uh I'm
+43:07
+just going to try and finish this before. Uh but I think it does work.
+43:13
+There's just a slight bug with the with the capture buttons. So right now you can see it has some global uh stuff
+43:19
+going on which is going to delete. We need the actual buttons to improve. Oh,
+43:24
+that was really quick. So right now we have the timer here. Next button. It
+43:29
+made a timer. Start the timer. It's started. And then pause. That works. Go
+43:36
+again. Next. Okay. Right now it's just yeah stacking stuff inside of one object, but I would
+43:42
+prompt it to make multiple timers and also delete the old one. Right now it's just keep stacking on top of each other
+43:49
+in the same object. But it does work and even it even made a little button sound. So that's cool.
+43:57
+All right, I think we're going to wrap up the little live stream here. Um this
+44:03
+refining test and ship was more for um like u really optimizing for a real like
+44:10
+spectacles lens. So for example we have the uh the AI stuff uh which which we
+44:16
+could add. You could uh you can just screenshot this from the live stream if you rewatch this. And then uh this is
+44:22
+something Andrew has explained last week really well. There's a uh framework called lens evaluation and automation
+44:29
+framework. uh it will click and check all of these interactions which we just manually did because I forget this a
+44:35
+little bit sometimes it's it's already way further than I than I think it is sometimes. So uh yeah they can just test
+44:42
+the buttons for yourself like we just did with the the global u the global touch it registered which it shouldn't
+44:51
+and then there's some of the rules which I try to abide by. So, if you want to screenshot this, uh, it's going to get
+44:58
+you the best results, I would say. Are there any last minute questions before I end the stream here? Because
+45:04
+it's been almost 45 minutes.
+45:15
+All right, then I'm just going to wrap up the stream here. Hopefully, it was uh interesting and fun for most of you
+45:21
+guys. I saw some real real veterans in here, but there's also some of some new noobs, which is really nice. So, I look
+45:28
+forward to what you guys make. And uh if you have any questions, please feel free to hit me up on the on the socials. Uh
+45:35
+the dinner tonight is going to be spaghetti, obviously, because I didn't know how to make that.
+45:41
+Here you go. You can just screenshot this for later use. So the most
+45:47
+important thing I would say is just describe all of the little steps one by one to make it uh you know step by step
+45:53
+instead of it hallucinating the whole lens.
+45:58
+All right, I'm going to wrap this up guys. Thanks a lot uh for coming in here. I'm really sorry about the audio
+46:04
+and about the quality but next time hopefully that's going to be fixed. Um it was a really strange setup to do this
+46:09
+on YouTube Studio which I've never done before. All right guys, see you later. Bye-bye.
+
+
+
+Getting Started with CLAD | Week 4: Create (with Andrew Douglas)
+
+Hello everyone. Good to be here. Um, I'll just give everyone a few minutes to
+0:17
+get here and then we'll get started. But excited to be here for week four of the
+0:22
+Spaxs Clad Hackathon. How's everyone's day going? Have you guys entered before or is this maybe
+0:29
+your first time?
+0:36
+Yeah, like I said, just give it a minute or two, wait for some more people to arrive and then we'll jump into all the
+0:42
+good stuff.
+0:51
+Yeah. So, if it's your first time here, welcome. Maybe this is your fourth week in a row or roto. So maybe you're you're
+0:57
+well versed in all things spaxs and cloud by now. Just wanting to learn a wee bit more.
+1:10
+First time answering. Nice. Well, you know what? You picked a good week to answer the the create team seems really
+1:17
+good.
+1:22
+Yeah. excited to be able to teach you all about about cloud.
+1:36
+Okay, you know what? We'll just get started. I'm sure some more people will arrive uh during the duration of this.
+1:42
+So yeah, let's just get straight into it. Any questions, feel free to chuck it
+1:47
+in the chat as we go along. But without further ado, let's jump in. So this is
+1:52
+our presentation for specs cloud hackathon week four with the theme create. So like I was saying some of you
+1:59
+might have been here for all four weeks or this might be your first week. Uh yeah either great options and excited to
+2:05
+teach you all about cloud and how you can enter this hackathon. So first things first we're going to
+2:11
+cover a few different things today. We're going to cover what CLA is, how you can set it up, different strengths
+2:17
+and limitations of the tool, and then we're going to talk about the hackathon in a bit more detail.
+2:23
+So, first things first, what is clad? It's probably a term you've heard of quite a bit recently across many
+2:30
+different sort of circles and everything. Well, clad itself stands for the closed loop agentic development. And
+2:36
+you can think of it like a suite of agents and skills which allow AI to create inland studio and develop
+2:42
+projects optimized for specs. Spatial experiences made for specs. So the C
+2:48
+stands for closed. And this means the AI is able to work by itself. This is
+2:53
+great. You don't have to continuously chat to a bunch of different agents and get everything to try work by itself.
+2:59
+Nope. You just give Cloud the prompt and Cloud's able to then delegate different agents and all of that. So cloud does
+3:05
+all the hard work for you. Loop. I think this is the most important part in my opinion. It's able to work through the
+3:11
+full development loop from designing it. So working out how a different layout should look, where things should go,
+3:17
+building it, writing the code, you know, making sure it all works, and then testing it. This is really cool. It's
+3:23
+able to actually test out these lenses to check they work and check the function as intended. And then, as we
+3:29
+all know when it comes to programming, maybe it's not perfect. Let's say it finds a bug. It's then able to go back to the different stages to try again. So
+3:36
+maybe it'll go back to the build, fix some codebased bug, maybe it'll go back to the design point of view to change
+3:41
+something there. But yeah, it's able to do the full loop. This is fascinating. And it's agentic. That's what the A
+3:47
+stands for. So this means it's able to divide the tasks and assign them to different dedicated agents. Instead of
+3:52
+one agent just doing the full thing of like make a lens, it's able to split it up. So maybe there's one agent dedicated
+3:58
+for creating VFX or one dedicated for writing code. It does this really well. And then the D stands for development.
+4:05
+So it is able to develop by itself or with you, which I love. It means it can
+4:10
+really fit into your development flow, no matter what that is. So maybe you want to give Cloud one prompt, just let
+4:16
+it go by itself. Or maybe you prefer to kind of go back and forth with it. You'll write a bit of code, you'll add
+4:22
+in a 3D asset, and you'll let Cloud work with that. So whichever way you like to work on projects, Clad works around you.
+4:29
+And down below got we diagram sort of showing how it all works. So clad this
+4:35
+is a set of skill and agents which you pair oh let me go back with a AI harness
+4:40
+and then over an NTP server this connects into lens studio and then you develop the lens experience which can
+4:45
+then be deployed to specs on the actual device. Now as we're probably aware
+4:51
+specs aren't actually out yet. But what you can do is you can run these experiences in the Lens Studio simulator
+4:57
+which you know coming from me I've tried out a lot of different simulators. Lens Studio simulator is one of the best out
+5:03
+there. It really just works. And then in the future you'll be able to deploy these lenses you made today onto specs.
+5:11
+So I want to touch on as well agents within cloud. So often when you hear
+5:16
+about AI agents and things you maybe assume it's just able to write code. Well, Clad's able to do a whole lot
+5:21
+more, which actually blew me away the first time I tried it. It's able to create VFX, shaders, 3D models, and very
+5:29
+importantly, it's able to test. So, through something known as LEAF, which stands for lens evaluation automation
+5:36
+framework, it is able to essentially create spatial unit tests. So what I
+5:42
+mean by that is it's able to test things like complex hand gestures, checking that when a button's pressed, the right
+5:48
+result happens and all of that. So this allows you to feel quite confident when you're using clad that's able to test
+5:54
+and then actually get good results. It's also able to do so much more. And one
+6:00
+prompt is enough to create a full lens. So you could just say, "Build me a lens that shows me the weather in my current
+6:05
+location," for example. Now, this isn't a great prompt, which we'll touch on in a wee bit, but it does show you that you
+6:12
+can go from just one prompt to a full lens, but sometimes you may need help with just one aspect for which agents
+6:19
+can individually be triggered. So maybe you're making let's say a weather app and you decide actually you know what I
+6:25
+need a cloud 3D model instead of just you know reasking it to create the full thing. You could just do /bu mesh which
+6:32
+only talks to the agent dedicated with building meshes and say create a cloud model or build asset effects if you need
+6:39
+some music or sound effects or even just updating lens packages. Sometimes you might need a really specific version and
+6:44
+instead of going all the way into the asset library, going through there, figuring out there, no, you can just say
+6:50
+update lens package, specify the library you're wanting and specify the version you want. So this is really useful on
+6:56
+how you know you can use cloud for just your full lens or you can really get it to specify which I love.
+7:03
+And then cloud works with your favorite AI tools. So the main ones are codec,
+7:09
+cursor, and cloud code. You can pick whichever of these three you prefer. Quite possibly you've
+7:16
+already got a favorite preference. Although, if it's your first time trying it out, I would recommend going for
+7:22
+cursor. That's the one I've been using throughout my cloud development. I found it really, really useful. Um, any of
+7:28
+these work, but if it's your first time jumping in, I'd recommend checking out cursor.
+7:33
+So, now let's go through a setup and then let's also do a live demo just so we can see how it all gets built. and
+7:40
+then while it's getting built, we'll go away and we'll cover some more different things in the meantime. So, first things
+7:46
+first, you need to make sure that you are using Lens Studio with a very specific version. So, you want to ensure
+7:53
+using version 5.22 or greater. Any of the ones before won't have the right
+7:59
+stuff for using cloud. So, ensure you are using this. And then you also need
+8:04
+cursor. So, you can just install that. And if you scan the QR code down here, you will see the link for um
+8:12
+it takes you to a link where it gives you all the different console commands we're about to use to install the different packages required for cloud
+8:19
+within the cursor. So first things first, uh I've already got lens installed. We can assume you
+8:27
+guys have too. And what we can do is we can go here and open up cursor. So, by
+8:32
+default, if I go into customize, we can see that we've got MTP server enabled. But just for the sake of this, I am
+8:39
+going to go and I'm going to just uh disable it just so it's like we've
+8:45
+got a very clean cursor install. And then lscloud, I'm going to remove this too, just so it's like we're going from
+8:52
+scratch. Okay, perfect. So when you open customize for the first time, you'll
+8:57
+probably have a screen like this and it will show you having no plugins installed and no MCPS. So what we need
+9:03
+to do first is we want to open up file explorer and
+9:09
+yeah, there we go. We got file explorer here and we want to create a new folder. And I'm just going to call this
+9:15
+extensions. Amazing. And then we're going to go and
+9:21
+we're going to open it in terminal. Perfect.
+9:27
+So then when you follow that QR code I showed in a previous screen or you'll be able to find afterwards, you're brought
+9:33
+to a screen like this which guides you through the cursor setup. So it tells you to ensure you've got Lens Studio set
+9:38
+up, you open terminal, check you've got cursor all set up, and then we've got
+9:44
+our first step which is installing the plugin. So how we get that is we need to copy
+9:51
+this command and then we can go back to our terminal and we can just copy paste this. So all this is doing is cloning
+9:58
+down a repo with all the sort of lens studio extension stuff and adding it to
+10:03
+our local directory. So we hit this, give it a few seconds and then it's done. As you can see it's produced a new
+10:09
+folder for us. Now what we can do is we need to actually install the cloud
+10:14
+plugin. So the way we do this is we go over to uh install plugin and first
+10:22
+instruction makes a new directory if it doesn't exist yet in your local cursor folder. If it does exist, it doesn't do
+10:29
+anything. So don't worry about running this if you already have that folder. So we run that one. Perfect. And then we
+10:36
+need to use the second one. And all this does is this copies across our LSC cloud from within this folder into our local
+10:43
+cursor directory. So we can copy and paste that there and then everything
+10:48
+should be fine. And in order to check everything's working, we just need to hop back into cursor and then we should
+10:54
+see there lsclad which is exactly what we are wanting to see.
+11:00
+Perfect. And just checking can you guys all hear me correctly and everything? If
+11:05
+not just let me know in the chat. But hopefully everything is fine.
+11:10
+Perfect. So that's the first step done. We've got our plugins working. Uh, and then we also need to get our MCP server
+11:17
+going. So, in order to do this, what we do is we open up Lens Studio, which I
+11:23
+will just do now.
+11:34
+Perfect. So, that's Lens Studio open. And then I'm going to go into specs. And
+11:41
+then I'm going to go into base template. Perfect. So this is creating a blank
+11:46
+project with nothing in it. So we can work on that for our specs experience.
+11:52
+Amazing. Then I'm going to go and I'm going to save this. We need to wait for the stuff to compile first, which is
+11:59
+fine. So we'll just give that a second
+12:05
+and it should be almost done. There we go. Okay, perfect. And I'm
+12:13
+going to save this. And I'm going to save it. I'm just going to make a new folder here and call it
+12:19
+cool clad lens. And I'm thinking since this week is the
+12:25
+create theme, we're going to make something relating to creating, think it could be cool to have a lens where you
+12:30
+can draw in 3D space. So, we're just going to call this draw
+12:35
+3D. Think that's a good enough name. And we'll save that there. And then all we
+12:41
+need to do is we just need to go into AI assistance
+12:47
+and model protocol configure server copy MCP and then we go back into cursor
+12:56
+which is here. Add MCP server user. Copy and paste that. Save it. And then at the
+13:03
+top we should see 35 tools enabled or something like that. That means we're
+13:08
+ready to go. Then we can navigate up here, open folder, and we're just going
+13:14
+to find our clad folder, and we called it cool clad lens draw 3D. Open that.
+13:20
+And then we are ready to prompt. So, I've uh we'll write out a prompt live
+13:27
+now, actually, just so we can all sort of see how to write a good prompt. And
+13:32
+we'll cover prompting in a bit more detail in just a wee bit. So without further ado, let's go for it. Let me
+13:39
+just close these tabs so we can see it in sort of full screen. So we're going
+13:45
+to go create a lens that allows me to draw in 3D space.
+13:53
+I should be able to select different colors
+13:59
+from a panel. Maybe we want, you know, bunch of different colors, red, blue, whatever.
+14:04
+and then drag a floating sphere which
+14:11
+leaves a trail behind it of that set color.
+14:18
+Use the SIK. And for those of you that don't know what SIK is, that stands for
+14:23
+spectacles interaction kit. So this is how you move different things and interact different things whether you're
+14:29
+using your fingers, you're in the editor or using a motion controller, sorry, a phone as a motion controller for
+14:35
+spectacles. And then so yeah, use SIK to move the spear
+14:42
+and then use UI kit for the panel with
+14:47
+the colors and then we can hit enter
+14:53
+and off it goes.
+14:58
+Amazing. Okay.
+15:03
+Perfect. So, as we can see, it's all going off.
+15:09
+One thing to check sometimes is check you're signed in. So, I'm signed in here. If you see your rebbit emoji in
+15:14
+the corner, you're good to go. Otherwise, I'd make sure to check. Sometimes some things don't work unless you're signed in with cloud.
+15:22
+But yeah, there we go. As you can see, knows we're signed in, knows we're building for specs. You know, it knows
+15:28
+what we've asked for, and it's getting on to building. Perfect. So, while we
+15:34
+wait for it to do that, let's go back to our presentation, and we'll go through that.
+15:40
+So, now I want to cover the strengths and limitations of cloud. I just think this is a really important one to be aware of when using it. So, first off, I
+15:48
+want to cover prompting. So, it's amazing how just a few words can completely change your finished lens
+15:56
+experience. So, I've got two prompts here which are essentially asking for the exact same experience. But one of
+16:04
+them, you know, isn't great and the other one produces a really good result which I worked on sort of before this.
+16:11
+So, I'll show you these exact outcomes and kind of based on the different
+16:16
+prompts. So, we've got the bad prompt. Make a lens that shows the current weather 2D only. Or we have the good
+16:23
+prompt which is make a lens that shows the current weather and user's location using GPS. When an editor expose a
+16:29
+string to allow custom location to be used by default have Edinburgh generate the using the UI using UI kit 2D only.
+16:38
+So if we go away and break this down the good prompt includes a few things which really help cloud to understand what
+16:44
+you're trying to make. So in blue we have user's location using GPS. So this
+16:49
+states the feature we're wanting to use. There's a bunch of different features available on specs ranging for things
+16:55
+like GPS, death catch, the camera, all of that. So it helps uh understand it
+17:02
+helps cloud understand how we're wanting to know what the current weather is wanting to do do that by the user's
+17:09
+location using the GPS component. So, it's able to go away, find a relevant API, and use that, which is exactly what
+17:15
+we want here. And then in pink, we have an editor exception. So, things like GPS
+17:21
+don't really work in editors. Obviously, you're not kind of moving around. Um, so by default, I believe set somewhere in
+17:27
+London, but we don't want this. We want to be able to try different places like we're actually in Tokyo, Edinburgh,
+17:33
+Glasgow, wherever. So, we've added an editor exception. So when editor expose a string to allow a custom location to
+17:40
+be used. This just means that we're able to almost simulate being in different places which is exactly what we want.
+17:46
+And then we specify the packages. So this is super super useful especially
+17:52
+when it comes to UI. I found a big difference there with UI and also general interaction. As you can see in
+17:58
+our prompt we specified spectacles interaction kit. So um
+18:05
+yeah. So by specifying the package it means it's going to use UI kit which means it's going to use the best
+18:10
+practices associated with that to generate the sort of overall experience.
+18:16
+So the question in chat what I want is to use chat GBT. Do I still need cursor? Absolutely not. No, you can use codeex
+18:23
+which is kind of all the chat GBT stuff if you prefer that. You can use whichever tool of the three works best
+18:29
+for you. So, from these two prompts, you might be thinking, surely there's not that big of
+18:35
+a difference. But let me go back to Lens Studio and I'll show you two projects I made earlier just so you can see the
+18:42
+different results. I'm just going to go here, new window,
+18:50
+see where that window pops up. There we go. Okay.
+18:57
+And then we can go in here and I'm just going to open recent project. We're going to start with bad weather. So this
+19:03
+was the first one I created uh using that sort of bad prompt at the top which didn't specify the packages, didn't
+19:10
+specify a bunch of things like that. So you'll be able to see how it looks.
+19:15
+Just give it a little second to compile.
+19:27
+Okay, there we go. Okay, so as we can see quite a lot wrong with this. It's
+19:34
+not centered within the panel, which isn't great. I mean, UI shouldn't be
+19:39
+hanging at the bottom like that. It's [snorts] not centered. You know, London, England isn't flush there. Um
+19:47
+the the sort of text doesn't look flush with everything else. And the refresh button does functionally work, I guess,
+19:53
+but it just doesn't look great. Doesn't feel nice to use. And then if we go over here, we have no
+20:00
+option to change where we are or anything. So, it's yeah, not ideal at all.
+20:06
+On the other hand, if we open Goodweather, I know the amazingly named project if I
+20:12
+do say so myself. uh we should see a real difference in how it looks and everything just based off a few changes
+20:18
+in our prompt. Okay. And we just wait for that again.
+20:26
+Make it bigger just a bit easier to see.
+20:35
+Wait on that to compile. It should just take a wee second. Okay, there we go. So, instantly looks a
+20:42
+lot better. You know, everything's centered, minus this, which is off to the top. But that looks good. Tells us
+20:48
+our current location. We still have just clean and simple the sort of icon, uh,
+20:54
+you know, the temperature, the condition, and a button to actually refresh it, which I quite like in the
+21:02
+fact that as you hover on top of it, it acts like everything else within sort of
+21:07
+specs would. So it's following the UI kit best practices. So everything looks nice and consistent. It'll look like uh
+21:14
+you know the general UI for specs. So everything sort of feels at home which is exactly what we want here. And then
+21:20
+we should be able to go over here. Let me make the inspector a bit bigger and
+21:26
+yeah custom location. Edinburgh. Maybe we want to go somewhere else in Scotland. Let's pick Glasgow.
+21:33
+There we go. Tells us the conditions in Glasgow. Raining. I would imagine so. It's quite often rainy there. So that's
+21:40
+that's the difference with just those two prompts. It's amazing the difference prompting can make. So I would take a
+21:46
+lot of time just to understand how to write a good prompt before you jump in. Saves you a lot of time and headache in
+21:52
+the future. Anyway, let me just close that. [snorts] Perfect. Okay, back to the PowerPoint we
+21:59
+go. So now I want to cover the strengths and limitations of cloud. So for
+22:05
+strengths we have it's great at creating more than just code. You can create 3D
+22:10
+meshes. You can create sound effects. And that's the thing that I found really good about cloud. So by default I'm a
+22:18
+programmer. So I I think I'm pretty good at writing the code to say so myself, but I struggle with all the pretty
+22:23
+things like the sound effects or general design rules, you know, 3D models. So
+22:29
+having Clad be able to help me with that is a complete game changer. I love how it's also able to work by itself. I
+22:35
+think that's such a strength of it. Being able to give it just one prompt and it's able to go through and do the full thing is amazing. And then the
+22:42
+testing, the fact it's able to test what is produced is fantastic. As I'm sure we've all been there, we've all got a
+22:49
+question, given it to AI, it's produced some code for you. It's confident it works and you're going to run it. It
+22:55
+just doesn't. Clad, on the other hand, is able to go away and test his code to check it works, which is fantastic.
+23:02
+and then iterative development. It's able to work the way you want to work.
+23:07
+Maybe you want to give it one prompt and let it do the full thing. That works. Maybe you want to just work alongside it
+23:13
+and produce sort of bits at a time. Maybe you want to write all the code and just get it through the 3D models sound
+23:18
+effects. That works too. Uh but there are a few things that I would recommend sort of considering. So the first is the
+23:26
+capability knowledge. It makes a big difference when writing your prompts if you're able to understand uh the
+23:32
+capabilities of lens studio. So whether you're a beginner or you've been
+23:38
+programming for such a long time, specs platform is a bit different. So it's good to understand how things work
+23:44
+within all things specs. So if this is your first time, what I would recommend doing is going into L studio. Just going
+23:52
+to make a new window here again just to show you. Wait for that. Perfect.
+23:58
+And then where is it?
+24:08
+Uh, one second.
+24:14
+There we go. Home. So in here, if we hit specs and then we can see a bunch of
+24:20
+different samp sample projects. It is really worth just going through a few of these to understand how things work
+24:27
+within specs and different features, everything capable. Well worth it. If
+24:32
+there's only two though I'd recommend you checking out. The first would be AI playground. So this goes through in
+24:37
+detail how you can create uh experiences with like live AI which really adds a
+24:43
+lot to an overall lens experience. And I'll also look at essentials. This covers a lot you know just essentials of
+24:49
+how things sort of work within lens studio and specs. So, I'd recommend checking a few of these out if you have the time before jumping into all things
+24:56
+cloud. Again, a bunch more. Maybe you're curious about how the camera works. Crops got your back. Summarizes the
+25:02
+camera greatly and gives you some really good use case. Maybe you want to, you know, navigate outside. Don't know if
+25:07
+that would fit create too well, but you never know. There's a template there for you, too. So, it's just good to dive
+25:13
+into these to understand how stuff works in specs before, you know, going to cloud. Anyway, close lens studio.
+25:21
+[snorts] Perfect. So, another thing is colors. Since specs use a holographic
+25:27
+wave guide display, blacks don't show up since you're essentially projecting light. So, when developing a lens, it's
+25:34
+a very important thing to keep in mind. I'd recommend using the lighter colors so you can really see uh things kind of
+25:40
+pop a bit more. Avoid things like blacks and grays and instead use more kind of bright colors so they actually show up
+25:46
+more and feel a bit more vivid. And keep in mind editor limitations. So the editor is fantastic, but it can't quite
+25:54
+do everything such as GPS, for example. You can't change your GPS location. So,
+25:59
+you know, maybe ask cloud to add some fallbacks for that. Or things like testing out the motion controller. You
+26:04
+also can't do that within uh the simulator. So keep these in mind. Also,
+26:11
+the token limits. So tokens, they don't grow on trees, unfortunately. So you've got to be careful with how many tokens
+26:17
+you're using. you know, you don't want to run into some limits. So, what I would recommend doing is what I call the
+26:22
+one minute rule. When I'm using cloud, if I can fix something in one minute or less, I do it myself. So, these are for
+26:29
+things like moving objects around the scene. Maybe I realize that, oh, you know what, the text is too high up, too
+26:35
+low down. I'll just open up the scene and move it manually. If I can fix it under a minute, I'm not going to be
+26:40
+using cloud for. And then layout and UI kit. As you can see in that weather example, using the UI kit makes such a
+26:48
+big difference. So always specify the packages you're wanting to use and tell cloud sort of pay a focus to the the
+26:55
+layout and stuff and UI kit will make it follow the best practices for specs.
+27:03
+Another thing I want to touch on is the remote service gateway. This is your one-stop shop for all AI related APIs.
+27:11
+I'm sure if you programmed in the past, you've maybe generated a a key for like the OpenAI API, Gemini,
+27:19
+but within L Studio, you can get all these for free. So, you can use a remote service gateway to generate your token,
+27:25
+which allows for things like image generation and editing, text to 3D, or live APIs. You can have real-time chats
+27:31
+with AI agents, all from within Lens Studio for your specs lenses, which is fantastic. It often makes his lenses
+27:38
+just feel a bit more sort of fun and polished having that AI features.
+27:44
+And then we've got the actual hackathon itself which I'd like to talk about. Although let's see how cloud is getting
+27:52
+on. Okay, it's still going. Perfect. We will give it some more time there. So
+27:58
+this week's theme is create, which I love. It's very sort of
+28:03
+open-ended. There's a lot you can do with create and I think being creative is just fantastic. So it's all in all
+28:10
+really good prompt. Super exciting to see what people create. So the sort of
+28:16
+tagline is build a spatial tool that helps people create something faster, easier, or more intuitively. So I've got
+28:23
+a few starter ideas for you all first. So for reference, a few weeks ago I moved into a new flat or apartment as
+28:30
+you may call it and I found decorating a bit tricky. So, here are a few ideas
+28:35
+that maybe could have helped me be a bit more creative when it came to my my new place. First one was a color picker.
+28:41
+Often I'm wandering around day-to-day life and I see so many pretty colors that I would love to add like a paint
+28:48
+color, you know, to add some more color to my walls. So, it'd be super fun to have a lens in which you can pop on your
+28:55
+specs and you're able to walk around and then maybe if you see a color you like,
+29:01
+you can just do some finger gesture or something to grab the color you're looking at and it tells you the hex code
+29:06
+and then from there you could go away purchase online or something and paint that color. Or virtual tracing. I would
+29:13
+love to say I'm a good drawer but fortunately just not true. But with virtual tracing, I could have an AR
+29:19
+overlay of maybe a plant or a dog or something and then I could just trace my
+29:25
+pencil underneath, which would be fantastic. A great way to be arty without being, you know, super super
+29:30
+pro. Or an art preview. Uh I find it tricky to, you know, know which art
+29:36
+should go on my wall. So a lens which previews different art, maybe shows you different sort of layouts, uh different
+29:43
+art pieces, that'd be fantastic. But yeah, for now we've decided for this
+29:49
+sample to go with creating a lens allows you to draw in 3D space. I'm sure yeah
+29:54
+healthy to be creative. And then how to enter? So simple three
+29:59
+steps. You register, you build your lens and then you submit. That's all there is to it. And then what do you submit? So
+30:06
+first you need to submit a public project repo link. So this is just a link which is available to the public of
+30:12
+your finished project repository. recommend just uploading your code to GitHub. Keeps everything nice and easy.
+30:20
+You also need a demo video. So, this is just a walkthrough of the lens in the simulator showing its key features and
+30:26
+how you use cloud. And then just upload this video to any video sharing platform, Google Drive, norally what I
+30:32
+recommend, but anything works. And then a cloud prompt log. So, this is just a document of all the prompts used to
+30:38
+create a lens lens with cloud. As quite normally you'll have multiple sort of feedback rounds with cloud. So, what I'd
+30:44
+recommend just having a Google Docs or a notes page open and every time you write a prompt, copy and paste it in there.
+30:50
+Keeps everything nice and easy. And in a project description, describe your lens and you know how it relates to weekly
+30:56
+theme and who it's for. And this is really useful. Um, so that's just the last thing to submit. Just those four
+31:02
+and then you're ready to go. Judging criteria. So, you're kind of evaluated
+31:08
+in three different ways. the cloud execution, the user experience and overall creativity and usefulness. So
+31:14
+first off, you've got the cloud execution and this is just how meaningfully and efficiently cloud was used to build a project. You know,
+31:21
+looking at things like the quality, the ambition and impressiveness achieved through using AI to develop this and
+31:27
+that's for 50%. 25% is then user experience which is just how clear and intuitive is the
+31:33
+experience to use. Speaking from me, uh speaking from experience, keep it nice and easy to use. You should be able to
+31:39
+hit play and it just kind of work. You should be able to know what to do without too much of a tutorial. And then
+31:45
+creativity and usefulness. How original, thoughtful, and useful is it as a spatial experience? You know, there's
+31:52
+some ideas which you think could be great when spatial, but often it could be better as an app. So, does this
+31:57
+really make full advantage of being, you know, six degrees of freedom, being able to walk around, all of that? And yeah, a
+32:05
+we QR code down the corner on top of that in YouTube where you can register,
+32:11
+but very easy to find online. Yeah, entire prompt blog is fine, too.
+32:17
+Don't worry. And yeah, so good luck. If you're looking for some inspiration,
+32:23
+scan the QR code here to check out our SLS specs. There are so many great
+32:28
+projects people have made and shared the past three weeks for the different themes. I've seen so many interesting
+32:35
+projects being uploaded, so many cool things. So, if you're maybe needing a bit of inspiration or not quite sure
+32:40
+where to turn, check there as well. You have any questions with all things Clad, feel free to pop a question in that
+32:47
+subreddit. The community is so nice and excited to help others. So, there's
+32:52
+always going to be someone who will respond and try to help you out. All right, let's see how our lens is getting
+32:57
+on. So, as we can see, it is still going, which is fine. Uh, we can see
+33:04
+what it's doing. You know, it's fixing some appearances. So, I mean, if we look Well, we did see a preview for just a
+33:11
+few seconds. Was looking pretty good. So, I think it must almost be there. We'll just wait on cloud to finish up.
+33:18
+So, yeah. Does anyone have any questions, any queries, anything I can help with in the meantime?
+33:28
+If you do, just feel free to check it in the YouTube chat and I will yeah get back to you.
+33:36
+But yes, I'm I'm thinking this should be done pretty soon. And then let's say
+33:42
+right, so I know this is running right now, but let's imagine we're creating a new lens. You can just type in slash and
+33:48
+then you can specify the agent you want to use. So by default sort of lists most of them, but maybe we're wanting build
+33:54
+mesh. You can just type in after that the mesh you want to build. So I find this really useful when I don't just want it to write the full project for me
+34:00
+but just specific things being able to talk to the specific sub aents. It's a really really useful tool and we can see
+34:07
+the different tools it's using. So currently it's using the preview interact tool. So this means that we trying to interact with the scene to
+34:13
+check everything works and that should be yeah should almost be
+34:19
+there. Yeah. Again, highly recommend checking
+34:25
+out the Reddit if you have time. So many cool things there, so many exciting projects being developed. I was blown
+34:31
+away actually with some of the projects which have been developed for the past uh three weeks. Some really, really cool
+34:37
+things there. Um really cool use cases as well.
+34:43
+This shouldn't take too much longer. Yeah, did it earlier took about 20 minutes. So, looks like we've got about
+34:49
+one minute left and then we should see our finished project. Which is exciting.
+35:19
+optimistic that it's almost there. And it looks pretty cool based off that.
+35:26
+I like it. It's got a different colors, a nice button, a sphere we can interact
+35:31
+with, which I believe it generated as well. Didn't just uh use like a default
+35:36
+one actually went away generate, which is pretty cool. Like it when stuff like that works.
+35:48
+Oh, and we can see being interacted with there. So, it was able to draw a line. That's pretty cool. That's me doing it.
+35:54
+So, as you can see, it's properly managing to test it in real time.
+36:09
+I might be going a bit slower because I'm also live streaming at the same time, but we should should almost be there. So, has anyone got any ideas for
+36:15
+what they're going to try this week? If so, be curious to hear them. Chuck
+36:22
+them in the chat or feel free to chuck them in the chat.
+36:38
+Okay, there we go. It's done. Perfect. That took about 21 minutes, which is fantastic to go from prompt to full
+36:44
+lens. Really, really cool. Okay, so let's go in here. Let's restart.
+36:53
+And I'm thinking I want to use purple.
+37:00
+Perfect. And that moves. And then let's rotate ourselves up. Let's try again. Let's go magenta.
+37:08
+And we can rotate ourselves around. And we can see is moving in 3D space. You can't hear it, I don't think, but
+37:14
+there's also audio in real time. Makes really cool like click noise when I tap it. And then I don't know, maybe let's
+37:21
+go green. There we go. Amazing. So it's it's like a 3D pen. It's super fun. And
+37:27
+we should be able to hit clear. Goes away. Makes a really nice swoosh as well. And then, oh, we can move this.
+37:34
+So, since we stated we want to use UI kit, it knows that we maybe want to move it. So, fantastic. And all the buttons
+37:40
+and stuff look consistent with the rest of the UI. Amazing. So, let's just leave it with
+37:48
+drawing a love heart. Excuse my weird drawing skills. Amazing. So, there we
+37:53
+go. Clad worked. Super useful there. I hope you all learned a lot and are able
+38:00
+to and excited to use cloud for this week's theme. Any other questions, feel free to put them in the chat. But other
+38:06
+than that, thanks for watching and I'm excited to see what you all create.
+38:14
+That sounds very cool. A group drawing project. Yeah, it's fantastic. Um, be
+38:20
+excited to see that. Well, amazing everyone. Thank you for
+38:26
+joining and yeah, catch you all later. Bye.

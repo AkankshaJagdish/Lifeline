@@ -1,0 +1,424 @@
+What Makes a Good AR App? 4 Snap SPECS Projects Reviewed Live
+
+
+transcript of video
+
+Chapter 1: What a Devpost learning hackathon is
+0:000 secondsAll right, what's up everybody? Um, yeah, welcome. Thanks for coming and checking us out. Really excited to review everyone's projects. We've seen some really cool stuff so far. Um, so my
+0:088 secondsname is Joe. I'm um the head of the learning hackathons here at Devpost. But yeah, if you've never done a learning hackathon before, it's a new format that
+0:1515 secondsthe DevPost is experimenting with where we specifically work on developing new skills with people and practicing them in hackathons. So what that practically
+0:2424 secondsmeans uh in terms of the difference between this and a normal hackathon is a few things. one um we try to give you more resources to learn the subject. So
+0:3232 secondswe made a video for you to walk you through things. We made a little uh agent skill to help your your coding agents uh develop good plans for your
+0:4141 secondsapps with you. And then um we're also doing these on a rolling basis. Um so if
+0:4949 secondsyou know you don't win this time, you can enroll in the next one. So at the very minimum there'll be two more be learn with specs uh learning hackathons.
+0:5757 secondsSo you can kind of build on that knowledge and keep practicing. And if you want to polish and and really level up uh as an AR designer and developer, there's a lot of opportunities to do
+1:051 minute, 5 secondsthat. We're working closely with the specs team here. Like Darl said, we're passing a lot of your uh bug reports and questions on to them. They love hearing
+1:131 minute, 13 secondsthat. So please keep it coming. Please keep product feedback coming. Really helps us out, too. Um and you can leave a mark. You know, they're they're looking out for really awesome projects
+1:221 minute, 22 secondsand developers to talk to and work with in the future. So yeah, it's recurring, it's smaller. Uh we try and help you learn new skills here. So hopefully you
+Chapter 2: What this live review covers
+1:301 minute, 30 secondsfind this useful. Um and yep, let's dive in. Perfect. All right. So plan for today.
+1:351 minute, 35 secondsWe'll talk about obviously how today works, which is what I'm doing right now. Um we'll talk about how projects get judged. So we'll go over the
+1:431 minute, 43 secondscriteria um and what Joe and I are looking for, especially we are the judges. So this is the best place to get an idea of like what we are actually
+1:501 minute, 50 secondslooking for out of each criteria. and then we'll get into some live reviews.
+1:541 minute, 54 secondsDepending on like how much time we have, we'll try to get through as many as possible. And what I want you all to take away from this session is that regardless of what projects are being
+2:022 minutes, 2 secondskind of live reviewed and kind of given feedback today, a lot of the feedback um can be applied regardless of what you're building, you know. So, I would take it
+2:112 minutes, 11 secondswith a bit of generality like what was said here that I can take back to my project. So, we'll talk about the different criteria in that way as well.
+2:202 minutes, 20 secondsUm, we'll also go over some of the hackathon specific questions. So, if you're like wondering what makes a good idea or if you're asking probably more
+2:282 minutes, 28 secondsgeneral questions of like when to submit by, I mean, I put it everywhere down here. Um, but we'll answer that again and again and again. And then, uh, we'll
+2:362 minutes, 36 secondsgo over a bit of the submission checklist, what's to just kind of make sure you have prior to submitting just to make sure that you're aligned, um,
+2:442 minutes, 44 secondsthat you're good to go, that you won't be ineligible, you know, or anything like that. Just making sure that you've dotted your eyes, you've crossed your tees, and you're on your P's and Q's. I think that's the the phrase. I hope so.
+2:562 minutes, 56 secondsSo, let's talk about a couple of things you need, right? Okay. So, one, the hackathon page. If you're coming and
+Chapter 3: Where to find setup guides and AR resources
+3:043 minutes, 4 secondsjoining this session and you're like, I actually didn't know about this hackathon prior to today or yesterday or whenever you registered for this
+3:113 minutes, 11 secondssession, you can still register for this hackathon at learn-specs.devpost.com.
+3:163 minutes, 16 secondsdevpost.com. Um, highly recommend if you haven't registered and then also where to find resources. So, setup steps, the
+3:243 minutes, 24 secondsguides, design reading, you can find them in the resources tab of the hackathon as well. This is going to be a great place to kind of look for
+3:323 minutes, 32 secondsresources prior to asking Joe or myself um about anything like snap specific uh snaps especially like the cloud
+3:393 minutes, 39 secondsdocumentation is pretty thorough. Um, so I highly recommend checking those out first, as well as some examples, uh, of what, you know, kind of makes like a
+3:483 minutes, 48 secondsgood or interesting project. You can see, um, some great inspiration there.
+3:533 minutes, 53 secondsAnother one I didn't include here, which actually would be great for you to check out, if you're looking for inspiration, check out the specs subreddit as well.
+4:014 minutes, 1 secondThere are some really cool projects in the specs subreddit. Um, and that'll give you an idea of what it looks like
+4:094 minutes, 9 secondsto create a lens. Um, and see what that could actually look like when somebody's putting something on their face and what
+4:164 minutes, 16 secondsthose interaction could look like. But also in terms of like the novelty of the idea or the usefulness as well or the fun of it all because not everything has
+4:254 minutes, 25 secondsto be about work. Sometimes it's about play as well. All right. Next, the FAQ. So, we do take a lot of your questions.
+Chapter 4: FAQ, build session recording, and Discord feedback
+4:334 minutes, 33 secondswe take them to the snap team if they are uh more technical and so if there's anything that we can't cover you can ask them in the discussion forum and then we
+4:424 minutes, 42 secondscan take that to the snap team you can also ask in our discord as well but read up on that FAQ I did notice like some questions like we've answered before so
+4:504 minutes, 50 secondsjust check that FAQ first and that's also on the hackathon page um if you're wondering how to get started you know like how do I start building with lens
+4:584 minutes, 58 secondslike how do I navigate myself in the IDE Joe did a really great build session and so if you want to get caught up you can
+5:055 minutes, 5 secondscheck that out on YouTube um YouTube.composthq there are chapters and everything so you
+5:135 minutes, 13 secondscan skip ahead to what's relevant for you u but that's going to be a really great place to start especially if you haven't started or if you have questions about like okay how do I even navigate
+5:215 minutes, 21 secondslens preview or anything like that Joe kind of goes through all of that as well I did mention the discord um and the link that I posted in the chat does give
+5:305 minutes, 30 secondsyou access to the specs general channel but it also gives gives you access to the Devpostle learn feedback channel.
+5:355 minutes, 35 secondsMany of you already kind of posted your projects in that DevPost learn feedback channel. Another thing I do want to mention about that channel is the fact
+5:435 minutes, 43 secondsthat feedback doesn't have to just stop at today. It doesn't stop between like Joe and I at all. You also can go in and
+5:535 minutes, 53 secondsgive feedback to other builders or ask for feedback from other builders as well. This is kind of how we grow as a community. Um during our last phone
+6:016 minutes, 1 secondbuild with AI Basics, I really loved seeing people kind of go in and actually give um some really great feedback. What does great feedback look like? Give them
+6:096 minutes, 9 secondssomething actionable. You know, it's great to say like this was great, thumbs up, but give some feedback on like what they're actually looking for. They may be looking for feedback on design,
+6:176 minutes, 17 secondstechnical implementation, and if these are kind of like your bread and butter or if you just have thoughts, it'd be really great to see you all give some
+6:266 minutes, 26 secondsfeedback there as well. All right. And then lastly, again just being the discussion forum on the hackathon page.
+6:326 minutes, 32 secondsSo if you have additional questions after this, feel free to pop them in there, pop them in discord, and um either Joe or myself will answer if it's
+6:406 minutes, 40 secondshackathon or defo specific and then the snap team will uh respond to those questions. All right, keeping it moving.
+6:486 minutes, 48 secondsNow we're going to talk about how projects are judged. Now we're getting into the nitty-gritty, the judging criteria. So, let's talk about it, Joe.
+Chapter 5: How AR projects are judged
+6:586 minutes, 58 secondsYeah. Yeah. All right. So, um, good job getting to this phase where you're working on your project and want to make sure that it it really shines. Um, so we
+Chapter 6: Design: building for a computer on your face
+7:057 minutes, 5 secondshave four simple criteria. If you've done a dev post hackathon before, you've probably seen these four things, but let's talk about how they specifically
+7:127 minutes, 12 secondsapply to specs. Um, so the first one, which is weighted like a 01% higher than the rest of them in the case of tyres or
+7:207 minutes, 20 secondswhatever. So, low key, the important one. Um they're all important but this is the most important one is design. Um so that means how to create a what we
+7:297 minutes, 29 secondssay here is a coherent complete product of experience and not just a technical proof of concept. In our case for this one um I really love you to watch the
+7:377 minutes, 37 secondsconceptual video explainer we had um because that will start to broach the subject of what does it mean to design
+7:457 minutes, 45 secondswell for augmented reality instead of designing well for some app that's on your screen. And that's one of the big questions that we explore in the
+7:537 minutes, 53 secondsconceptual video and one of the big things that going to differentiate winning projects from projects that don't make it past the first rounds. Um
+8:018 minutes, 1 secondso specifically the video will do a better job of explaining what all those you know design criteria are than I can
+8:088 minutes, 8 secondsright now. But in a nutshell um what we want to try thinking about for this design is what is it like to have a
+8:168 minutes, 16 secondscomputer on your face? You're not looking at a screen anymore, right? So everything that you're developing takes place against the backdrop of a person's
+8:258 minutes, 25 secondsactual field of vision. And that really changes the kind of stuff that you want to design. Um so again, watch the video if you're at all unsure of what we mean
+8:338 minutes, 33 secondsby designing for AR as opposed to for for websites or mobile apps. Um but in a nutshell, it's stuff like making sure
+8:418 minutes, 41 secondsyou don't block their image with too many screens. Don't don't over complicate your user interface because you're blocking their actual vision.
+8:498 minutes, 49 secondsIt's like someone blindfolding you and you can't you don't know what's going on. You're going to feel disoriented.
+8:548 minutes, 54 secondsYou're not going to like it, right? So, keep your UIs really tight. Try and only display what needs to be displayed, especially in text or in buttons. Make
+9:049 minutes, 4 secondssure that the buttons are big because remember the click is your fingers doing this and the lens on your camera picking
+9:119 minutes, 11 secondsup that you're pinching like that, right? So, you don't want a lot of tiny little buttons that the person's going to have to do this to cuz it's going to be hard for those those pinches to
+9:199 minutes, 19 secondsregister on screen. So, those are two examples. Watch the video for more. Um, I guess the one last thing I would say about the design bit is if you really
+9:289 minutes, 28 secondswant to go above and beyond, we tried to add more resources for you. there's a resources page and if you scroll down on that resources page a little bit, not
+9:379 minutes, 37 secondsonly do you get a ton of official Snap videos and live streams, so other people developing things like what I did for my
+9:439 minutes, 43 secondslive build, but other projects, other ideas, other developers. Um, there's also a section called learn AR design.
+9:519 minutes, 51 secondsAnd this comes from like all over the internet. It's not just specs. We're trying to make you a a fully well-rounded AR developer. There's stuff from Google and Android here, Microsoft
+10:0010 minutestalking about what makes a good AR app as opposed to a website. So, dig in there if you want more information. Um, okay. Technical implementation is pretty
+Chapter 7: Technical implementation and the Devpost skill pack
+10:0810 minutes, 8 secondssimple. You just need to use the the skill packs, the tools that we specified. It's a lot easier to use those than the code from scratch. So,
+10:1610 minutes, 16 secondsyou probably will whether we ask you to or not. Um, but keep in mind, we want you to use the Devpostlearn skill pack.
+10:2310 minutes, 23 secondsum which is just a simple agent skill that'll help you develop a spec to develop your your AR app. And how we'll
+10:3010 minutes, 30 secondsknow you use that is the skill instructs the agent to create a folder named devpost in your repo and then write the planning markdown documents there. So
+10:3910 minutes, 39 secondswe're going to check for that. We're going to make sure that there's a devost folder in your repo. So keep that in mind. Innovation and idea. We want this is the thing that I care about the most
+Chapter 8: Innovation: original ideas that use AR
+10:4710 minutes, 47 secondspersonally when I'm judging stuff. I want stuff that's original. I want stuff that makes me say, "Wow, that is creative. That is intelligent. I did not
+10:5510 minutes, 55 secondsthink of of coming up with that kind of idea before." Really important to me.
+10:5910 minutes, 59 secondsThat's what I think differentiates great projects in in this age of AI that we have. So, um, what I would like to see is something that's off the beaten path,
+11:0811 minutes, 8 secondssomething that shows that you thought really creatively, that you're not copying things you saw other people do, but that this is your own idea. Um, in
+11:1611 minutes, 16 secondsparticular, you know, I want to see like creative uses of the unique parts of AR.
+11:2211 minutes, 22 secondsSo, we talk about that again in the conceptual video. If you haven't watched that, watch the YouTube video on the front page of of learnspecs.deboth.com,
+11:3011 minutes, 30 secondsbut it's how do you deal with camera that records everything the user sees.
+11:3411 minutes, 34 secondsUm, things that are drawn in their field of vision and leaving their hands free.
+11:3811 minutes, 38 secondsThat's especially we'll show you in in the demo videos today. What I think is really cool is when people do stuff where you're physically out there in the world touching grass, but you're
+11:4611 minutes, 46 secondsdesigning apps to do stuff and your hands are free to learn things or climb rock walls or or whatever else the may be. I think that's creative and cool.
+Chapter 9: Presentation and demo videos
+11:5411 minutes, 54 secondsFinally, four, presentation, learning how to make a good video, learning how to communicate quickly and effectively um with your viewers. And and we'll talk
+12:0212 minutes, 2 secondsabout that. I'll just show instead of tell that because I've been talking for a while, but good videos are really important. So, we'll talk about good technique for that as we review these submissions.
+Chapter 10: What good design for AR glasses looks like
+12:1012 minutes, 10 secondsPerfect. All right, moving on. So, what does maybe we can talk about what good design for glasses look like. I know we
+12:1812 minutes, 18 secondswent over that during the explainer video, but for anyone who's new, like what in 60 seconds, what would you say makes good design for glasses?
+12:2812 minutes, 28 secondsTotally. Totally. Yeah. So, so I touched on some of this um when I was talking about the design criteria. I know.
+12:3212 minutes, 32 secondsforgot the slide was here, but um you want to make sure that you're um you're not just creating a website that lives in front of someone's face. That's
+12:4112 minutes, 41 secondsthat's the failure mode. As much as you can get away from that, um the better off you'll be. try and think fresh about
+12:4812 minutes, 48 secondsthis this new modality because what uh our instinct will be as folks who learn to code for stuff that renders on a
+12:5512 minutes, 55 secondsscreen will be to carry off everything that we know uh from screen screen coding and and implant it into galactic
+13:0313 minutes, 3 secondscoding. Um and that will create a lot of problems, right? Do not create a website that lives in front of your face. Um so you want something field out of the way.
+13:1213 minutes, 12 secondsyou need to be a little more subtle with the design because you don't want to block people's view. Um, remember you're designing something that shares the
+13:2013 minutes, 20 secondsuser's view. Um, the user sees into physical reality and you're drawing on top of it. So, you have to be very scrupulous in how you do that. Um, when
+13:2813 minutes, 28 secondsyou do that, you want uh to draw things that exist in that world. Um, that's because we're developing outside of Lens
+13:3613 minutes, 36 secondsStudio. So, we're no one needs a pair of specs classes. Um, we're only going to use the the live preview tools inside of
+13:4513 minutes, 45 secondsSnap's IDE. So, you need to if if you want to create things that are recognized in this world that are unique, you need to 3D model those
+13:5313 minutes, 53 secondsthings so the glasses can recognize them. And then we want you to design things that can kind of benefit from
+14:0114 minutes, 1 secondyour hands being able to do things. So, things where you're active and out in the world. We've been sitting in our chairs watching screens for so long as
+14:0814 minutes, 8 secondsas tech oriented people that let's see what happens when we go outside and trying to do something.
+Chapter 11: What to submit: video, repo, and description
+14:1514 minutes, 15 secondsAll right. So, in terms of what to submit prior to us getting into um what we're kind of live reviewing today, in
+14:2214 minutes, 22 secondsterms of what to submit, make sure you have your demo video ready under three minutes, please. We do get a ton of projects. So, we want to make sure that
+14:3014 minutes, 30 secondswe're being able to give as much time as we can to each project while also being reasonable because of the fact that we
+14:3814 minutes, 38 secondsare human beings. Um, and so under 3 minutes showing that your lens is working in Lens Studio preview. I would say get to the demo in the first 10
+14:4614 minutes, 46 secondsseconds. Like, you know, show us what we need to see pretty quickly and pretty fast. All right. And make sure I think we said public repo for for this
+14:5414 minutes, 54 secondsparticular hackathon. Um, I would ideally go with GitHub, but can do GitLab or Bitbucket, but ideally GitHub
+15:0115 minutes, 1 secondwith your lens studio project files and the dev post folder um, the skill pack creates. And then also a description of what your lens does, who's it for, and
+15:1015 minutes, 10 secondswhat you learned. And also, it would be great to know like how the defost skill pack kind of helped you in this journey and in this build as well. Um, quick
+15:1915 minutes, 19 secondsnotes for this particular hackathon, we are saying YouTube is going to be the place where you want to host that demo
+15:2615 minutes, 26 secondsvideo. And so I think there were some people who did like Google Drive or Vimeo. And so I think we have one um demo today technically that uses Vimeo,
+15:3515 minutes, 35 secondsbut I would say for your submission, go ahead and use YouTube for that. And it does have to be public. Go ahead and do
+15:4215 minutes, 42 secondsa public YouTube. and Joe, let me know if I'm like wrong in any of this at all, but uh yeah. Okay, great. All right, so those are the three things you want to
+15:5015 minutes, 50 secondsknow before we go on to submit. So, now that we've yapped and yapped and yapped, we're going to yap a little bit more uh and review some projects. So, we'll talk
+15:5915 minutes, 59 secondsabout what's working tied to criteria, um maybe what to fix before Monday because like I said, that deadline is coming up. It is Monday. Um and I
+16:0716 minutes, 7 secondsbelieve some of you had questions on like what they want feedback on. And then like I said, it is kind of a it's
+16:1516 minutes, 15 secondsnot just for this particular project or these projects that we're reviewing.
+16:1916 minutes, 19 secondsTake what you can from what we're saying about each project and apply it to your own um hackathon project as well. All
+16:2616 minutes, 26 secondsright. And I did see some projects kind of like come in the chat. So hopefully if we have time we can get through those too cuz I saw some really cool ones that I'm like, "Oh, I I kind of want to see
+Chapter 12: Review: Aftershock, an AR earthquake drill
+16:3416 minutes, 34 secondsthat." So we'll see what we can do and we'll start with the first one um being Aftershock. So, preface about how we'll
+16:4216 minutes, 42 secondskind of go through it. Um, I'll read the title, I'll read the description, what their question is, what they're looking for in terms of feedback. Um, and then
+16:4916 minutes, 49 secondsI'll play 60 seconds to 90 seconds of the demo, and then we'll talk about um feedback. All right. And so, Aftershock,
+16:5816 minutes, 58 secondsan earthquake drill, builds a bedroom around you at real scale, labels every hazard, then starts the shaking without
+17:0617 minutes, 6 secondswarning. You take cover with your body, fix the room by fastening the shelf, and the same quake plays again. So you see what your fix change. So this is kind of
+17:1417 minutes, 14 secondslike our earthquake fire drill or an earthquake drill essentially. I like it.
+17:1917 minutes, 19 secondsUm their question is the result is what number four out of five falling items prevented? Does that land as a reason to
+17:2617 minutes, 26 secondsfasten your own shelf or read as a game score? Oh, interesting. So it's like okay is like does the resulting number
+17:3417 minutes, 34 secondsland as something that's making sense for the user.
+17:3717 minutes, 37 secondsAll right. So looking for like design and idea. All right. All right. Let's take a look in terms of the demo video.
+17:4517 minutes, 45 secondsEarthquake right now. Where do you go?
+17:4817 minutes, 48 secondsNot near that TV. Fasten one shelf and four of the five falls never happen.
+17:5317 minutes, 53 secondsThis is aftershock an earthquake drill for snap spectacles. Indonesia gets about two quakes a day. You can feel reading a safety leaflet. Easy to forget. Here you actually do the drill.
+18:0518 minutes, 5 secondsPick a level. Practice ducking once.
+18:0818 minutes, 8 secondsGood. That's how then the room builds itself around you.
+18:1218 minutes, 12 secondsNew room every time. Every hazard gets a label. Red zones. That's where stuff can fall on you. And most quake injuries, falling stuff.
+18:2218 minutes, 22 secondsAn earthquake. Go under the table. Hold until the shaking stops. under the table. Nothing hits you.
+18:3118 minutes, 31 secondsThere goes the TV. Grab the table leg and just wait it out.
+18:3818 minutes, 38 secondsHold until the shaking stops.
+18:4118 minutes, 41 secondsThe shaking stopped. Come out from under the table. Done. Not quite. This is an aftershot. Duck down.
+18:4918 minutes, 49 secondsYep. Back under you go. Real quakes do that, too.
+18:5618 minutes, 56 secondsThe shaking stopped. Come out from under the table.
+18:5918 minutes, 59 secondsThen you get a score. How fast you hid, how well you held on, and how fast you got out. You can watch it again. That green line, that's you.
+19:1019 minutes, 10 secondsNow fix the room. Pinch the shelf, and it's fastened to the wall. All right. So, that's about 90 seconds.
+19:1719 minutes, 17 secondsAll right. So, what they were looking for in terms of feedback, design, and idea. So, Joe, I'm curious. initial thoughts on Aftershock.
+19:2519 minutes, 25 secondsAbsolutely. I got a lot. Yeah. I mean, the big takeaway is that this is a creative great idea. I think this speaks to kind of like broadly speaking the the
+19:3419 minutes, 34 secondssort of ideas that we're excited by. Um, so it's something that's immediately useful. It uh relies on things in a
+19:4219 minutes, 42 secondsperson's physical environment and you're expected to physically do things and kind of uh pick up physical skills. So, the idea I would rate quite highly. I
+19:5119 minutes, 51 secondsthink it did a really good job. Um, a lot of the features I thought were quite creative. Um, I like that it's a game
+19:5819 minutes, 58 secondsthat can drill you uh so that you can sort of practice. Um, I really liked the replay idea that it's keeping track of
+20:0520 minutes, 5 secondshow you move during the emergency and then replaying how you did that. I think that's really cool. Um, and just yeah, like the the hands-on sort of nature.
+20:1520 minutes, 15 secondsNow, it seemed very featureful. uh like you know you you do a drill uh you're instructed to specifically do things like hang on to a table and and then
+20:2420 minutes, 24 secondsafterwards it's like how to fix things like u screw your your shelves in or whatever. Um there are a few things that I thought were a little confusing and
+20:3220 minutes, 32 secondsI'm not quite sure about and I I want to open this up for everyone too. Um, but I didn't realize that this would confuse me until I started seeing these demo
+20:4020 minutes, 40 secondsvideos. But it's like I kind of wonder what it feels like to put it on and and
+20:4720 minutes, 47 secondslike what the end to end experience is like because right now as I look at it, I'm seeing clips that are edited and stitched together for the demo video, which is good. You should be doing it.
+20:5620 minutes, 56 secondsYou should be presenting this in a very digestible way. Um, but at the same time it sort of like makes me because AR is like this different experience to have.
+21:0821 minutes, 8 secondsIt still makes me kind of wonder like but what happened? I put the glasses on or I'm in lens studio and then what happened? Where am I? What is what shows
+21:1621 minutes, 16 secondsup in what order and what does it feel like? I feel like I still don't quite know that as much as I could. So, like one thing I might be curious to see is
+21:2321 minutes, 23 secondsjust like literally like no cuts, just unbroken, what the experience feels like, even if it's just the recording um
+21:3121 minutes, 31 secondsyou know that that's uninterrupted while you present it for like a minute straight or whatever. I think that would be helpful. Um, another thing that jumps
+21:3821 minutes, 38 secondsout, there are a few places um and Darl, maybe you could scrub around till we got to like the score screen that has a lot of UI information on it.
+21:4721 minutes, 47 secondsYeah, of course. Um, so this is an example of something that I think for the most part this project did a really great job of, but like things like this are kind of like a little tricky, right?
+21:5721 minutes, 57 secondsThis is sort of like an example of like a website on your face right now. If it's showing you your score results and it's only supposed to be there for a
+22:0522 minutes, 5 secondssecond, it's not that big of a deal. But like remember like this thing is going to be in front of someone's face and they can't see what's behind them. So
+22:1322 minutes, 13 secondslike it it seems a little big. Um, for the most part though, I would say this project did a really great job of like there's just one UI, there's just one
+22:2022 minutes, 20 secondsbutton that you see at a time. It's not overdoing stuff. For the most part, it did a really good job of that. I think the only other thing that I'd be curious about kind of brain dumping right now,
+22:2822 minutes, 28 secondsbut this my last thought is um in the video um I'm curious said like
+22:3522 minutes, 35 secondsyou get a new room every time. Is it modeling a new room every time? I would imagine it should be taking in your
+22:4322 minutes, 43 secondsactual living room, your actual bedroom, so you're actually safe from the earthquake, right? It's not like drawing a new room, right? That I was confused about, too.
+22:5222 minutes, 52 secondsYeah, I'm definitely aligned with that.
+22:5422 minutes, 54 secondsI'm seeing some feedback in the chat. I think Aftershock feels like a good project, but too gamelike. If that is the intention, good. But if it's meant
+23:0223 minutes, 2 secondsfor actual practice, maybe not. But I think it would be a pretty good game.
+23:0623 minutes, 6 secondsand someone else says it might be worth showing the real field of view. Right.
+23:1123 minutes, 11 secondsExactly. Like the actual like room versus because when I think about like earthquake preparation, I'm thinking about my immediate environment. Like how
+23:2023 minutes, 20 secondsdo I prepare based off of the location that I am living in as opposed to changing rooms that may not necessar
+23:2723 minutes, 27 secondslike I'm not going to be in that room necessarily during an earthquake. So like that realworld use some inspiration
+23:3523 minutes, 35 secondsthat could be interesting and this is actually this is AR there's an AR inspiration or technically VR inspiration but there are some AR
+23:4423 minutes, 44 secondscapabilities um and a non AR inspiration. So, Apple Fitness specifically, like I use Apple Fitness a
+23:5123 minutes, 51 secondslot um at home. And what I've always enjoyed is that when they're telling me like a score, like an update to my circles, it kind of shows up as on this
+24:0024 minutesfar right corner situation, it kind of pops in for a second, shows you a little thing, and then kind of like pops back
+24:0724 minutes, 7 secondsout as opposed to like a screen, you know, something that's kind of like in my way of what I actually want to see, which is like the point I I think of
+24:1524 minutes, 15 secondsthat particular feedback. Another aspect of this is a fitness app that I use in my VR headset called Supernatural. Um,
+24:2324 minutes, 23 secondsand I love Supernatural because I one, it's just really fun to like, you know, play that game or do fitness and play a game at the same time, but also the way
+24:3224 minutes, 32 secondsthey kind of go about indicating like your goals or like you did this. It's very unobtrusive as you're trying to
+24:4024 minutes, 40 secondsfocus on like maybe the visual that you're you're actually wanting to pay attention to, which could be a trail or could be mountains or anything like that. And so not wanting to interfere
+24:5024 minutes, 50 secondswith what the actual point of like what the actual point of the interaction with by distracting them with like menus kind
+24:5824 minutes, 58 secondsof popping up, you know, like if if they have to use their hands to like take this thing out of the way, you know, in
+25:0625 minutes, 6 secondsorder to continue with the interaction, then it becomes this kind of like really obtrusive interaction, I will say. Um, I'm seeing some couple thoughts in the
+25:1325 minutes, 13 secondschat as well. Dawn, for the earthquake drill project, perhaps focus on one or two scenarios and show the pincher grab.
+25:2125 minutes, 21 secondsOoh, show tips as the user performs the drill. Run, grab, take shelter, come back out. I really love that suggestion,
+25:2825 minutes, 28 secondsJohn Don. That's really great. And Matelish Matilles says, "To put in simple words, AR should be augmentation
+25:3525 minutes, 35 secondsof actual surrounding reality itself, not uh not simulation of reality." And this might be a little too simulationoriented.
+25:4325 minutes, 43 secondsI I yeah, I'm here with you, Matlesh.
+25:4725 minutes, 47 secondsAll right. Again, this is not an easy thing to do your project in front of people, especially a live review. Like, that's kind of scary. So, I appreciate
+25:5525 minutes, 55 secondseveryone's bravery and I appreciate everyone's feedback as well. This was some really great actual feedback and thank you so much to the person who built Aftershock. All right, let's move
+26:0326 minutes, 3 secondson to our next project. This one is Next Hold. Next Hold is a guide on the climbing wall. So Mark's climbing holds
+Chapter 13: Review: Next Hold, an AR climbing guide
+26:1226 minutes, 12 secondson the wall with a ring. From a distance, there's a ring on every hold. Up close, it's one ring and one word.
+26:1926 minutes, 19 secondsHolds are marked by hand for now. So there are questions from 2.5 mil uh meters back. Does a ring on every hold
+26:2626 minutes, 26 secondsread or is it too much? Is one ring and one word enough up close? And then ship with handmarked holds or or should they
+26:3326 minutes, 33 secondsship with handmarked holds or wait for hold recognition? So they're looking for design feedback. So, what reads at a distance and how much to show at once?
+26:4126 minutes, 41 secondsAnd then, uh, some feedback on scope.
+26:4326 minutes, 43 secondsSo, what to ship now versus later. Oh, that's a good question. All right. So, let's take a look at next hold. Halfway up a problem. Arms burning. A lot of
+26:5126 minutes, 51 secondsnewer indoor boulderers stop because they can't see where to go next.
+26:5726 minutes, 57 secondsSo, you read the problem first from the mats the way climbers do. Every hold gets a ring for your body.
+27:0527 minutes, 5 secondsGreen is a secure grip from where you are. Red is out of reach.
+27:1027 minutes, 10 secondsThe glow is your next move and the tags are the two after it.
+27:1827 minutes, 18 secondsWalk up to the wall and the glasses only see about one hold.
+27:2527 minutes, 25 secondsSo the lens switches by itself. One ring, one word.
+27:3227 minutes, 32 secondsMake the move and everything recomputes in the same frame.
+27:3827 minutes, 38 secondsStep back and the plan has moved on with you.
+27:4627 minutes, 46 secondsThe plan is searched for your body.
+27:5327 minutes, 53 secondsA shorter climber takes the pinch. A taller one skips it for the big jug up to the left. And the top gets easy.
+28:0128 minutes, 1 secondSame wall, same start, a different one, two, three.
+28:0628 minutes, 6 secondsWe set up this demo wall to show it. The root search itself is general.
+28:1628 minutes, 16 secondsFeet reach from the hip, not like an arm.
+28:2028 minutes, 20 secondsA foot well above it is a high step. And the len All right, we're about 90 seconds in. I Let's Let's talk about what we've seen so far. I'm curious your thoughts, Joe.
+28:3028 minutes, 30 secondsFrom a design perspective, what are we feeling?
+28:3428 minutes, 34 secondsWe're feeling really good about this. I I I'm pretty impressed with this. I think it's pretty great. Um, so a few things that jumped out to me, and I'm
+28:4228 minutes, 42 secondsloving the feedback from the chat, by the way. Um, we're we're developers alongside you. We're learning AR alongside you, so please share with us
+28:5028 minutes, 50 secondsand and offering constructive feedback to you. Um, I thought this did a few things that were really smart and really intriguing and interesting. Um, so one
+29:0029 minutesof like the the big galaxy brain thing I thought that happened here is the change in interface depending on how zoomed in or out of you are from the rock wall.
+29:0929 minutes, 9 secondsUm, that seemed really intelligent that like um not just like changing modes or different hardcoded settings of the app,
+29:1729 minutes, 17 secondsbut it literally changes as it looks at what you're looking at. So that's like a perfect example of the design thing we were talking about where it's like
+29:2529 minutes, 25 secondsyou're computing in an environment that's the person's actual field of vision. You know what I mean? So how do you think about that, right? I think that's an amazing example of it where
+29:3329 minutes, 33 secondsit's like if you're far enough away, it shows you the whole map up the wall, but if you're only on one hold that it gives
+29:4029 minutes, 40 secondsyou this like zoomed in extra detail about the hold the the the hold thingy.
+29:4629 minutes, 46 secondsI don't know anything about bouldering, but the whole dongle thingy tells you more information about that was super smart. Um, really curious to learn more
+29:5529 minutes, 55 secondsabout it. Love the production. Thought it was like a smooth, nice looking video so far. Um, there were some stuff that I thought was kind of confusing. I feel
+30:0430 minutes, 4 secondslike I didn't quite understand how it was supposed to work. Um, the body and height adjuster thing um, in step four
+30:1230 minutes, 12 secondswhen it's like for your for your body, I think. So, like customizes to your body type. Are you supposed to like input
+30:1930 minutes, 19 secondsyour own? I didn't really I might have just not gotten it. It's like I manually input how tall I am so it knows how to plan stuff out. You would think it could
+30:2730 minutes, 27 secondstell from where I'm if I'm up high from the ground. It was like I I didn't quite understand that.
+30:3430 minutes, 34 secondsYeah, that's an interesting point cuz like in VR like in my headset like you're able to calibrate your height and so like I noticed for this particular
+30:4230 minutes, 42 secondsdemo it's like a constant like kind of like pinching even or I don't know if it's like pinching or pressing or tapping or something which if you're
+30:4930 minutes, 49 secondstrying to get to a climb fast I guess it's just like kind of like and I'm fairly tall. It's just like a lot of um
+30:5830 minutes, 58 secondsmanual this prior to like being able to jump in. So maybe a little less seamless than I would like.
+31:0531 minutes, 5 secondsInteresting. Yeah, I'm curious about anyone else's thoughts about that as well. And yeah, for I've done some
+31:1331 minutes, 13 secondsbouldering and so I'm actually curious who the audience is for this because you know the it's prefacing with you know if
+31:2031 minutes, 20 secondsyou're stuck halfway up see your next hold. Um, and so I'm curious and if anyone else is a boulderer, you know, or
+31:2931 minutes, 29 secondsanything like that, um, if this feels like cheating to me, like part of it is
+31:3731 minutes, 37 secondslike I want to figure this out. Like you kind of want to figure it out on my own a little bit versus it saying like, okay, kind of go up here. And so I'm
+31:4631 minutes, 46 secondswondering if there is a way to guide without leading. I don't know if that makes sense. like the cuz part of
+31:5431 minutes, 54 secondsthe fun is trying to figure out like where to put what. Uh so yeah, so but it is acting as a coach. So yeah, I'm
+32:0232 minutes, 2 secondscurious any other thoughts. I see some feedback in the chat. Um Phoebe says, "I like that the UI is flat against a
+32:0932 minutes, 9 secondssurface naturally because it's a wall and the color coding." Yeah, the color coding is nice. I do like that. I do wonder how it tracks that. Um so like if
+32:1932 minutes, 19 secondsyou go to different gyms, right? like uh how does it know like okay this is part of one versus the other. Um granted
+32:2632 minutes, 26 secondsevery um every gym will may have their own kind of like color coding system like you know like easy may be like
+32:3432 minutes, 34 secondsgreen and hard maybe black but that might be different per gym or how is it able to like how accurate is it in that
+32:4232 minutes, 42 secondsregard? Um are you able to calibrate the accuracy in that regard? Um, Aaron says, "I like the design and the coaching. I
+32:5132 minutes, 51 secondsthink you should add points depending on the path you take." Oh, curious. Yeah, gamification. Because then, yeah, if it's supposed to coach you and you're
+32:5832 minutes, 58 secondslearning, it's like, okay, you got it now, next level. And maybe it can kind of tell you like if you're ready for, you know, yellow, if you're ready for
+33:0633 minutes, 6 secondsred, you know, like maybe you want to try this again and here's where you got stuck, you know? I think that speaks to what you're saying.
+33:1333 minutes, 13 secondsYeah, for sure. because you were like, "Yeah, what what use does it serve if like your your job is to try and figure out your path?" But if it can make it
+33:2033 minutes, 20 secondsinto a game for you or it's timing you and giving you a time trial or it remembers your path, it can tell you the better path next time. Like all those things make climbing more fun than it was originally. Like they're additive.
+33:3033 minutes, 30 secondsUm so yeah, really good ideas. Aaron's got some great comments uh in the chat here to a developer.
+33:3633 minutes, 36 secondsLet's see. Let's see. What is it? Erin, what is the risk if the hold classification fails? Yeah, what is the risk? Okay, I think you should add
+33:4533 minutes, 45 secondspoints depending on the path you take. I agree. Don is also saying maybe make the holes a toast. Oh, I like that little
+33:5233 minutes, 52 secondstoast that pops up with visual hints if you get stuck. And this is where conversational AI in AR might be handy. Oh, that's an interesting.
+34:0134 minutes, 1 secondYeah, definitely curious to see more like LLMs or voice models inside of some of these specs. We haven't seen that
+34:0834 minutes, 8 secondsyet. Be a really curious thing to see included. Um, Mitoes, I I uh raises the similar point to the last one we watched
+34:1634 minutes, 16 secondswhere it's like this is more of a simulation. I do just want to point out y'all don't have specs classes to develop on. So, we're not really going
+34:2434 minutes, 24 secondsto be that hard on you about needing to create simulations. You have to model up a simulated world to create your app in the first place given the way that we're
+34:3234 minutes, 32 secondsdeveloping these. So, we understand you don't have the glasses and you can't really program against reality right now. It's just like trying to have the
+34:4034 minutes, 40 secondsright habit of mind that preparing for that next stage, right?
+34:4434 minutes, 44 secondsYeah. All right. Hold. Thank you so much. Next hold. Great idea. I'm excited to see what the final product looks
+34:5234 minutes, 52 secondslike. I think the last thing they just asked about in terms of scope. I think we kind of talked about scope, like kind of what to focus on. Um, and I'll
+35:0035 minutesprobably focus on Yeah. what who's who's the audience and what's that audience's journey? What do they need to know like to do this thing? Yeah, I would say
+Chapter 14: Review: SkyHangar, live flights in the sky
+35:0935 minutes, 9 secondsthat's kind of like the most general way I could put that. All right. All right.
+35:1535 minutes, 15 secondsMoving on. We have skyh hanger. What's flying overhead? So, real planes, helicopters, and satellites shown where
+35:2335 minutes, 23 secondsthey are in the sky with routes as glowing trails. Okay. Pinch to pin one and open its flight card. Then drag its
+35:3035 minutes, 30 seconds3D model onto your hanger shelf. I'm visualizing as I read this out loud to collect it. Built on a recorded snapshot
+35:3735 minutes, 37 secondsof real flights still in progress. So their question, what should I fix or add before submitting so the experience feels complete and coherent and not just
+35:4535 minutes, 45 secondslike a tech demo? Um looking for feedback on design. So their question is the design criterion word for word. And then presentation. So this is basically
+35:5335 minutes, 53 secondsa raw formatted walkthrough. Um and does it does it hit is it hidden? So, let's
+35:5935 minutes, 59 secondsfind out if Skyh hanganger is hidden hanger.
+36:0736 minutes, 7 secondsOh. Oh, let me use my pinky.
+36:1236 minutes, 12 secondsThat's crazy. I love that. I when I was seeing this earlier that if it was tracking the satellites too, astral space stations there,
+36:2136 minutes, 21 secondsI can see where the star links are pointing at me and stuff, right? Super cool.
+36:2936 minutes, 29 secondsAltitude. Okay. That's an Airbus. All right.
+36:3736 minutes, 37 secondsWow.
+36:3836 minutes, 38 secondsAnd land it and pulled it down from the sky.
+36:4336 minutes, 43 secondsOh, the hanger. That is cool. That was pretty slick.
+36:4836 minutes, 48 secondsYeah, this is nice modeling, too. It's kind of fun. Yeah. Yeah.
+36:5436 minutes, 54 secondsSandro, do you have a background in 3D modeling that or did you get that Airbus model from somewhere? I'm curious.
+37:0337 minutes, 3 secondsI'm curious. All right.
+37:0637 minutes, 6 secondsTelescope. Okay. Yeah, let's talk about it.
+37:1037 minutes, 10 secondsI only saw the first couple seconds of this uh you know, a minute back before we went on stream. Um and I was like, I
+37:1837 minutes, 18 secondsdon't quite understand it after we watched a full minute 30 of it. Um, I'm I'm pretty impressed. I actually think this was really cool.
+37:2637 minutes, 26 secondsI think this is very fun.
+37:2737 minutes, 27 secondsSo, a few things I'm curious about. I'm just going to think out loud with the chat here. I got an eye on uh what y'all are talking about. So, S, super
+37:3537 minutes, 35 secondsimpressive, y'all. If you guys were were worried about, you know, 3D modeling and not having the chops to do it. I'm reading Sandra in the chat. Had zero
+37:4237 minutes, 42 secondsbackground in 3D modeling. Everything was built with the tools required for the hackathon and cloud code and that impressive Airbus like uh plane model
+37:5037 minutes, 50 secondsand stuff. Sky's is the limit these days, y'all. So, the limit to your imagination. Um, but yeah, is so I was kind of I was curious about a few
+37:5737 minutes, 57 secondsthings. One was like who it's for. Um, so like if am I just like a plane enthusiast? It seemed that way. If I'm
+38:0538 minutes, 5 secondsjust if planes are like my special interest, then like I will want to collect them out of the sky and put them in my my plane collection. Um, so it
+38:1338 minutes, 13 secondsseemed like that was sort of who it was designed for. It's just people that are really that love planes and different types of planes and satellites. Um, but
+38:2038 minutes, 20 secondscurious about that. It is quite it wasn't quite clear who was intended for.
+38:2438 minutes, 24 secondsUm, another thing I'm wondering about is like, and this is just my own ignorance of of aviation, but like the planes were huge in the sky, right? In that
+38:3238 minutes, 32 secondssimulation, they're like chunky. They they would be really close to Earth, you know? Um, if I'm looking up in the sky,
+38:3938 minutes, 39 secondsis is the lens really able to spot, you know, like something that's in full, you know, that's really like at cruising altitude or whatever. Does that make
+38:4838 minutes, 48 secondssense? Um, so those were a few things that struck me. I wonder about the feasibility of it in real life. I don't know. Darlise, did you have any of those thoughts?
+38:5738 minutes, 57 secondsYeah, I am wondering I I wondered who this was for and I guess what the goal was. Um, I I didn't know it was
+39:0539 minutes, 5 secondshappening, I guess, until like it just felt like, oh, in VR there are these kind of games that are just simulations essentially of just
+39:1439 minutes, 14 secondslike, oh, I'm just interacting with an environment just to like poke poke around, you know? I'm just curious about a topic.
+39:2139 minutes, 21 secondsSuper cool and creative. Like, yeah, I think it's really neat. And like the delight of picking the plane out of the sky and throwing it in your especially
+39:2839 minutes, 28 secondsif you're like physically actually grab, you see like that that is very cool. I imagine that would feel amazing to actually do with classes. Yeah, similar
+39:3739 minutes, 37 secondsto the stargazers out there. I agree. Um but I was confused about the you know the image recognition there of the
+39:4539 minutes, 45 secondsplanes like if in real life you would be able to to grab real real planes. Oh, Shereek has a great question here too.
+39:5239 minutes, 52 secondsShar asks, "Is there a live data set for planes and satellites? If not, how will you predict they will be there or or was it just a game or a mockup?" Yeah,
+40:0140 minutes, 1 secondcurious about that, Sandro. Um, it seemed like you had good like, you know, reliable data there and yeah, I've seen
+40:0840 minutes, 8 secondslike live feeds online of just like dashboards of planes. So, um, that may be where that comes from, too.
+40:1440 minutes, 14 secondsYeah, I I'm even curious about the path as well. Like, how do you know like there's like this dotted path of like
+40:2240 minutes, 22 secondswhere it's going? So, it's like how do you know it's going this way? Is this like a pretty generous estimation? I do like this information. I think
+40:3040 minutes, 30 secondsit sitting in front of the face like that is a bit awkward for me.
+40:3440 minutes, 34 secondsUm, just based off of like how I'm visualizing. Yeah, that's fun. Honestly, the pulling down. I didn't know that I could do that. So, maybe
+40:4240 minutes, 42 secondsI really like by the way like just having those two big buttons like that size and that readability of UI feels
+40:5040 minutes, 50 secondsmore like AR native than like you know some of the other menus we've seen. um collected and then yeah so I think it's
+40:5740 minutes, 57 secondsa really fun application like especially if you are a plane enthusiast flight enthusiast and you're just wanting to
+41:0541 minutes, 5 secondskeep track and kind of collect I'm wonder and this probably might be um later in the video of like okay great uh happens after you collect
+41:1341 minutes, 13 secondsum which is like I think the most fun for me after that of just kind of like playing with these planes um this is
+41:2241 minutes, 22 secondsactually interesting because this is actually fun and interesting um based off of something Don said in um the last
+41:2941 minutes, 29 secondsone of like tool tips that kind of pop up to kind of give you an idea of what you can do like as you're kind of going
+41:3741 minutes, 37 secondsthrough it. And so as I'm looking up to the sky, like a nice tool tip that kind of pops up unintrusively to say like, okay, now pinch and then drag and like
+41:4541 minutes, 45 secondsit it's maybe a more gamified and fun way to do like the onboarding um as opposed to me having the question of
+41:5241 minutes, 52 secondslike what am I doing here? um after landing. Granted, this is like a demo, so like you know, no fault or anything like that, but those are like my initial
+42:0042 minutesthoughts right now, right?
+42:0342 minutes, 3 secondsI understand now, too. I was mistaken. I thought it was And now I see how silly this was. I thought it was like recognizing the plane
+42:1042 minutes, 10 secondsvia like computer vision, but it's actually look, it knows where you are, coordinates, and then it takes that public data and and draws the
+42:2042 minutes, 20 secondsplanes in the sky, which makes it significantly cooler. Yeah, look at that.
+42:2442 minutes, 24 secondsThat's really a wow factor. I mean, I can see specs being interested in something like this just to show off an example of what's cool because I remember when the I don't know how old
+42:3242 minutes, 32 secondsy'all are, but when the iPhones first started coming out, you would one of the big things was that like constellation view where you tilt your phone up at the
+42:4042 minutes, 40 secondssky and it would draw the constellations for you. This kind of reminds me of that.
+42:4542 minutes, 45 secondsHonestly, great work, Sandra. Like, this is a fun project. Amazing. Shereek says, "Imagine you're going for a walk and look up to see the telescope."
+42:5442 minutes, 54 secondsReally? Yeah. It's actually pretty cool because our sky is like full of of junk and machines and stuff at this point.
+43:0143 minutes, 1 secondPretty crazy. [laughter] That's amazing. Uh great work. Great work, Sandra. I'm excited to see like
+43:0843 minutes, 8 secondsthe full final uh demo for this. Yeah, you got some great projects going. All right.
+43:1343 minutes, 13 secondsIt'll be hard to judge. Yeah, very MWNP no guest field assistant. So for industrial service texts, report a fault
+Chapter 15: Review: MWNP, a hands-free field assistant
+43:2343 minutes, 23 secondsand it walks you through the check using only the machine's own wiring files. It highlights parts, traces the wires,
+43:3043 minutes, 30 secondsshows the expected voltage and logs your readings. If a reading fits nothing, it tells you to recheck instead of guessing. So their question is the no
+43:3743 minutes, 37 secondsguess rulebased approach a strength or does it feel too limited? They're looking for feedback on the idea. Um, it's built by a field service tech for
+43:4643 minutes, 46 secondsthe job that he does, which is cool. I like real world applications. Um, I love fun stuff, too. So, this is going to be an interesting pivot here. Uh, and
+43:5543 minutes, 55 secondshandsfree. Does the tech keep both hands on the meter? Okay. So, let's take a look at MWNP.
+44:0544 minutes, 5 secondsAll right. What we got here? I'm a little confused.
+44:0844 minutes, 8 secondsDarlise, can you tell what's going like so the preview environment here? Um, if y'all have have worked with Lens Studio yet in the chat, you know, like the the
+44:1744 minutes, 17 secondsbackground that looks like the living room on the sides there is one of like the prefab, you know, preview environments, but then there's like an overlaid image here. Uh, looks like it might have been generated or something.
+44:2944 minutes, 29 secondsYeah, I think for demo purposes, it's probably been generated, but it's supposed to show, I guess, what you would be looking at as
+44:3844 minutes, 38 secondsa field tech. And then [clears throat] you're using your glasses. Okay. Like there's an issue. It pops up this thing.
+44:4644 minutes, 46 secondsYou're kind of going through the job report and everything. Yeah. Lot of information.
+44:5244 minutes, 52 secondsIt is a lot. That is like my first initial feedback. This is a lot of information. Yeah.
+45:0045 minutesYeah. Harry Berto writes, "Lots of text in the overlay. Perhaps too much info." I think I think we could all say that's the big main takeaway. Um Yeah. what
+45:0945 minutes, 9 secondsjumps out. So, so I'll share a few thoughts that I have. So, one is um to to give you the good feedback first. If
+45:1745 minutes, 17 secondsyou can pull this off, you can probably figure out how to make money with that.
+45:2045 minutes, 20 seconds[laughter] You know, this is an obvious use for people that are doing your job in the field, right? I think there's a
+45:2745 minutes, 27 secondsgiant um market for for AR for things like this, right? Like imagine all the things we all could learn how to do in real time if we had apps like this, you
+45:3645 minutes, 36 secondsknow, like opening up our circuit breaker in our house or whatever and you don't know how to do any of it, but you're coached through it. That's a very promising field. And so I want to salute
+45:4545 minutes, 45 secondsyour idea here. Um because it's a very valuable idea that obviously you brought your expertise to as well looking at all
+45:5345 minutes, 53 secondsthe crazy stuff you got on on the UI here. Um so very promising direction execution I think needs to incorporate
+46:0246 minutes, 2 secondsbetter design. Uh so this is yeah way too much information um to look at uh in
+46:1046 minutes, 10 secondsterms of the UI alone like all of these menus have a lot of text and a lot of importantly small buttons. So you're
+46:1846 minutes, 18 secondsgoing to be all of this remember is going to live on these big glasses on your face. Um, and so I watched that
+46:2646 minutes, 26 secondsmouse going around and clicking on stuff in the demo here. And you got to remember those glasses need to compute where your thumb and forefinger are
+46:3546 minutes, 35 secondsreally precisely to be able to hit these tiny little buttons. And it's going to be hard to pull off. It's a lot better to try and make bigger buttons and fewer
+46:4546 minutes, 45 secondsof them and sort of like lay this out in a way that's easier to sort of interact with in that in that modality. Yeah, I
+46:5346 minutes, 53 secondsagree. I would say like think about what what a user needs to know and at what point and if they don't need to know
+47:0147 minutes, 1 secondthis at that point, you don't need to show it at that point. Um, yeah, focusing on the immediate needs and progressive load. Um,
+47:1047 minutes, 10 secondsright. Exactly. Yeah, that reminds the term progressive disclosure. It's it's a big word, but it's a simple idea. But
+47:1747 minutes, 17 secondsit's in like UI UX design where it's like you want to progressively explain or reveal more information
+47:2647 minutes, 26 secondsdepending on if the user expresses interest in the thing. So like say you know at this step say I already know
+47:3447 minutes, 34 secondsthat uh you know PF1, wire one and S1 are good. Um I don't you don't need to show me that unless I want you to
+47:4247 minutes, 42 secondsdisclose. So, if I push a button, it'll reveal that information, but by default, it's hidden from me. So, give me the option to show me more of this text or
+47:5147 minutes, 51 secondsmore of this information, but by default, hide it away. So, it doesn't, you know, the default screen isn't a wall of text. Oh, yeah. The Design of
+47:5947 minutes, 59 secondsEveryday Things is an awesome book, by the way, and you should check, highly recommend checking it out. There are some articles um about it as well.
+48:0848 minutes, 8 secondsUm, but also Reddit as well. And so if you could take what you learn from like some of the free resources that are out there about the design of everyday
+48:1648 minutes, 16 secondsthings and kind of create a framework for yourself. This is like a thing that I do sometimes. I'll create a framework for myself considering the design of
+48:2348 minutes, 23 secondseveryday things and then put that framework in an MD and then use it for my builds. So I'm so I'm informing my
+48:3048 minutes, 30 secondsown like uh agent instance on like how to help me design with humans in mind.
+48:3748 minutes, 37 secondsAll right. So that's a little tip for you uh for that. But yeah, the I think that's like my initial thoughts. I I think it's a really cool idea and I've
+48:4548 minutes, 45 secondsseen especially in the early days of VR where uh yeah, companies were really trying to
+48:5348 minutes, 53 secondssolve for this problem of like field testing with technology without having like the dangers of doing something
+49:0049 minutessuper wrong that you can't take back. um using it for training as well, which I see a lot of like I think this would be a really cool application when it comes
+49:0849 minutes, 8 secondsto that. I would just think about what what they need to know and when. And then even like rethinking like sometimes
+49:1649 minutes, 16 secondsand this might be a me thing. I get confused with the colors of it all. I could see that these are supposed to be
+49:2349 minutes, 23 secondsassociated and maybe it's my own lack of knowledge of like I'm not a like a field engineer so I'm just like how how are I I guess these are related but then
+49:3249 minutes, 32 secondsthere's this yellow and I was like is this related and then there's this as well. Um so that might be a a lack of
+49:3949 minutes, 39 secondsknowledge on my own part. Um, and so I'd wonder like is this the thing that they need to pay attention to this sort of
+49:4749 minutes, 47 secondslike mapping that pops up or is it this background technically like the actual machine that you're kind of diagnosing as well? It's for full junction boxes.
+49:5749 minutes, 57 secondsGot it. So yeah, likely like my own misunderstanding like lack of understanding of field engineering. Um,
+50:0550 minutes, 5 secondsjust wondering yeah what what's the actual focus? Is it here? Is it here? Is it a combination of you know the steps
+50:1350 minutes, 13 secondsand this area combination of this and this? Uh yeah that's that's my feedback.
+Chapter 16: Wrap-up
+50:1850 minutes, 18 secondsSo yeah I mean I would say great idea MWP no guest field assistant amazing work. I these products are really making
+50:2750 minutes, 27 secondsme excited to see what um the other submissions are going to look like. So we wish we had more time. Honestly, you
+50:3650 minutes, 36 secondsall really impressed us with the quality of these. Um, and remember if you didn't get reviewed this time or you don't place this time, we have at least two
+50:4550 minutes, 45 secondsmore hopefully many more rounds of of this spec hackathon. So keep at it and use what you learned this time for the next round and we'll all get better together.
+

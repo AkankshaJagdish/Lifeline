@@ -1,0 +1,13 @@
+I want to explore an emergency first-aid companion for SPECS glasses, aimed at ordinary people with little or no first-aid training.
+
+Imagine someone nearby suddenly collapses or suffers an injury. The bystander is frightened, doesn't know what to do, and needs to keep their attention on the person and their hands available to help. They may not remember even basic first-aid steps under pressure.
+
+The idea is that they can activate the Lens by saying something like "Emergency" (with a manual fallback). It then provides calm, concise, step-by-step assistance for appropriate basic actions, while prioritising contacting emergency services.
+
+Possible capabilities include helping the bystander contact emergency services, giving simple verified guidance for basic bleeding control and bandaging, and potentially assisting with CPR through appropriately sourced instructions.
+
+The product must be designed for untrained bystanders. It must not diagnose, make medical decisions, or replace emergency responders. Any medical guidance must be grounded in authoritative, current first-aid sources. I do not want speculative or unsafe features.
+
+I want the experience to feel humane, reassuring, elegant, and exceptionally easy to use under stress. It should be distinctly designed for glasses: minimal visual obstruction, large and simple interactions, hands-free guidance, and attention kept on the person receiving help.
+
+Please evaluate this as the leading concept against my unchanged Game Plan, the hackathon criteria, and what can realistically be demonstrated in Lens Studio Preview. Help me define a safe, compelling MVP rather than expanding it into an overly ambitious medical application.
