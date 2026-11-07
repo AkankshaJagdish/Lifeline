@@ -1,5 +1,6 @@
 import { LifelineController } from "./LifelineController";
 import { LifelineSnapshot } from "./LifelineTypes";
+import { LifelineVoiceActivationController } from "./LifelineVoiceActivationController";
 import { LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
@@ -22,6 +23,11 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   @hint("Reference the Lifeline root SceneObject containing LifelineController and activation adapters.")
   controllerObject: SceneObject;
 
+  @input
+  @hint("Reference the LifelineVoiceActivationController component on the Lifeline root.")
+  voiceActivationObject: SceneObject;
+
+  private voiceActivation: LifelineVoiceActivationController | null = null;
   private controller: LifelineController | null = null;
   private frame: Frame | null = null;
   private contentHost: SceneObject | null = null;
@@ -32,6 +38,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   onAwake(): void {
     if (this.controllerObject) this.controller = this.controllerObject.getComponent(LifelineController.getTypeName()) as LifelineController;
     if (!this.controller) { print("Lifeline UI: controllerObject is not wired to LifelineController."); return; }
+    if (this.voiceActivationObject) this.voiceActivation = this.voiceActivationObject.getComponent(LifelineVoiceActivationController.getTypeName()) as LifelineVoiceActivationController;
     this.sceneObject.createComponent("Component.Canvas");
     this.frame = this.sceneObject.createComponent(Frame.getTypeName()) as Frame;
     this.frame.autoShowHide = false;
@@ -50,6 +57,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     });
     this.createEvent("OnStartEvent").bind(() => {
       this.controller?.subscribe((snapshot) => { this.snapshot = snapshot; this.render(snapshot); });
+      this.voiceActivation?.onStatusChanged((status) => { this.voiceStatus = status; if (this.snapshot?.state === "IDLE") this.render(this.snapshot); });
     });
   }
 
