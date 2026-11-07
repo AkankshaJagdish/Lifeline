@@ -3,6 +3,8 @@ import { LifelineController } from "./LifelineController";
 /** Preview-only simulation entry point; it uses the same activation method as voice/manual input. */
 @component
 export class LifelinePreviewSimulationController extends BaseScriptComponent {
+  @input
+  @hint("Reference the Lifeline root SceneObject containing LifelineController.")
   controllerObject: SceneObject;
 
   @input
@@ -12,9 +14,10 @@ export class LifelinePreviewSimulationController extends BaseScriptComponent {
   private controller: LifelineController | null = null;
 
   onAwake(): void {
-    this.controllerObject = this.sceneObject;
     this.previewSimulationEnabled = global.deviceInfoSystem.isEditor();
-    this.controller = this.sceneObject.getComponent(LifelineController.getTypeName()) as LifelineController;
+    if (this.controllerObject) {
+      this.controller = this.controllerObject.getComponent(LifelineController.getTypeName()) as LifelineController;
+    }
     if (!this.controller) print("Lifeline Preview simulation: controllerObject is not wired to LifelineController.");
   }
 
