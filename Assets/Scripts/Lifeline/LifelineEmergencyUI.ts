@@ -12,11 +12,11 @@ import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Fl
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
 import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
-const FRAME_INNER_WIDTH = 28;
-const FRAME_INNER_HEIGHT = 18;
-const CONTENT_WIDTH = 26;
-const CONTENT_HEIGHT = 16;
-const PANEL_PADDING = 1;
+const FRAME_INNER_WIDTH = 28.5;
+const FRAME_INNER_HEIGHT = 18.5;
+const CONTENT_WIDTH = 28.5;
+const CONTENT_HEIGHT = 18.5;
+const PANEL_PADDING = 0.75;
 const GAP = 0.2;
 const TARGET_SIZE = 5.6;
 
@@ -136,29 +136,24 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderIdle(parent: SceneObject): void {
-    this.addLabel(parent, "Lifeline", "Headline2", 1.4, "center");
+    this.addLabel(parent, "Lifeline", "Headline2", 1.2, "center");
     this.addLabel(parent, this.voiceStatus, "Caption", 1.0, "center");
-    this.addButton(parent, "ACTIVATE", CONTENT_WIDTH, TARGET_SIZE, () => this.manualActivation?.activateManually(), "primary");
+    const actions = this.createButtonStack(parent, CONTENT_WIDTH, TARGET_SIZE * 2 + 2.0, 2.0);
+    this.addButton(actions, "ACTIVATE", CONTENT_WIDTH, TARGET_SIZE, () => this.manualActivation?.activateManually(), "primary");
     if (global.deviceInfoSystem.isEditor()) {
-      this.addButton(parent, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, TARGET_SIZE, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
+      this.addButton(actions, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, TARGET_SIZE, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
-    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 1.6, "center");
+    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.2, "center");
   }
 
   private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "Emergency help", "Headline2", 1.6);
-    this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber, "Title2", 2.0, "center");
-    this.addLabel(parent, "Call emergency services now.", "Subheadline", 1.8);
-    this.addLabel(parent, snapshot.userAcknowledgedCall
-      ? "Your confirmation is recorded. Lifeline has not verified the call."
-      : "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".",
-      "Body", 2.0);
-    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.35);
-    const w = (CONTENT_WIDTH - 1.05) / 4;
+    this.addLabel(parent, "Emergency help", "Headline2", 1.2);
+    this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
+    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.5);
+    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const w = (CONTENT_WIDTH - 2.0) / 2;
     this.addButton(actions, "CALL 112", w, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
-    this.addButton(actions, "I HAVE CALLED 112", w, TARGET_SIZE, () => this.controller?.acknowledgeUserCalled112(), "neutral");
-    this.addButton(actions, "CONTINUE", w, TARGET_SIZE, () => this.controller?.continueToPathSelection(), "primary");
-    this.addButton(actions, "END", w, TARGET_SIZE, () => this.controller?.requestFalseAlarm(), "neutral");
+    this.addButton(actions, "CONTINUE TO GUIDANCE", w, TARGET_SIZE, () => this.controller?.continueToPathSelection(), "primary");
   }
 
   private renderCallInstructions(parent: SceneObject, snapshot: LifelineSnapshot): void {
@@ -168,8 +163,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     if (snapshot.userAcknowledgedCall) {
       this.addLabel(parent, "Your acknowledgement is recorded; call connection is not verified.", "Caption", 1.4);
     }
-    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
-    const w = (CONTENT_WIDTH - 0.4) / 2;
+    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const w = (CONTENT_WIDTH - 2.0) / 2;
     this.addButton(actions, "I HAVE CALLED 112", w, TARGET_SIZE, () => this.controller?.acknowledgeUserCalled112(), "neutral");
     this.addButton(actions, "BACK", w, TARGET_SIZE, () => this.controller?.back(), "primary");
   }
@@ -177,19 +172,19 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private renderPathSelection(parent: SceneObject): void {
     this.addLabel(parent, "Choose a pathway", "Headline2", 1.6);
     this.addLabel(parent, "112 remains available. Choose the closest situation.", "Caption", 1.2);
-    const paths = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
-    const w = (CONTENT_WIDTH - 0.8) / 3;
+    const paths = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const w = (CONTENT_WIDTH - 4.0) / 3;
     this.addButton(paths, "SEVERE BLEEDING", w, TARGET_SIZE, () => this.controller?.selectPath("bleeding"), "primary");
     this.addButton(paths, "UNRESPONSIVE / ABNORMAL BREATHING", w, TARGET_SIZE, () => this.controller?.selectPath("adult_collapse"), "neutral");
     this.addButton(paths, "OTHER EMERGENCY", w, TARGET_SIZE, () => this.controller?.selectPath("other"), "neutral");
-    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
-    const half = (CONTENT_WIDTH - 0.4) / 2;
+    const actions = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const half = (CONTENT_WIDTH - 2.0) / 2;
     this.addButton(actions, "CALL 112", half, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addButton(actions, "BACK", half, TARGET_SIZE, () => this.controller?.back(), "neutral");
   }
 
   private renderGuidance(parent: SceneObject, title: string, snapshot: LifelineSnapshot): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
+    const header = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
     this.addLabel(header, title, "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
 
@@ -198,8 +193,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       ? "REPEATED — " + this.repeatMessage
       : (snapshot.instruction ?? "Follow the emergency operator’s instructions.");
     this.addLabel(parent, instruction, "Body", 3.0);
-    const nav = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.35);
-    const w = (CONTENT_WIDTH - 1.05) / 4;
+    const nav = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const w = (CONTENT_WIDTH - 6.0) / 4;
     this.addButton(nav, "BACK", w, TARGET_SIZE, () => this.controller?.back(), "neutral");
     this.addButton(nav, "REPEAT", w, TARGET_SIZE, () => this.repeatCurrentInstruction(), "neutral");
     this.addButton(nav, "NEXT", w, TARGET_SIZE, () => this.controller?.next(), "primary");
@@ -211,8 +206,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(header, "Other emergency", "Headline2", TARGET_SIZE, "left", CONTENT_WIDTH - 8.4);
     this.addButton(header, "CALL 112", 8.0, TARGET_SIZE, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(parent, snapshot.instruction ?? "Call 112 now.", "Body", 3.2);
-    const nav = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 0.4);
-    const w = (CONTENT_WIDTH - 0.8) / 3;
+    const nav = this.createRow(parent, CONTENT_WIDTH, TARGET_SIZE, 2.0);
+    const w = (CONTENT_WIDTH - 4.0) / 3;
     this.addButton(nav, "BACK", w, TARGET_SIZE, () => this.controller?.back(), "neutral");
     this.addButton(nav, "NEXT", w, TARGET_SIZE, () => this.controller?.next(), "primary");
     this.addButton(nav, "END", w, TARGET_SIZE, () => this.controller?.requestEndSession(), "neutral");
@@ -265,6 +260,18 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       flex.paddingRight = 0;
     });
     return container;
+  }
+
+  private createButtonStack(parent: SceneObject, width: number, height: number, gap: number): SceneObject {
+    const stack = this.createFlex(parent, FlexDirection.Column, width, height, gap);
+    const item = stack.createComponent(FlexItem.getTypeName()) as FlexItem;
+    item.overrideWidth = width;
+    item.overrideHeight = height;
+    item.flexGrow = 0;
+    item.flexShrink = 0;
+    const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
+    if (parentFlex) parentFlex.addItems([item]);
+    return stack;
   }
 
   private createRow(parent: SceneObject, width: number, height: number, gap: number): SceneObject {
