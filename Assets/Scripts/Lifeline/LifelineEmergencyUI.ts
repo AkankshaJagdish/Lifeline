@@ -280,14 +280,38 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private addLabel(parent: SceneObject, value: string, role: TextRole, height: number, alignment: "left" | "center" = "left", width: number = CONTENT_WIDTH): void {
-    const obj = global.scene.createSceneObject("Lifeline Label");
-    obj.setParent(parent);
-    const content = obj.createComponent(ElementContent.getTypeName()) as ElementContent;
+    // ElementContent auto-sizes safely when it is the sole child of its own layout host.
+    const host = global.scene.createSceneObject("Lifeline Label Host");
+    host.setParent(parent);
+    const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
+    hostFlex.onInitialized.add(() => {
+      hostFlex.width = width;
+      hostFlex.height = height;
+      hostFlex.direction = FlexDirection.Column;
+      hostFlex.alignItems = FlexAlign.Stretch;
+      hostFlex.justifyContent = FlexJustify.Center;
+      hostFlex.rowGap = 0;
+      hostFlex.paddingTop = 0;
+      hostFlex.paddingBottom = 0;
+      hostFlex.paddingLeft = 0;
+      hostFlex.paddingRight = 0;
+    });
+
+    const contentObject = global.scene.createSceneObject("Lifeline Label Content");
+    contentObject.setParent(host);
+    const content = contentObject.createComponent(ElementContent.getTypeName()) as ElementContent;
     content.text = value;
     content.textSize = roleSize(role);
     content.contentAlignment = alignment;
     content.sizeOverride = new vec2(width, height);
-    const item = obj.createComponent(FlexItem.getTypeName()) as FlexItem;
+    const contentItem = contentObject.createComponent(FlexItem.getTypeName()) as FlexItem;
+    contentItem.overrideWidth = width;
+    contentItem.overrideHeight = height;
+    contentItem.flexGrow = 0;
+    contentItem.flexShrink = 0;
+    hostFlex.addItems([contentItem]);
+
+    const item = host.createComponent(FlexItem.getTypeName()) as FlexItem;
     item.overrideWidth = width;
     item.overrideHeight = height;
     item.flexGrow = 0;
