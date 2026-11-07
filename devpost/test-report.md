@@ -93,6 +93,16 @@ The source register itself includes US-source caveats and explicit exclusions. T
 
 **Compilation status for these changes: not run.** Lens Studio MCP and local Lens Studio are not available to this cloud session. Recompile locally before accepting this branch.
 
+## Medical-copy source recheck — 2026-11-07
+
+The displayed bleeding instructions were compared against the original IFRC 2025 PDF, not only the local source register. The relevant IFRC severe-bleeding pages confirm scene safety (general approach, pp. 114–115), direct manual compression, emergency services and self-protection with gloves / improvised barriers, the use of a second dressing over the first when blood soaks through, pressure around an embedded object without removing it, and that a bandage may be applied once severe bleeding is controlled (pp. 255–257). This supports each displayed bleeding line in `LifelineGuidanceContent.ts`; no tourniquet or wound-packing advice was copied into the Lens.
+
+The AHA 2025 Adult Basic Life Support guideline confirms that an unresponsive adult with absent or abnormal breathing, including gasping, should be treated as cardiac arrest by a lay rescuer; the recognition guidance does not require a lay rescuer pulse check. It also supports emergency response activation, chest compressions at 100–120/min, and complete chest-wall recoil. The displayed content stays adult-only and omits depth measurement, ventilation ratios, AED instructions, and paediatric/infant CPR.
+
+The National Portal of India Helpline page currently lists 112 as the Integrated Helpline / Emergency Response Support System for police, fire and rescue, and health services. The MHA ERSS page remains the primary source cited in the source register; the National Portal listing independently corroborates the India-specific number.
+
+This is a source-to-copy audit, not clinical approval or proof that the final Lens runtime displays the text correctly. Runtime verification remains outstanding.
+
 ## Repository LEAF snapshot
 
 The current repository tree contains the editor-side `LeafPlugin` folder, but the committed `MCP-Export/03-packages/installed-packages.json` export lists five package entries and does not identify a LEAF package or version. The committed `MCP-Export/07-mcp/leaf-scenarios.json` is an error response stating that the LEAF panel was not open; it is not a scenario inventory. Therefore the current installed `Leaf.lspkg` version and the live `LeafPlugin` installation cannot be established from this repository snapshot. The live Lens Studio Asset Browser / Plugin Manager must be checked locally, as required by the official install skill. No package source was edited.
