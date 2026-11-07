@@ -1,0 +1,22 @@
+[
+  {
+    "name": "mcp__lens_studio__RecompileTypeScriptTool",
+    "description": "Triggers a forced TypeScript recompilation. Returns { status: 'succeeded' | 'failed', errors?: string[], logFile?: string }. On failure, the inline `errors` array contains compiler error messages — read those directly. IMPORTANT: `status: 'succeeded'` means the TypeScript compiler passed — it does NOT mean the Lens runs. A scene that compiles cleanly can still crash at runtime (`Cannot find asset:`, `Input X was not provided`, missing built-in references, reset loops). After a `succeeded` recompile, ALWAYS follow with `RunAndCollectLogsTool` to verify runtime. Skipping this step is the most common cause of agents reporting success on broken scenes.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__RecompileTypeScriptTool(args: { [key: string]: unknown; }): Promise<CallToolResult>; };\n```"
+  },
+  {
+    "name": "mcp__lens_studio__list_leaf_scenarios",
+    "description": "List all LEAF scenarios registered by the lens on the current execution target, with their default configuration parameters. Use before run_leaf_scenario to discover valid scenarioId values.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__list_leaf_scenarios(args: {\n  // Which lens to list scenarios from: true = the lens on the paired Spectacles device (pushes the lens first if none is running and waits for it to be ready), false = the Lens Studio preview. Omit to use the panel's current 'Execute on device' setting. Note: this switches the panel's setting, so it also applies to subsequent calls.\n  onDevice?: boolean;\n}): Promise<CallToolResult>; };\n```"
+  },
+  {
+    "name": "mcp__lens_studio__push_leaf_lens",
+    "description": "Push the current project's lens to the paired Spectacles device and, when 'Execute on device' is enabled, wait for it to become ready and reload the scenario list from it. Use to (re)deploy the lens after code changes; run_leaf_scenario only auto-pushes when no lens is running on the device.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__push_leaf_lens(args: { [key: string]: unknown; }): Promise<CallToolResult>; };\n```"
+  },
+  {
+    "name": "mcp__lens_studio__run_leaf_scenario",
+    "description": "Run a LEAF integration-test scenario in the currently-open Lens Studio project. The LEAF panel must be open before calling this tool (it owns the lens bridge). Returns the final status reported by the lens once the scenario completes.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__run_leaf_scenario(args: {\n  // Where to run the scenario: true = on the paired Spectacles device (pushes the lens first if none is running and waits for it to be ready), false = in the Lens Studio preview. Omit to use the panel's current 'Execute on device' setting. Note: this switches the panel's setting, so it also applies to subsequent calls.\n  onDevice?: boolean;\n  // Optional config overrides keyed by parameter name. Keys must already exist in the scenario's default config; unknown keys are rejected.\n  parameters?: { [key: string]: string; };\n  // ID of the scenario to run. Must match a scenario registered by the lens. Use list_leaf_scenarios to discover available ids.\n  scenarioId: string;\n}): Promise<CallToolResult>; };\n```"
+  }
+]

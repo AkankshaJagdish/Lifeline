@@ -1,0 +1,11 @@
+{
+  "status": "Not run",
+  "reason": "User explicitly prohibited compilation. No read-only diagnostics query tool is exposed; RecompileTypeScriptTool is a compile operation and was not invoked.",
+  "knownEvidence": "Logger response reports TypeScript is not compiled; it does not include complete TypeScript diagnostics.",
+  "areasToInvestigate": [
+    "LEAF package import/path mismatches",
+    "AiPreviewAgentInspect obsolete package aliases",
+    "Lifeline scripts",
+    "missing Lifeline scene integration"
+  ]
+}

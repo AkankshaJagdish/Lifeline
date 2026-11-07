@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Tool execution failed: LEAF panel is not open. Open the LEAF plugin panel in Lens Studio (Window → LEAF) before invoking this tool."
+    }
+  ],
+  "isError": true
+}

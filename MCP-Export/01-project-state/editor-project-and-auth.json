@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"console\":[],\"returnValue\":{\"isAuthorized\":true,\"projectFile\":\"C:/Users/akank/AppData/Local/Temp/LensStudio_CmBeZT/Default/Project.esproj\",\"projectKeys\":[]},\"status\":\"Execution Succeeded\"}"
+    }
+  ],
+  "isError": false
+}

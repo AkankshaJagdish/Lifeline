@@ -1,0 +1,12 @@
+[
+  {
+    "name": "mcp__lens_studio__InstallLensStudioPackage",
+    "description": "Installs a package from a URI. Can be used on any URI, both local and remote;\nImportant: use this to import/install assets from the Asset Library\nNote: Some packages are automatically instantiated in the scene after installation. Use scene introspection before attempting instantiation to avoid duplicates.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__InstallLensStudioPackage(args: { assetName?: string; packageUri: string; }): Promise<CallToolResult>; };\n```"
+  },
+  {
+    "name": "mcp__lens_studio__ListInstalledPackagesTool",
+    "description": "Lists all packages installed in Lens Studio. This is helpful for understanding what capabilities are available in the current project.",
+    "inputSchema": "exec tool declaration:\n```ts\ndeclare const tools: { mcp__lens_studio__ListInstalledPackagesTool(args: { includeDetails?: boolean; }): Promise<CallToolResult>; };\n```"
+  }
+]

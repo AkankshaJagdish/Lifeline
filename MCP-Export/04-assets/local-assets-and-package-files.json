@@ -1,0 +1,212 @@
+﻿[
+    {
+        "path":  "Assets\\Scene.scene",
+        "type":  ".scene",
+        "bytes":  94280
+    },
+    {
+        "path":  "Assets\\Scene.scene.meta",
+        "type":  ".meta",
+        "bytes":  478
+    },
+    {
+        "path":  "Assets\\Render\\Device Camera Texture.deviceCameraTexture",
+        "type":  ".deviceCameraTexture",
+        "bytes":  80
+    },
+    {
+        "path":  "Assets\\Render\\Device Camera Texture.deviceCameraTexture.meta",
+        "type":  ".meta",
+        "bytes":  494
+    },
+    {
+        "path":  "Assets\\Render\\Echopark.hdr",
+        "type":  ".hdr",
+        "bytes":  1495252
+    },
+    {
+        "path":  "Assets\\Render\\Echopark.hdr.meta",
+        "type":  ".meta",
+        "bytes":  632
+    },
+    {
+        "path":  "Assets\\Render\\Render Target.renderTarget",
+        "type":  ".renderTarget",
+        "bytes":  612
+    },
+    {
+        "path":  "Assets\\Render\\Render Target.renderTarget.meta",
+        "type":  ".meta",
+        "bytes":  492
+    },
+    {
+        "path":  "Assets\\Scripts\\LifelinePackageCompatibility.d.ts",
+        "type":  ".ts",
+        "bytes":  1037
+    },
+    {
+        "path":  "Assets\\Scripts\\LifelinePackageCompatibility.d.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineController.ts",
+        "type":  ".ts",
+        "bytes":  1714
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineController.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyConfig.ts",
+        "type":  ".ts",
+        "bytes":  654
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyConfig.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyUI.ts",
+        "type":  ".ts",
+        "bytes":  14392
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyUI.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineGuidanceContent.ts",
+        "type":  ".ts",
+        "bytes":  2557
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineGuidanceContent.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineManualActivationController.ts",
+        "type":  ".ts",
+        "bytes":  792
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineManualActivationController.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelinePreviewSimulationController.ts",
+        "type":  ".ts",
+        "bytes":  1091
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelinePreviewSimulationController.ts.meta",
+        "type":  ".meta",
+        "bytes":  1402
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineStateMachine.ts",
+        "type":  ".ts",
+        "bytes":  5705
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineStateMachine.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes 2.ts",
+        "type":  ".ts",
+        "bytes":  1101
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes 2.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes.ts",
+        "type":  ".ts",
+        "bytes":  1101
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes.ts.meta",
+        "type":  ".meta",
+        "bytes":  1219
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineVoiceActivationController.ts",
+        "type":  ".ts",
+        "bytes":  3970
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineVoiceActivationController.ts.meta",
+        "type":  ".meta",
+        "bytes":  1406
+    },
+    {
+        "path":  "Packages\\AiPreviewAgentInspect.lspkg",
+        "type":  ".lspkg",
+        "bytes":  690844
+    },
+    {
+        "path":  "Packages\\AiPreviewAgentInspect.lspkg.meta",
+        "type":  ".meta",
+        "bytes":  444
+    },
+    {
+        "path":  "Packages\\Bitmoji 3D.lsc",
+        "type":  ".lsc",
+        "bytes":  43798
+    },
+    {
+        "path":  "Packages\\Bitmoji 3D.lsc.meta",
+        "type":  ".meta",
+        "bytes":  444
+    },
+    {
+        "path":  "Packages\\Icons.lspkg",
+        "type":  ".lspkg",
+        "bytes":  1901832
+    },
+    {
+        "path":  "Packages\\Icons.lspkg.meta",
+        "type":  ".meta",
+        "bytes":  621
+    },
+    {
+        "path":  "Packages\\Motion.lspkg",
+        "type":  ".lspkg",
+        "bytes":  42836
+    },
+    {
+        "path":  "Packages\\Motion.lspkg.meta",
+        "type":  ".meta",
+        "bytes":  444
+    },
+    {
+        "path":  "Packages\\SpectaclesInteractionKit.lspkg",
+        "type":  ".lspkg",
+        "bytes":  1928577
+    },
+    {
+        "path":  "Packages\\SpectaclesInteractionKit.lspkg.meta",
+        "type":  ".meta",
+        "bytes":  444
+    },
+    {
+        "path":  "Packages\\SpectaclesUIKit.lspkg",
+        "type":  ".lspkg",
+        "bytes":  1248264
+    },
+    {
+        "path":  "Packages\\SpectaclesUIKit.lspkg.meta",
+        "type":  ".meta",
+        "bytes":  444
+    }
+]

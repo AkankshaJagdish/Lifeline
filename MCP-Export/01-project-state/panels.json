@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"panelIds\":[\"Snap.Plugin.Gui.SceneHierarchyEditor\",\"Snap.Plugin.Gui.AssetBrowser\",\"Snap.Plugin.Gui.SceneEditor\",\"Snap.Plugin.AssistantAI.Panel\",\"Snap.Plugin.Gui.LoggerPanel\",\"Snap.Plugin.Gui.InspectorPanel\",\"Snap.Plugin.Gui.PreviewPanel\"]}"
+    }
+  ],
+  "isError": false
+}

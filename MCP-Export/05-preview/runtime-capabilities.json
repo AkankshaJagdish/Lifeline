@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Tool execution failed: AiPreviewAgent handler was installed but didn't respond after the preview reset. The lens may still be reloading. Retry the tool; if it persists, the lens-side AgentInspectScript may not be running."
+    }
+  ],
+  "isError": true
+}

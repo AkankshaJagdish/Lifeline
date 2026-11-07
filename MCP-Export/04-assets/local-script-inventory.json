@@ -1,0 +1,57 @@
+﻿[
+    {
+        "path":  "Assets\\Scripts\\LifelinePackageCompatibility.d.ts",
+        "type":  ".ts",
+        "bytes":  1037
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineController.ts",
+        "type":  ".ts",
+        "bytes":  1714
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyConfig.ts",
+        "type":  ".ts",
+        "bytes":  654
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineEmergencyUI.ts",
+        "type":  ".ts",
+        "bytes":  14392
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineGuidanceContent.ts",
+        "type":  ".ts",
+        "bytes":  2557
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineManualActivationController.ts",
+        "type":  ".ts",
+        "bytes":  792
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelinePreviewSimulationController.ts",
+        "type":  ".ts",
+        "bytes":  1091
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineStateMachine.ts",
+        "type":  ".ts",
+        "bytes":  5705
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes 2.ts",
+        "type":  ".ts",
+        "bytes":  1101
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineTypes.ts",
+        "type":  ".ts",
+        "bytes":  1101
+    },
+    {
+        "path":  "Assets\\Scripts\\Lifeline\\LifelineVoiceActivationController.ts",
+        "type":  ".ts",
+        "bytes":  3970
+    }
+]
