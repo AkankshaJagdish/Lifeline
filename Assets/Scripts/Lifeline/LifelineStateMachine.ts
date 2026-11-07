@@ -1,12 +1,5 @@
 import { getGuidanceSteps } from "./LifelineGuidanceContent";
-import {
-  ActivationSource,
-  GuidanceStep,
-  LifelineChangeListener,
-  LifelinePath,
-  LifelineSnapshot,
-  LifelineState,
-} from "./LifelineTypes";
+import { ActivationSource, GuidanceStep, LifelineChangeListener, LifelinePath, LifelineSnapshot, LifelineState } from "./LifelineTypes";
 
 /** Pure state machine. It performs no UI, network, phone, or medical sensing work. */
 export class LifelineStateMachine {
@@ -16,6 +9,7 @@ export class LifelineStateMachine {
   private callAcknowledgedByUser = false;
   private source: ActivationSource | null = null;
   private confirmation: "false_alarm" | "end_session" | null = null;
+  private previousActiveState: LifelineState = "EMERGENCY_HOME";
   private listeners: LifelineChangeListener[] = [];
 
   public subscribe(listener: LifelineChangeListener): void {
@@ -23,12 +17,10 @@ export class LifelineStateMachine {
     listener(this.snapshot());
   }
 
-  public getSnapshot(): LifelineSnapshot {
-    return this.snapshot();
-  }
+  public getSnapshot(): LifelineSnapshot { return this.snapshot(); }
 
+  /** All activation sources enter the same safe state. Re-activation while active returns home. */
   public activate(source: ActivationSource): void {
-    if (this.currentState === "IDLE") this.currentState = "ACTIVATING";
     this.selectedPath = null;
     this.currentStepIndex = 0;
     this.callAcknowledgedByUser = false;
@@ -44,7 +36,7 @@ export class LifelineStateMachine {
     this.publish();
   }
 
-  /** Records the user's explicit acknowledgement; never represents a platform call result. */
+  /** Records the user acknowledgement only; never represents a platform call result. */
   public acknowledgeCallByUser(): void {
     if (!this.isActive()) return;
     this.callAcknowledgedByUser = true;
@@ -69,41 +61,32 @@ export class LifelineStateMachine {
   public next(): void {
     if (!this.isGuidanceState()) return;
     const steps = this.currentSteps();
-    if (this.currentStepIndex + 1 < steps.length) {
-      this.currentStepIndex += 1;
-    } else {
-      this.currentState = "HELP_ARRIVED_OR_SESSION_END";
-    }
+    if (this.currentStepIndex + 1 < steps.length) this.currentStepIndex += 1;
+    else this.currentState = "HELP_ARRIVED_OR_SESSION_END";
     this.publish();
   }
 
   public back(): void {
-    if (this.currentState === "CALL_IN_PROGRESS_OR_MANUAL_CALL") {
-      this.currentState = "EMERGENCY_HOME";
-    } else if (this.currentState === "PATH_SELECTION") {
+    if (this.currentState === "CALL_IN_PROGRESS_OR_MANUAL_CALL" || this.currentState === "PATH_SELECTION") {
       this.currentState = "EMERGENCY_HOME";
     } else if (this.isGuidanceState()) {
       if (this.currentStepIndex > 0) this.currentStepIndex -= 1;
       else this.currentState = "PATH_SELECTION";
-    } else if (this.currentState === "OTHER_EMERGENCY") {
-      this.currentState = "PATH_SELECTION";
     } else if (this.currentState === "HELP_ARRIVED_OR_SESSION_END") {
       this.currentState = this.selectedPath ? this.stateForPath(this.selectedPath) : "EMERGENCY_HOME";
-      if (this.selectedPath) this.currentStepIndex = this.currentSteps().length - 1;
+      if (this.selectedPath) this.currentStepIndex = Math.max(0, this.currentSteps().length - 1);
     } else if (this.currentState === "CANCEL_CONFIRMATION") {
-      this.currentState = "EMERGENCY_HOME";
+      this.currentState = this.previousActiveState;
       this.confirmation = null;
     }
     this.publish();
   }
 
-  public repeatCurrentInstruction(): string | null {
-    const snap = this.snapshot();
-    return snap.instruction;
-  }
+  public repeatCurrentInstruction(): string | null { return this.snapshot().instruction; }
 
   public requestFalseAlarmConfirmation(): void {
     if (!this.isActive()) return;
+    this.previousActiveState = this.currentState;
     this.confirmation = "false_alarm";
     this.currentState = "CANCEL_CONFIRMATION";
     this.publish();
@@ -111,6 +94,7 @@ export class LifelineStateMachine {
 
   public requestEndSessionConfirmation(): void {
     if (!this.isActive()) return;
+    this.previousActiveState = this.currentState;
     this.confirmation = "end_session";
     this.currentState = "CANCEL_CONFIRMATION";
     this.publish();
@@ -124,19 +108,14 @@ export class LifelineStateMachine {
   public cancelEndSession(): void {
     if (this.currentState !== "CANCEL_CONFIRMATION") return;
     this.confirmation = null;
-    this.currentState = "EMERGENCY_HOME";
+    this.currentState = this.previousActiveState;
     this.publish();
   }
 
-  /** Voice/manual activation always returns an active session to the emergency home. */
-  private isActive(): boolean {
-    return this.currentState !== "IDLE";
-  }
+  private isActive(): boolean { return this.currentState !== "IDLE"; }
 
   private isGuidanceState(): boolean {
-    return this.currentState === "BLEEDING_GUIDANCE" ||
-      this.currentState === "ADULT_COLLAPSE_GUIDANCE" ||
-      this.currentState === "OTHER_EMERGENCY";
+    return this.currentState === "BLEEDING_GUIDANCE" || this.currentState === "ADULT_COLLAPSE_GUIDANCE" || this.currentState === "OTHER_EMERGENCY";
   }
 
   private stateForPath(path: LifelinePath): LifelineState {
@@ -171,6 +150,7 @@ export class LifelineStateMachine {
     this.callAcknowledgedByUser = false;
     this.source = null;
     this.confirmation = null;
+    this.previousActiveState = "EMERGENCY_HOME";
     this.publish();
   }
 

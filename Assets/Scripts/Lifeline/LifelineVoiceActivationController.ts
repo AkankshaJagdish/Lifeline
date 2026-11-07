@@ -1,8 +1,11 @@
 import { LifelineController } from "./LifelineController";
+import { LifelineState } from "./LifelineTypes";
 
 /** SPECS ASR phrase matcher; ASR is not a dependable keyword-spotting system. */
 @component
 export class LifelineVoiceActivationController extends BaseScriptComponent {
+  @input
+  @hint("Reference the Lifeline root SceneObject containing LifelineController.")
   controllerObject: SceneObject;
 
   @input
@@ -13,14 +16,18 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   private controller: LifelineController | null = null;
   private listening = false;
   private activated = false;
+  private previousState: LifelineState | null = null;
   private statusListener: ((status: string) => void) | null = null;
 
   onAwake(): void {
-    this.controllerObject = this.sceneObject;
-    this.controller = this.sceneObject.getComponent(LifelineController.getTypeName()) as LifelineController;
+    if (this.controllerObject) {
+      this.controller = this.controllerObject.getComponent(LifelineController.getTypeName()) as LifelineController;
+    }
     if (!this.controller) {
       this.voiceActivationEnabled = false;
       print("Lifeline voice activation: controllerObject is not wired to LifelineController; manual activation remains available.");
+    } else {
+      this.controller.subscribe((snapshot) => this.handleStateChange(snapshot.state));
     }
     this.createEvent("OnStartEvent").bind(() => this.startListening());
     this.createEvent("OnDestroyEvent").bind(() => this.stopListening());
@@ -33,11 +40,11 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
 
   public currentStatus(): string {
     if (!this.voiceActivationEnabled) return "Voice activation unavailable; use ACTIVATE.";
-    return this.listening ? "Listening for ‘Emergency’" : "Voice listening inactive; use ACTIVATE.";
+    return this.listening ? "Listening for Emergency" : "Voice listening inactive; use ACTIVATE.";
   }
 
   public startListening(): void {
-    if (!this.voiceActivationEnabled || this.listening || this.activated) return;
+    if (!this.voiceActivationEnabled || this.listening || this.activated || !this.controller) return;
     try {
       if (!this.asrModule) this.asrModule = require("LensStudio:AsrModule");
       const options = AsrModule.AsrTranscriptionOptions.create();
@@ -60,23 +67,25 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
   }
 
   public stopListening(): void {
-    if (!this.listening) return;
+    if (!this.listening || !this.asrModule) return;
     this.listening = false;
-    this.asrModule.stopTranscribing().then(() => {
-      this.notifyStatus("Voice listening stopped.");
-    });
+    this.asrModule.stopTranscribing().then(() => this.notifyStatus("Voice listening stopped."));
   }
 
-  /** Restart only after the user explicitly ends a session and returns to idle. */
-  public resetAndStartListening(): void {
-    this.activated = false;
-    this.startListening();
+  private handleStateChange(state: LifelineState): void {
+    const wasActive = this.previousState !== null && this.previousState !== "IDLE";
+    this.previousState = state;
+    if (state === "IDLE") {
+      if (wasActive) this.activated = false;
+      if (wasActive) this.startListening();
+    } else {
+      this.stopListening();
+    }
   }
 
   private handleFinalTranscript(transcript: string): void {
     const normalized = transcript.toLowerCase().replace(/[^a-z\s]/g, " ").trim();
-    if (!/(^|\s)emergency(\s|$)/.test(normalized)) return;
-    if (this.activated) return;
+    if (!/(^|\s)emergency(\s|$)/.test(normalized) || this.activated) return;
     this.activated = true;
     this.listening = false;
     this.controller?.activateEmergency("voice");
@@ -86,17 +95,12 @@ export class LifelineVoiceActivationController extends BaseScriptComponent {
 
   private describeError(code: AsrModule.AsrStatusCode): string {
     switch (code) {
-      case AsrModule.AsrStatusCode.Unauthenticated:
-        return "Voice recognition authorization unavailable; use ACTIVATE.";
-      case AsrModule.AsrStatusCode.NoInternet:
-        return "Internet unavailable for voice recognition; use ACTIVATE.";
+      case AsrModule.AsrStatusCode.Unauthenticated: return "Voice recognition authorization unavailable; use ACTIVATE.";
+      case AsrModule.AsrStatusCode.NoInternet: return "Internet unavailable for voice recognition; use ACTIVATE.";
       case AsrModule.AsrStatusCode.InternalError:
-      default:
-        return "Voice recognition unavailable; use ACTIVATE.";
+      default: return "Voice recognition unavailable; use ACTIVATE.";
     }
   }
 
-  private notifyStatus(status: string): void {
-    this.statusListener?.(status);
-  }
+  private notifyStatus(status: string): void { this.statusListener?.(status); }
 }
