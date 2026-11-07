@@ -1,37 +1,56 @@
-﻿# Submission readiness checklist
+# Lifeline — final public repository checklist
 
-Status is based on project and MCP evidence observed on 2026-11-06. “Not yet” means not demonstrated. A file's existence does not count as runtime verification.
+**Snapshot:** 2026-11-07. This checklist distinguishes repository inspection, user-reported Preview evidence, and tests that still require Lens Studio or hardware. A source file or planned test is not runtime evidence.
 
 | Checklist item | Status | Evidence / remaining action |
 |---|---|---|
-| Project opens in Lens Studio | **Pass (open observed)** | `Lifeline.esproj` opened through Lens Studio MCP. Its current scene/manifest metadata remains the Specs Base Template. |
-| Lens compiles | **Fail** | TypeScript compile reports unresolved LEAF package imports and obsolete AI Preview Inspect aliases. |
-| Preview shows the actual Lifeline Lens | **Fail** | Current scene snapshot contains no Lifeline root/UI. No working Lifeline Preview frame was observed. |
-| Manual activation works | **Not yet** | No integrated Lifeline UI to interact with. |
-| Preview voice simulation works | **Not yet** | The authored simulation path was not exercised in Preview. It must remain labelled simulation. |
-| 112 is displayed correctly for India | **Not yet** | India configuration and source register exist; runtime display is unverified. |
-| Severe bleeding pathway works | **Not yet** | Source text exists; no runtime journey or scenario was run. |
-| Adult collapse pathway works | **Not yet** | Source text exists; no runtime journey or scenario was run. |
-| Other-emergency fallback works | **Not yet** | No runtime journey was run. |
-| Medical guidance has source references | **Pass (documentation)** | See `medical-content-sources.md`; this is a documented source register, not clinical validation. |
-| Safety boundaries are documented | **Pass (documentation)** | See `safety-boundaries.md`. |
-| LEAF tests have been run, if available | **Fail / not run** | LEAF 2.0.2 is present, but package import errors block compilation; no Lifeline scenarios are registered. |
-| Test report is included | **Pass (documentation)** | `test-report.md` records failures and unrun checks. |
-| README is complete | **Pass (documentation)** | README describes intended features and current limitations. |
-| `devpost/` planning folder is complete | **Pass (documents present)** | Required planning files are present; runtime success is not implied. |
-| Prompt log is included | **Pass (reconstructed)** | `prompt-log.md` clearly states it is a reconstructed summary, not verbatim history. |
-| Public repository is available | **Fail / unavailable** | No remote exists; `gh` is not installed. Do not invent a URL. |
-| Demo video recording plan is ready | **Pass (script only)** | `demo-video-script.md` is ready; recording must wait for a verified Preview journey. |
-| Video duration will be under three minutes | **Planned** | Script target is 2:50; actual duration must be checked after recording. |
-| Submission description is ready | **Draft only** | `devpost-description.md` explicitly describes the current implementation caveat. Update after validation before submission. |
-| No secrets are present in the public repository | **Pass for staged files; not published** | Staged-file pattern scan found no credential/key matches. Local config and signing-key files are ignored. Repeat a full secret scan before creating/pushing a public remote. |
+| Public GitHub repository exists | **Pass (repository available)** | `AkankshaJagdish/Lifeline` is accessible on GitHub; default branch is `master`. |
+| Merged Lifeline scene integration | **Pass (static repository inspection)** | Merged scene contains Lifeline Experience root, Input Adapters child, Instruction Panel child, and serialized references. |
+| Project opens in Lens Studio | **User-reported / not independently checked here** | User reports actual Interactive Preview testing of the core interaction. No current editor screenshot or project-open log supplied to this cloud review. |
+| Core Interactive Preview interaction | **User-reported pass** | User reports the core interaction passed actual Lens Studio Interactive Preview. Exact action list, screenshot, and fresh runtime logs are not attached here. |
+| Latest branch TypeScript compile | **Not yet** | This verification branch changes optional ASR lifecycle code. Recompile locally before accepting/merging. |
+| Fresh runtime diagnostics / firstActivityAtMs | **Not yet** | Collect after successful compile; record errors, prints, and `firstActivityAtMs`. |
+| Fresh Preview screenshot | **Not yet** | Capture actual rendered UI and inspect text, physical stand-in, central-view obstruction, and stability. |
+| Manual ACTIVATE | **User-reported core flow; exact evidence pending** | Confirm the current branch still behaves as expected after compile. |
+| Preview voice simulation | **User-reported core flow; exact evidence pending** | Confirm exact label `SIMULATION — trigger voice: EMERGENCY`; test with voice disabled and no microphone access. |
+| 112 / call instructions / user acknowledgement | **Source-reviewed; action-level evidence pending** | Confirm 112 is immediate; call instructions return correctly; acknowledgement remains separate from any claim of a placed call. |
+| Severe bleeding every step | **Source-reviewed; full Preview evidence pending** | Compare each displayed instruction with `medical-content-sources.md`. |
+| Adult collapse every step | **Source-reviewed; full Preview evidence pending** | Confirm adult-only boundary, recognition wording, emergency help first, adult compression guidance, and no pulse/pediatric content. |
+| Other emergency | **Source-reviewed; Preview evidence pending** | Confirm only the 112 / operator fallback is shown. |
+| Back / Repeat / Next / End / Cancel / return to idle | **User-reported core flow; exact evidence pending** | Exercise every action on the current branch and record results. |
+| Physical-person stand-in remains visible | **Not independently verified** | Requires current Preview screenshot and camera movement test. |
+| Panel does not obstruct central view | **Not independently verified** | Requires current Preview screenshot and camera movement test. |
+| Camera movement stability / readability | **Not independently verified** | Requires local Preview camera movement. |
+| ASR API / official Agent Manager sample review | **Pass (source review)** | Snap ASR docs and official `VoiceInputController.ts` / `AgentInputBar.ts` reviewed. |
+| Optional ASR lifecycle changes | **Authored; compile pending** | Stops on active emergency state, ignores late callbacks, awaits stop before restart, and restarts only after active-to-IDLE. |
+| Unauthenticated / internet / permission fallbacks | **Authored; runtime pending** | `Unauthenticated`, `NoInternet`, and `InternalError` / start failures show a manual ACTIVATE fallback. |
+| Hardware ASR | **Not tested** | Requires compatible Spectacles hardware/OS, internet, authentication, and microphone permissions. No real voice-recognition pass is claimed. |
+| Current installed LEAF version | **Not verified in this cloud session** | Confirm the current package version in Lens Studio. Do not rely on older MCP export snapshots or change package versions. |
+| Four LEAF scenarios / LeafIndex | **Blocked; not registered** | Official Live Lens Tester requires Lens Studio MCP for scene inspection, package verification, authoring, attachment, compile, and run. MCP is unavailable here; no scenarios are claimed. |
+| LEAF Preview results | **Not run** | Run scenarios serially after they are registered; preserve Lens-side scenario-manager pass/fail lines. |
+| Medical copy source register | **Pass (documentation / static source review)** | `medical-content-sources.md` documents the source lines and exclusions. This is not clinical validation. |
+| No prohibited medical content in UI scripts | **Pass (static source scan)** | No user-facing 911 text, call-success claim, diagnosis/patient recognition, pulse-check instruction, pediatric/infant CPR, wound packing, or tourniquet advice found in Lifeline UI/guidance scripts. |
+| Actual emergency call | **Not implemented** | UI displays instructions and a user acknowledgement only. |
+| Under-three-minute demo sequence | **Pass (script prepared)** | `demo-video-script.md` targets 2:55. Actual recording and duration check remain outstanding. |
+| Submission description | **Draft; update after validation** | Do not describe unverified ASR, LEAF, Preview, or calling behavior as working. |
+| Secret / credential scan | **Not yet** | Run a full scan of the exact public release commit before final submission. Do not publish local credentials, signing keys, or personal data. |
+| Original Game Plan unchanged | **Pass (repository preservation check)** | `codexsources/GAME PLAN do not change arwithspecs.txt` was not edited in this branch. |
 
-## Required before recording or submitting
+## Local completion order
 
-1. Resolve package imports using supported Lens Studio package management, then obtain a successful TypeScript compile.
-2. Integrate Lifeline and LEAF scenarios into the actual scene using a supported Lens Studio scene workflow.
-3. Run Preview interactions for activation, 112, each emergency path, repeat/back/next, cancel, and reset; update `test-report.md` with evidence.
-4. Recheck medical UI strings against `medical-content-sources.md` and maintain the adult-only and no-diagnosis boundaries.
-5. Re-scan the staged repository for secrets before publishing. Install/authenticate GitHub CLI or create a public repository manually, then add the actual remote URL.
-6. Record the actual Lens Studio Preview demo, confirm duration under 180 seconds, and only then mark the corresponding items passed.
+1. Sync this verification branch / PR into the confirmed Lifeline project and open the exact `Lifeline.esproj` in Lens Studio 5.23.2.26081320 Public.
+2. Recompile TypeScript. If compilation fails, stop and capture complete inline diagnostics.
+3. After a clean compile, collect runtime logs and inspect errors, prints, and `firstActivityAtMs`.
+4. Open Interactive Preview, capture a screenshot, and inspect the actual rendered UI and physical stand-in.
+5. Run the complete manual / simulation / emergency / guidance / navigation / end-session matrix in `test-report.md`.
+6. Verify camera movement, panel stability, readability, target feedback, and unobstructed central view.
+7. Confirm the currently installed LEAF package and LeafPlugin. The official Live Lens Tester requires Lens Studio MCP to author and register the four mapped scenarios; do not treat the planned IDs in README as runnable tests.
+8. If LEAF scenarios are registered, run them serially and record each clean outcome plus the Lens-side scenario-manager log line. Do not retry timeouts blindly.
+9. Test optional ASR separately on compatible Spectacles hardware. Keep manual pinch available and record permissions, network, authentication, and ASR error status. Do not claim hardware ASR based on Preview simulation.
+10. Recheck every rendered medical string against `medical-content-sources.md`; repeat the prohibited-content scan.
+11. Run a full secret scan on the exact public release commit. Confirm the Game Plan remains unchanged.
+12. Record the actual Preview demo using `demo-video-script.md`, check the complete video is under 180 seconds, and update the Devpost description from verified behavior only.
 
+## Merge / submission gate
+
+Do not merge this verification branch or mark the project submission-ready until the new ASR code compiles and the local regression matrix passes. LEAF, hardware ASR, spatial comfort, and any criterion that remains blocked must stay explicitly labelled as such. The project must not be represented as clinically validated or as placing emergency calls.
