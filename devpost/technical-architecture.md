@@ -33,7 +33,7 @@ The voice controller is optional and is disabled in the serialized scene by defa
 - It starts listening only while the controller is IDLE.
 - Any transition into an active emergency state stops transcription.
 - A late transcript callback is ignored if listening has stopped or the controller is no longer IDLE.
-- A new ASR session is not started until the previous `stopTranscribing()` promise has completed.
+- A new ASR session is not started until the previous `stopTranscribing()` promise has completed. If that stop fails, the controller fails closed and leaves voice off; manual activation remains available.
 - Listening restarts only on an active-session → IDLE transition, which follows the user's explicit End Session confirmation. Cancel returns to the active guidance state and does not restart listening.
 - `Unauthenticated` shows an authorization fallback; `NoInternet` shows an internet fallback; `InternalError` / start failure directs the user to check microphone access or Extended Permissions. Each leaves ACTIVATE available.
 - A failed ASR session does not block manual activation or the emergency UI.
