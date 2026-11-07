@@ -20,7 +20,7 @@ Lifeline is a hands-free first-aid companion prototype for ordinary bystanders i
 
 The Spectacles ASR API provides transcription, but the official CLAD ASR skill warns that short voice commands and keyword spotting are unreliable. Treat “Emergency” as an optional best-effort shortcut, not the only entry path. ASR requires compatible Spectacles hardware/OS, internet, authentication, and microphone permissions. For a Lens using camera plus internet, microphone access may require Extended Permissions.
 
-The voice controller now stops listening when the emergency state begins. It only starts a fresh listening session after an active session returns to IDLE through explicit user confirmation. Unauthenticated, no-internet, and internal/permission failures surface a short fallback while ACTIVATE remains available. This branch has not yet been compiled or hardware-tested. Do not describe Preview simulation as real ASR.
+The voice controller now stops listening when the emergency state begins. It only starts a fresh listening session after an active session returns to IDLE through explicit user confirmation. It waits for the previous stop operation before restarting; if stopping fails, voice remains off and manual ACTIVATE is the fallback. Unauthenticated, no-internet, and internal/permission failures also surface short fallback messages. This branch has not yet been compiled or hardware-tested. Do not describe Preview simulation as real ASR.
 
 ## Safety boundaries
 
