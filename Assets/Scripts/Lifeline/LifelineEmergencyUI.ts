@@ -21,6 +21,7 @@ const CONTENT_GAP = 0.05;
 const PRIMARY_TARGET = 5.6;
 const SECONDARY_TARGET = 3.9;
 const TARGET_GAP = 2.0;
+const VIEW_DISTANCE_CM = 105;
 
 type TextRole = "Headline2" | "Title2" | "Subheadline" | "Button" | "Body" | "Caption";
 const TYPE_SCALE: Record<TextRole, number> = {
@@ -33,7 +34,7 @@ const TYPE_SCALE: Record<TextRole, number> = {
 };
 
 function roleSize(role: TextRole): number {
-  return TYPE_SCALE[role];
+  return TYPE_SCALE[role] * (VIEW_DISTANCE_CM / 110);
 }
 
 /** Lifeline's complete visual flow, composed from Spectacles UIKit primitives. */
