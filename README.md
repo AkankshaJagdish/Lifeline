@@ -61,16 +61,22 @@ The voice controller now stops listening when the emergency state begins. It onl
 | AC-3 Severe bleeding | `ac_3_severe_bleeding_steps` | Every bleeding step, one at a time, plus Back / Next / Repeat |
 | AC-4 Adult collapse | `ac_4_adult_collapse_steps` | Adult-only boundary, responsiveness, abnormal breathing including gasping, help first, adult compression steps |
 
-These are planned IDs, not existing or runnable scenarios. The official Live Lens Tester procedure requires Lens Studio MCP to verify the installed LEAF package, inspect the scene, attach LeafIndex, compile, and run scenarios. That MCP connection is unavailable in this cloud session, so no scenario files are being fabricated or claimed as registered.
+These are planned IDs, not existing or runnable scenarios. The official Live Lens Tester procedure requires Lens Studio MCP to verify the installed LEAF package, inspect the scene, attach LeafIndex, compile, and run scenarios. The current repository snapshot's package export lists five packages but does not identify a LEAF package/version; it does contain a LeafPlugin folder, which is not proof of the currently installed LEAF package version. The live installed version must be checked in Lens Studio. This cloud session has no Lens Studio MCP connection, so no scenario files are being fabricated or claimed as registered.
 
-When scenarios are added locally:
+### Create and run the scenarios locally
 
-1. Confirm the current installed `Leaf.lspkg` version in Lens Studio's Asset Browser / package list and confirm the LeafPlugin is installed. Do not modify LEAF package sources or change package versions to work around a test.
-2. Open the LEAF panel from Window → LEAF and reset Preview to a clean state.
-3. Confirm the four scenario IDs appear in the panel.
-4. Run scenarios **serially**, waiting for each to finish before starting the next. A scenario run resets the Lens; parallel runs can abort one another.
-5. Treat the Lens-side scenario-manager PASSED / FAILED log line as authoritative. If a run times out or does not return a status, inspect the log before retrying; do not infer success from the plugin UI alone.
-6. Record the exact result and error line in `devpost/test-report.md`.
+The official Live Lens Tester agent must be invoked from a CLAD session with Lens Studio MCP connected. It explicitly stops when that connection is absent.
+
+1. Sync this branch / PR and open the exact `Lifeline.esproj` in Lens Studio. Start the coding agent in the project folder (the one containing `.esproj` and `.mcp.json`) and confirm the `lens-studio` MCP server is connected.
+2. Invoke the official `live-lens-tester` agent. Ask it to use the four scenario IDs and acceptance-criterion mappings above, add only additive LEAF test files / LeafIndex, and not modify Lifeline runtime scripts, existing scene objects, project settings, or any `*.lspkg/` package source.
+3. Let the agent verify the currently installed LEAF package and LeafPlugin, read the official LEAF Reference, inspect the actual scene objects, and compile after each change. Do not install or upgrade a different LEAF / SIK version merely to make a test pass.
+4. Confirm that the agent registers all four scenarios in `LeafIndex.ts` and attaches that index to the scene. Because Lifeline's panel and pinch targets are reach-sensitive UI, the official LEAF Reference also requires at least one IK-interactor scenario to test actual reachability; include this coverage within AC-1 rather than inventing a fifth acceptance criterion. Use only object names confirmed by the scene inspection. The IDs above are a requested naming convention, not proof that scenarios already exist.
+5. Open the LEAF panel from Window → LEAF, reset Preview to a clean state, and confirm all four registered scenarios appear.
+6. Run scenarios **serially**, waiting for each to finish before starting the next. A scenario run resets the Lens; parallel runs can abort one another.
+7. Treat the Lens-side scenario-manager PASSED / FAILED log line as authoritative. If a run times out or does not return a status, inspect the Lens Studio log using the official LEAF run procedure before retrying; do not infer success from the plugin UI alone and do not auto-retry.
+8. Record the exact outcome and verbatim failure line in `devpost/test-report.md` and update `devpost/acceptance-criteria.md` only with observed results.
+
+Official procedures: [Live Lens Tester](https://github.com/lens-studio-devs/ls-extensions/blob/main/plugins/ls-clad/agents/live-lens-tester.md) · [LEAF scenario authoring](https://github.com/lens-studio-devs/ls-extensions/tree/main/plugins/ls-clad/skills/specs-leaf-write-scenarios) · [Run LEAF in Preview](https://github.com/lens-studio-devs/ls-extensions/tree/main/plugins/ls-clad/skills/specs-leaf-run-in-preview).
 
 ## Demo and public release
 
