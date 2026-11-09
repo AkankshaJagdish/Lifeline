@@ -9,7 +9,7 @@ import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
 import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout";
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
-import { FlexAlign, FlexAlignSelf, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
+import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
 const FRAME_INNER_WIDTH = 36;
 const FRAME_INNER_HEIGHT = 26;
@@ -23,8 +23,6 @@ const TARGET_GAP = 0.8;
 const VIEW_DISTANCE_CM = 105;
 const SOS_WIDTH = 9.0;
 const SOS_HEIGHT = 5.0;
-const SOS_INSET_X = 1.2;
-const SOS_INSET_Y = 1.0;
 const BUTTON_LABEL_Z = 0.08;
 const PALETTE = {
   ivory: new vec4(1.0, 0.92, 0.80, 1.0),
@@ -81,7 +79,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private pathOptionIndex = 0;
   private lastChosenCategory: string | null = null;
   private sosObject: SceneObject | null = null;
-  private sosButton: Button | null = null;
   private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
   private flexRegistrationCallbacks = new Set<SceneObject>();
 
@@ -204,8 +201,11 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(parent, "Choose one option. You can continue to 112 at any time.", "Caption", 2.0, "center");
 
     const grid = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 15.8, 0.75);
+    this.registerLayoutItem(grid, parent, CONTENT_WIDTH, 15.8);
     const rowOne = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
     const rowTwo = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
+    this.registerLayoutItem(rowOne, grid, CONTENT_WIDTH, 7.4);
+    this.registerLayoutItem(rowTwo, grid, CONTENT_WIDTH, 7.4);
     const cardWidth = (CONTENT_WIDTH - 0.7) / 2;
     this.addCategoryCard(rowOne, "PERSON COLLAPSED", "Adult casualty", "●", cardWidth, 7.4, () => this.selectCategory("person"));
     this.addCategoryCard(rowOne, "BLEEDING INJURY", "Visible injury", "✚", cardWidth, 7.4, () => this.selectCategory("bleeding"));
@@ -227,6 +227,16 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     // Fire is selectable as a user-described category, but no reviewed fire
     // guidance/state exists in this baseline. Keep the safe 112 / other route.
     this.controller?.selectPath("other");
+  }
+
+
+  private registerLayoutItem(child: SceneObject, parent: SceneObject, width: number, height: number): void {
+    const item = child.createComponent(FlexItem.getTypeName()) as FlexItem;
+    item.overrideWidth = width;
+    item.overrideHeight = height;
+    item.flexGrow = 0;
+    item.flexShrink = 0;
+    this.registerFlexItemAfterInitialization(parent, item);
   }
 
   private addCategoryCard(parent: SceneObject, title: string, subtitle: string, glyph: string,
@@ -289,7 +299,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     // action is a manual activation control, not a phone-call claim.
     if (!this.sosObject) return;
     this.sosObject.enabled = true;
-    if (this.sosButton) this.sosButton.opacity = 1.0;
   }
 
   private renderGuidance(parent: SceneObject, title: string, snapshot: LifelineSnapshot): void {
