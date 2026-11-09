@@ -1,12 +1,11 @@
 import { LifelineController } from "./LifelineController";
 import { LifelineSnapshot, GuidanceStep, LifelinePath } from "./LifelineTypes";
-import { getGuidanceSteps } from "./LifelineGuidanceContent";
+import { getGuidanceSteps, LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { LifelineIncidentScenarios } from "./LifelineIncidentScenarios";
 import { LifelineVoiceActivationController } from "./LifelineVoiceActivationController";
 import { LifelineManualActivationController } from "./LifelineManualActivationController";
 import { LifelinePreviewSimulationController } from "./LifelinePreviewSimulationController";
 import { INDIA_EMERGENCY_CONFIG } from "./LifelineEmergencyConfig";
-import { LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
 import { BackPlate } from "SpectaclesUIKit.lspkg/Scripts/BackPlate";
@@ -21,7 +20,6 @@ import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scr
 const FRAME_INNER_WIDTH = 30;
 const FRAME_INNER_HEIGHT = 20;
 const GUIDANCE_FRAME_WIDTH = 18.5;
-const GUIDANCE_FRAME_HEIGHT = 18.5;
 const OVERVIEW_WIDTH = 10.5;
 const GUIDANCE_PANEL_HEIGHT = 18.5;
 const GUIDANCE_LEFT_OFFSET = -15.5;
@@ -166,7 +164,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     this.createEvent("OnStartEvent").bind(() => {
       this.controller?.subscribe((snapshot) => {
-        const previousState = this.snapshot?.state;
         this.snapshot = snapshot;
         this.repeatMessage = null;
         this.render(snapshot);
@@ -310,8 +307,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const overviewPage = global.scene.createSceneObject("Lifeline Response Plan Screen");
     overviewPage.setParent(this.overviewContentHost);
     this.overviewPageRoot = overviewPage;
-    const overviewColumn = this.createFlex(overviewPage, FlexDirection.Column, 9.0, 17.0, 0.12);
-    this.addLabel(overviewColumn, "RESPONSE PLAN", "Headline2", 1.8, "left", 9.0);
+    const overviewColumn = this.createFlex(overviewPage, FlexDirection.Column, 9.0, 17.0, 0.05);
+    const overviewHeader = this.createFlex(overviewColumn, FlexDirection.Row, 9.0, 3.6, 0.3);
+    this.addLabel(overviewHeader, "PLAN", "Headline2", 3.6, "left", 3.5);
+    this.addButton(overviewHeader, "BACK", 5.2, 3.6, () => this.controller?.back(), "neutral");
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index];
       const status = index < currentIndex ? "✓" : index === currentIndex ? "●" : "○";
@@ -319,24 +318,20 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       const summary = this.getStepSummary(step);
       const tone = index < currentIndex ? PALETTE.teal : index === currentIndex ? PALETTE.amber : PALETTE.neutral;
       const label = status + " " + (index + 1) + ". " + stepTitle + " — " + summary;
-      this.addLabel(overviewColumn, label, "Caption", 1.82, "left", 9.0, tone);
+      this.addLabel(overviewColumn, label, "Caption", 1.62, "left", 9.0, tone);
     }
-    // Navigation is deliberately not attached to the dense overview rows;
-    // Back remains an explicit control on the current-instruction panel.
 
     const rightPage = global.scene.createSceneObject("Lifeline DO NOW Screen");
     rightPage.setParent(this.contentHost);
     this.pageRoot = rightPage;
-    const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.2);
-    const topRow = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 3.6, 0.4);
-    this.addLabel(topRow, "DO NOW · STEP " + (currentIndex + 1) + " OF " + steps.length, "Headline2", 3.6, "left", 11.0);
-    this.addButton(topRow, "BACK", 5.2, 3.6, () => this.controller?.back(), "neutral");
-    this.addLabel(rightColumn, title, "Headline1", 2.0, "left", 17.0);
-    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 4.2, "left", 17.0);
+    const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.12);
+    this.addLabel(rightColumn, "DO NOW · STEP " + (currentIndex + 1) + " OF " + steps.length, "Headline2", 3.2, "left", 8.0);
+    this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.6, "left", 17.0);
+    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.8, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
-      ? "Emergency contacts: 112 integrated response · 101 Fire Services. Contact them once outside and safe."
-      : LIFELINE_SAFETY_STATEMENT;
-    this.addLabel(rightColumn, support, "Caption", 1.8, "left", 17.0);
+      ? "Once outside and safe: 112 integrated response · 101 Fire Services."
+      : "Lifeline provides guidance only. Follow the emergency operator's instructions.";
+    this.addLabel(rightColumn, support, "Caption", 1.2, "left", 17.0);
 
     const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.35);
     this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
@@ -374,7 +369,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private getStepSummary(step: GuidanceStep): string {
     if (step.summary) return step.summary;
     const text = step.text;
-    return text.length > 42 ? text.substring(0, 39) + "…" : text;
+    return text.length > 24 ? text.substring(0, 21) + "…" : text;
   }
 
   private renderIdle(parent: SceneObject): void {
@@ -426,8 +421,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       this.controller?.selectPath("bleeding");
       return;
     }
-    // Fire is selectable as a user-described category, but no reviewed fire
-    // guidance/state exists in this baseline. Keep the safe 112 / other route.
+    if (category === "fire") {
+      this.controller?.selectPath("fire_smoke");
+      return;
+    }
     this.controller?.selectPath("other");
   }
 
@@ -563,8 +560,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const flex = container.createComponent(FlexLayout.getTypeName()) as FlexLayout;
     // Use explicit registration consistently; automatic start discovery is disabled before children exist.
     flex.autoDiscoverItemsOnStart = false;
-    const pendingItems: FlexItem[] = [];
-    this.pendingFlexItems.set(container, pendingItems);
     flex.onInitialized.add(() => {
       flex.width = width;
       flex.height = height;
@@ -577,7 +572,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       flex.paddingBottom = 0;
       flex.paddingLeft = 0;
       flex.paddingRight = 0;
-      if (pendingItems.length > 0) flex.addItems(pendingItems);
     });
     return container;
   }
@@ -612,8 +606,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     host.setParent(parent);
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
     hostFlex.autoDiscoverItemsOnStart = false;
-    const hostItems: FlexItem[] = [];
-    this.pendingFlexItems.set(host, hostItems);
     hostFlex.onInitialized.add(() => {
       hostFlex.width = width;
       hostFlex.height = height;
@@ -625,7 +617,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       hostFlex.paddingBottom = 0;
       hostFlex.paddingLeft = 0;
       hostFlex.paddingRight = 0;
-      if (hostItems.length > 0) hostFlex.addItems(hostItems);
     });
 
     const contentObject = global.scene.createSceneObject("Lifeline Label Content");
