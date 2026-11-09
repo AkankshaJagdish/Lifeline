@@ -13,7 +13,8 @@ Lifeline is a hands-free first-aid companion prototype for ordinary bystanders i
 - A clearly labelled Preview-only control: `SIMULATION — trigger voice: EMERGENCY`. It exercises the same state transition without microphone access and is not an ASR test.
 - Immediate India emergency access (112), including the instruction to call emergency services and the alternative to ask someone nearby to call.
 - A separate user acknowledgement that must never be presented as proof that a call was placed or connected.
-- Sequential severe-bleeding, adult-collapse / possible cardiac-arrest, and other-emergency paths.
+- Sequential severe-bleeding and adult-collapse guidance, the other-emergency 112 fallback, and a new evacuation-only Fire / Smoke path.
+- During guided paths, a two-panel workspace: a read-only ordered RESPONSE PLAN overview on the left and the current DO NOW instruction on the right. The panels share a world transform positioned from the selected incident marker.
 - Back, Next, Repeat, End Session, and Cancel controls, with explicit confirmation before ending a session.
 
 ## Voice and permission boundaries
@@ -30,13 +31,14 @@ The voice controller now stops listening when the emergency state begins. It onl
 - The guided CPR path is adult-only. No pediatric or infant CPR instructions are provided.
 - No diagnosis, triage, patient recognition, camera-based assessment, pulse checks, wound packing, tourniquet instructions, medication advice, or advanced trauma techniques.
 - Displayed medical copy is governed by [medical-content-sources.md](devpost/medical-content-sources.md). That register is not clinical validation or regulatory approval.
+- Fire / Smoke is evacuation-focused only: alarm, safe exit, staying low in smoke while moving out, no lifts, assembly area / all-clear, no re-entry, then contact 112 or 101 once outside and safe. Lifeline does not assess exits, fight fires, investigate, enter smoke, or direct rescues.
 
 ## Technology and project files
 
 - Lens Studio 5.23.2.26081320 Public; target platform: Spectacles.
 - TypeScript Lens source under `Assets/Scripts/Lifeline/`.
 - Scene hierarchy in `Assets/Scene.scene`: `Lifeline Experience` root, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`.
-- The UI uses the installed Spectacles UIKit Frame, Button, ElementContent, FlexLayout, and FlexItem components; the main controller remains UI-independent.
+- The UI uses the installed Spectacles UIKit Frame, BackPlate, Button, FlexLayout, and FlexItem components; the main controller and state machine remain UI-independent.
 - The current scene keeps voice activation disabled by default. Do not enable it for a Preview-only demonstration.
 - Package sources and `.lspkg` contents are not modified by this verification branch.
 
@@ -48,6 +50,7 @@ The voice controller now stops listening when the emergency state begins. It onl
 4. After a clean compile, collect fresh runtime logs and check errors, prints, and `firstActivityAtMs`.
 5. Open or refresh Interactive Preview and capture a fresh screenshot. Inspect the actual rendered panel, the physical-person stand-in, central-view obstruction, text readability, and camera movement stability.
 6. Exercise manual ACTIVATE and the labelled Preview simulation separately. Then test 112, call instructions, return, user acknowledgement, path selection, every guidance step, Back, Repeat, Next, End Session confirmation, Cancel, and confirmed return to IDLE.
+7. For two-panel guidance, wire the `incidentScenariosObject` input on `LifelineEmergencyUI` to the SceneObject containing the existing `LifelineIncidentScenarios` ScriptComponent. Select a non-human Preview stand-in before selecting the guidance category. Follow [two-panel and fire guidance test plan](devpost/two-panel-fire-guidance-test-plan.md) for panel geometry, navigation, the seven fire steps, and the six screenshot captures.
 7. Keep hardware ASR separate from Preview. Test it only on compatible Spectacles hardware with the required OS, internet, authentication, and permissions. Record the actual error/result; do not infer hardware behavior from simulation.
 
 ## LEAF status and local run instructions
@@ -62,6 +65,9 @@ The voice controller now stops listening when the emergency state begins. It onl
 | AC-4 Adult collapse | `ac_4_adult_collapse_steps` | Adult-only boundary, responsiveness, abnormal breathing including gasping, help first, adult compression steps |
 
 These are planned IDs, not existing or runnable scenarios. The official Live Lens Tester procedure requires Lens Studio MCP to verify the installed LEAF package, inspect the scene, attach LeafIndex, compile, and run scenarios. The current repository snapshot's package export lists five packages but does not identify a LEAF package/version; it does contain a LeafPlugin folder, which is not proof of the currently installed LEAF package version. The live installed version must be checked in Lens Studio. This cloud session has no Lens Studio MCP connection, so no scenario files are being fabricated or claimed as registered.
+
+Additional guidance-workspace / fire-path LEAF scenarios are planned in [two-panel-fire-guidance-test-plan.md](devpost/two-panel-fire-guidance-test-plan.md): \`ux_6_incident_anchored_two_panel_progress\`, \`ux_7_fire_smoke_evacuation\`, and \`ux_8_two_panel_end_session_and_sos\`. They are not registered or runnable until the local Live Lens Tester inspects the installed LEAF package, creates the scenario files, attaches LeafIndex, and confirms them in the LEAF panel. Run each serially and record the Lens-side scenario-manager result.
+
 
 ### Create and run the scenarios locally
 
@@ -109,10 +115,14 @@ The PR intentionally does not replace `Assets/Scene.scene`: the checked-in scene
 No local Lens Studio compile, Preview screenshot, scene inspection or LEAF run has been performed by the cloud session. Follow the test plan and record actual outcomes before marking this spatial demo verified.
 
 
-## Spatial UI redesign
+## Two-panel guidance and Fire / Smoke
 
-The follow-on UI redesign keeps the existing Lifeline controller, state machine, activation adapters, emergency configuration and reviewed medical content. It retains the approved 30 × 20 cm Frame and changes the existing `LifelineEmergencyUI` composition to provide a persistent inset SOS 112 control, a cleaner idle introduction, larger role-based typography and a simultaneous 2 × 2 emergency category menu.
+The two-panel workspace retains the approved combined 30 cm maximum width: a 10.5 cm UIKit BackPlate overview, a 1 cm gap, and the existing 18.5 cm Frame for the prominent DO NOW instruction. Both panels share one parent transform positioned relative to the selected incident marker; neither is parented to the marker. They are offset so the incident remains visible. The existing Frame is reused; no second Frame is created.
 
-The four category selections route to existing pathways only: Person collapsed → adult collapse; Bleeding injury → severe bleeding; Other emergency → existing other path. Fire / smoke has no reviewed guidance or state in the existing state machine, so the selection routes to the safe existing fallback; no new fire instructions are added.
+The left RESPONSE PLAN rail shows all ordered steps with teal completed, amber current, and neutral upcoming status. It is read-only; Back is a single large target in its header. The right DO NOW panel shows the current step heading and full instruction, concise support copy, Repeat, Next only when another guided step exists, End Session, and the persistent SOS 112 control. Back, Next and End Session continue to use the existing state-machine transitions and confirmation behavior. If no incident marker is selected, the UI falls back to the existing single-panel guidance rather than displaying a detached two-panel workspace.
 
-The four category cards currently use simple glyph placeholders because the repository has no `Assets/Icons/` directory and the cloud-only workflow cannot call the Lens Studio icon selector. Local compile and Preview checks are documented in [ui-redesign-test-plan.md](devpost/ui-redesign-test-plan.md). The branch has not been compiled or visually verified in Lens Studio by this cloud session.
+Fire / Smoke adds seven evacuation-only steps. The wording and source limits are documented in [medical-content-sources.md](devpost/medical-content-sources.md), using NIDM/NDMA fire-safety training materials and Government of India emergency-number sources. It does not provide firefighting, rescue-entry, hazard-recognition, exit-assessment or route-finding advice. The new \`fire_smoke\` path reuses the existing \`OTHER_EMERGENCY\` state; the state machine enum is unchanged. The adult-collapse and bleeding step arrays are unchanged.
+
+### Local verification
+
+Use [two-panel-fire-guidance-test-plan.md](devpost/two-panel-fire-guidance-test-plan.md) for Inspector wiring, compile and Preview checks, the six required screenshots, and planned LEAF scenario IDs. The cloud review has not run Lens Studio compile, Interactive Preview or LEAF. The six screenshots must be captured locally; none are claimed as produced by this branch.
