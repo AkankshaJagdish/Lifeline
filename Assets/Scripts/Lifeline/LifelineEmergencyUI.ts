@@ -423,6 +423,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addButton(parent, "CONTINUE", 18.0, SECONDARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
   }
 
+  private renderCallInstructions(parent: SceneObject): void {
+    this.addLabel(parent, "Call emergency services", "Headline1", 2.2);
+    this.addLabel(parent, "112", "Title1", 3.0, "center");
+    this.addLabel(parent, "Use your phone to call 112 now.", "Subheadline", 1.8, "center");
+    this.addLabel(parent, "If you cannot call, ask another person nearby to call 112 for you.", "Body", 1.8, "center");
+    this.addLabel(parent, "Lifeline has not placed or verified a call.", "Callout", 1.8, "center", CONTENT_WIDTH, PALETTE.amber);
+    this.addButton(parent, "BACK", 18.0, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+  }
+
   private renderPathSelection(parent: SceneObject, snapshot: LifelineSnapshot): void {
     this.addLabel(parent, "WHAT IS HAPPENING?", "HeadlineXL", 2.4, "center");
     this.addLabel(parent, "Choose one option", "Caption", 1.2, "center");
