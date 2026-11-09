@@ -246,6 +246,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const button = host.createComponent(Button.getTypeName()) as Button;
     button.size = new vec3(width, height, 1);
     button.opacity = 1.0;
+    this.applyButtonTone(button, title === "FIRE / SMOKE" ? "caution" : "category");
     button.onTriggerUp.add(action);
 
     const glyphObject = global.scene.createSceneObject("Category Glyph " + glyph);
@@ -473,12 +474,44 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     });
   }
 
+  private applyButtonTone(button: Button, tone: "primary" | "critical" | "neutral" | "category" | "caution"): void {
+    // Public UIKit Element exposes visual; use public RoundedRectangleVisual
+    // properties when available rather than touching protected style fields.
+    const visual = button.visual as any;
+    if (!visual) return;
+    const color = tone === "critical"
+      ? PALETTE.coral
+      : tone === "caution"
+        ? PALETTE.amber
+        : tone === "primary"
+          ? PALETTE.teal
+          : tone === "category"
+            ? PALETTE.teal
+            : PALETTE.neutral;
+    try {
+      visual.defaultBaseType = "Color";
+      visual.hoveredBaseType = "Color";
+      visual.triggeredBaseType = "Color";
+      visual.defaultColor = color;
+      visual.hoveredColor = new vec4(
+        Math.min(1, color.x + 0.12),
+        Math.min(1, color.y + 0.12),
+        Math.min(1, color.z + 0.12),
+        color.w
+      );
+      visual.triggeredColor = color;
+    } catch (error) {
+      print("Lifeline UI: button tone styling unavailable; UIKit default visual retained.");
+    }
+  }
+
   private addButton(parent: SceneObject, label: string, width: number, height: number, action: () => void, tone: "primary" | "critical" | "neutral"): void {
     const obj = global.scene.createSceneObject("Lifeline Button " + label.replace(/[^A-Z0-9]+/g, "_"));
     obj.setParent(parent);
     const button = obj.createComponent(Button.getTypeName()) as Button;
     button.size = new vec3(width, height, 1);
     button.opacity = tone === "critical" ? 1.0 : tone === "primary" ? 0.98 : 0.88;
+    this.applyButtonTone(button, tone);
     button.onTriggerUp.add(action);
     this.addButtonLabel(obj, label, width - 0.5, "Button");
     const item = obj.createComponent(FlexItem.getTypeName()) as FlexItem;
