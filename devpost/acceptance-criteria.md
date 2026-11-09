@@ -47,7 +47,7 @@ These checks are additive to AC-1..AC-4 above and do not replace or expand the o
 | UX-4 Existing-path preservation | Person and bleeding map to the existing approved pathways; Other emergency retains its 112 / operator fallback; Fire / Smoke uses only the new sourced evacuation copy. | Confirm callbacks and compare the unchanged medical text and new fire copy with `medical-content-sources.md`. |
 | UX-5 UI readability and context | Larger typography, readable contrast, comfortable target sizes and central incident visibility are maintained. | Inspect Preview at neutral head position and while moving around the incident stand-in. |
 
-Fire / smoke is selectable as a user-described category, but the unchanged baseline controller/state machine has no fire guidance state. The current implementation routes this selection to the existing “other emergency” fallback and does not claim a fire response.
+Fire / Smoke is a distinct content path routed through the existing `OTHER_EMERGENCY` state. It contains only the seven sourced evacuation and professional-assistance steps documented in `medical-content-sources.md`; it does not add a fire-specific state-machine enum or firefighting functionality.
 
 
 ## Additive two-panel guidance and Fire / Smoke checks
