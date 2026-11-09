@@ -239,7 +239,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.frame.setFollowing(false);
     this.frame.innerSize = new vec2(GUIDANCE_FRAME_WIDTH, GUIDANCE_PANEL_HEIGHT);
     this.frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
-    this.overviewPanelObject.enabled = true;
+    this.overviewPanelObject.getTransform().setLocalScale(new vec3(1, 1, 1));
     this.positionGuidancePanels();
     // Keep the existing SOS object and callback. It moves with the shared
     // instruction-panel root instead of creating a second emergency control.
@@ -250,11 +250,11 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
   private leaveGuidancePanels(): void {
     if (!this.guidancePanelsActive) {
-      if (this.overviewPanelObject) this.overviewPanelObject.enabled = false;
+      if (this.overviewPanelObject) this.overviewPanelObject.getTransform().setLocalScale(new vec3(0, 0, 1));
       return;
     }
     this.guidancePanelsActive = false;
-    if (this.overviewPanelObject) this.overviewPanelObject.enabled = false;
+    if (this.overviewPanelObject) this.overviewPanelObject.getTransform().setLocalScale(new vec3(0, 0, 1));
     if (this.frame) {
       this.frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
       this.frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
@@ -294,7 +294,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.overviewContentHost = global.scene.createSceneObject("Lifeline Response Plan Content");
     this.overviewContentHost.setParent(panel);
     this.overviewContentHost.getTransform().setLocalPosition(new vec3(0, 0, 0.6));
-    panel.enabled = false;
+    // Keep the host enabled so BackPlate receives its normal lifecycle events;
+    // a zero visual scale hides it until the two-panel workspace is requested.
+    panel.getTransform().setLocalScale(new vec3(0, 0, 1));
   }
 
   private renderTwoPanelGuidance(title: string, snapshot: LifelineSnapshot): void {
@@ -602,7 +604,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private addLabel(parent: SceneObject, value: string, role: TextRole, height: number,
       alignment: "left" | "center" = "left", width: number = CONTENT_WIDTH,
       textColor: vec4 = PALETTE.ivory): void {
-    // ElementContent auto-sizes safely when it is the sole child of its own layout host.
+    // Give raw Text its own FlexLayout host and an explicit allocated size.
     const host = global.scene.createSceneObject("Lifeline Label Host");
     host.setParent(parent);
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
