@@ -311,7 +311,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.overviewPageRoot = overviewPage;
     const overviewColumn = this.createFlex(overviewPage, FlexDirection.Column, 9.0, 17.0, 0.05);
     const overviewHeader = this.createFlex(overviewColumn, FlexDirection.Row, 9.0, 4.0, 0.3);
-    this.addLabel(overviewHeader, "PLAN", "Headline2", 4.0, "left", 3.5);
+    this.addLabel(overviewHeader, "RESPONSE\nPLAN", "Caption", 4.0, "left", 3.5);
     this.addButton(overviewHeader, "BACK", 5.2, 4.0, () => this.controller?.back(), "neutral");
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index];
@@ -327,13 +327,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     rightPage.setParent(this.contentHost);
     this.pageRoot = rightPage;
     const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.12);
-    this.addLabel(rightColumn, "DO NOW · STEP " + (currentIndex + 1) + " OF " + steps.length, "Headline2", 3.2, "left", 8.0);
+    this.addLabel(rightColumn, "DO NOW\nSTEP " + (currentIndex + 1) + "/" + steps.length, "Headline2", 3.2, "left", 8.0);
     this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.6, "left", 17.0);
-    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.8, "left", 17.0);
+    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 4.2, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
       ? "Once outside and safe: 112 integrated response · 101 Fire Services."
       : "Lifeline provides guidance only. Follow the emergency operator's instructions.";
-    this.addLabel(rightColumn, support, "Caption", 1.2, "left", 17.0);
+    this.addLabel(rightColumn, support, "Caption", 1.5, "left", 17.0);
 
     const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.35);
     this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
@@ -631,7 +631,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     text.textFill.color = textColor;
     text.horizontalAlignment = alignment === "center" ? HorizontalAlignment.Center : HorizontalAlignment.Left;
     text.verticalAlignment = VerticalAlignment.Center;
-    text.horizontalOverflow = HorizontalOverflow.Overflow;
+    text.horizontalOverflow = alignment === "left" && (role === "Body" || role === "Caption")
+      ? HorizontalOverflow.Wrap
+      : HorizontalOverflow.Overflow;
     text.verticalOverflow = VerticalOverflow.Overflow;
     text.layoutRect = Rect.create(-width / 2, width / 2, -height / 2, height / 2);
     const contentItem = contentObject.createComponent(FlexItem.getTypeName()) as FlexItem;
