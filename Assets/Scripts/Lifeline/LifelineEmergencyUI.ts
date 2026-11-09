@@ -274,10 +274,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     if (!marker || !marker.enabled) return;
     const markerPosition = marker.getTransform().getWorldPosition();
     const cameraTransform = WorldCameraFinderProvider.getInstance().getComponent().getTransform();
-    const groupPosition = markerPosition
-      .subtract(cameraTransform.forward.uniformScale(GUIDANCE_FORWARD_OFFSET))
-      .add(cameraTransform.right.uniformScale(GUIDANCE_GROUP_RIGHT_OFFSET))
-      .add(cameraTransform.up.uniformScale(GUIDANCE_VERTICAL_OFFSET));
+    const cameraForwardOffset = cameraTransform.forward.uniformScale(GUIDANCE_FORWARD_OFFSET);
+    const cameraRightOffset = cameraTransform.right.uniformScale(GUIDANCE_GROUP_RIGHT_OFFSET);
+    const cameraUpOffset = cameraTransform.up.uniformScale(GUIDANCE_VERTICAL_OFFSET);
+    const positionWithoutForwardOffset = markerPosition.add(cameraRightOffset).add(cameraUpOffset);
+    const groupPosition = new vec3(
+      positionWithoutForwardOffset.x - cameraForwardOffset.x,
+      positionWithoutForwardOffset.y - cameraForwardOffset.y,
+      positionWithoutForwardOffset.z - cameraForwardOffset.z
+    );
     const rootTransform = this.sceneObject.getTransform();
     rootTransform.setWorldPosition(groupPosition);
     rootTransform.setWorldRotation(cameraTransform.getWorldRotation());
@@ -329,6 +334,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.pageRoot = rightPage;
     const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.12);
     this.addLabel(rightColumn, "DO NOW\nSTEP " + (currentIndex + 1) + "/" + steps.length, "Headline2", 4.4, "left", 8.0);
+    this.addButton(rightColumn, "CALL 112", 7.0, 3.6, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.4, "left", 17.0);
     this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.6, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
@@ -416,6 +422,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     }
     this.addButton(parent, "CALL INSTRUCTIONS", 18.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
     this.addButton(parent, "CONTINUE", 18.0, SECONDARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
+  }
+
+  private renderCallInstructions(parent: SceneObject): void {
+    this.addLabel(parent, "Call emergency services", "Headline1", 2.2);
+    this.addLabel(parent, "112", "Title1", 3.0, "center");
+    this.addLabel(parent, "Use your phone to call 112 now.", "Subheadline", 1.8, "center");
+    this.addLabel(parent, "If you cannot call, ask another person nearby to call 112 for you.", "Body", 1.8, "center");
+    this.addLabel(parent, "Lifeline has not placed or verified a call.", "Callout", 1.8, "center", CONTENT_WIDTH, PALETTE.amber);
+    this.addButton(parent, "BACK", 18.0, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
   }
 
   private renderPathSelection(parent: SceneObject, snapshot: LifelineSnapshot): void {
