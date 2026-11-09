@@ -28,6 +28,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    controllerObject: false
     voiceActivationEnabled: false
   ScriptTypesHidden:
     {}
@@ -38,9 +39,11 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - voiceActivationEnabled: true
+    - controllerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      voiceActivationEnabled: true
   ScriptTypes:
     -
       {}
   InputLines:
-    - '// @input bool voiceActivationEnabled = true {"hint":"Disable if ASR is unavailable or not granted; manual activation remains available."}'
+    - '// @input SceneObject controllerObject {"hint":"Reference the Lifeline root SceneObject containing LifelineController."}'
+    - '// @input bool voiceActivationEnabled = true {"hint":"Enable only when optional hardware voice activation is intended and permissions are available."}'

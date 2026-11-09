@@ -28,6 +28,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    controllerObject: false
     previewSimulationEnabled: false
   ScriptTypesHidden:
     {}
@@ -38,9 +39,11 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - previewSimulationEnabled: false
+    - controllerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      previewSimulationEnabled: false
   ScriptTypes:
     -
       {}
   InputLines:
+    - '// @input SceneObject controllerObject {"hint":"Reference the Lifeline root SceneObject containing LifelineController."}'
     - '// @input bool previewSimulationEnabled {"hint":"Enable only for an explicitly labelled Lens Studio Preview simulation control."}'

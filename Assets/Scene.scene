@@ -505,7 +505,7 @@
   Enabled: true
   ScriptAsset: !<reference> d9358ab1-5dd3-4644-a130-a53695795da1
   ScriptInputsDefault:
-    controllerObject: true
+    {}
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -1063,38 +1063,6 @@
     - !<own> b6b1c2d3-e4f5-4067-9b01-cdef23456789
   Components:
     - !<own> 1b889ae3-f91f-4692-9531-9a94245cd27b
-- !<SceneObject/a5a0b1c2-d3e4-4f56-8a90-bcdef1234567>
-  PrefabRemaps:
-    []
-  Name: Lifeline Input Adapters
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> 15910ad3-e946-421b-9388-d831f1133589
-    - !<own> 670ed8ba-5ac6-4af8-a014-4c7e76f5cfd3
-    - !<own> 977f17b9-8bd4-4ef3-baa0-be441992bf67
-- !<SceneObject/b6b1c2d3-e4f5-4067-9b01-cdef23456789>
-  PrefabRemaps:
-    []
-  Name: Lifeline Instruction Panel
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> f7ece987-a8dd-424a-a9f3-e30ca740832e
 - !<ScriptComponent/62967490-d66e-4479-8829-e5c9da5b5b57>
   PrefabRemaps:
     []
@@ -1228,7 +1196,6 @@
   Enabled: true
   ScriptAsset: !<reference> a0d0f42e-cdff-4a90-b5fe-af00eecdb107
   ScriptInputsDefault:
-    controllerObject: true
     previewSimulationEnabled: true
   ScriptTypesDefault:
     {}
@@ -1664,17 +1631,16 @@
   PrefabRemaps:
     []
   Name: LifelineVoiceActivationController
-  Enabled: true
+  Enabled: false
   ScriptAsset: !<reference> 2c08df80-f416-4b74-9de0-347374156f97
   ScriptInputsDefault:
-    controllerObject: true
     voiceActivationEnabled: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
       controllerObject: !<reference.SceneObject> 607b5570-497e-406a-8746-d00f2b854411
-      voiceActivationEnabled: false
+      voiceActivationEnabled: true
   ScriptTypes:
     "":
       {}
@@ -1803,6 +1769,23 @@
     - !<own> b93dfa60-41bd-4999-ac0f-4b2f1df2bdaf
   Components:
     []
+- !<SceneObject/a5a0b1c2-d3e4-4f56-8a90-bcdef1234567>
+  PrefabRemaps:
+    []
+  Name: Lifeline Input Adapters
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 15910ad3-e946-421b-9388-d831f1133589
+    - !<own> 670ed8ba-5ac6-4af8-a014-4c7e76f5cfd3
+    - !<own> 977f17b9-8bd4-4ef3-baa0-be441992bf67
 - !<SceneObject/a6305e2f-5379-4729-800a-d5ecae615edc>
   PrefabRemaps:
     []
@@ -1968,6 +1951,21 @@
     - !<own> fcc185fc-4e88-4e9e-9c71-40bd83b1b0ed
   Components:
     []
+- !<SceneObject/b6b1c2d3-e4f5-4067-9b01-cdef23456789>
+  PrefabRemaps:
+    []
+  Name: Lifeline Instruction Panel
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> f7ece987-a8dd-424a-a9f3-e30ca740832e
 - !<SceneObject/b786dabc-29e4-4cfa-8a84-f39604ffcbdd>
   PrefabRemaps:
     []
@@ -2729,8 +2727,7 @@
   Enabled: true
   ScriptAsset: !<reference> 456aaf74-d1d6-4b58-b27f-33b29b5d13ab
   ScriptInputsDefault:
-    controllerObject: true
-    activationAdaptersObject: true
+    {}
   ScriptTypesDefault:
     {}
   ScriptInputs:
