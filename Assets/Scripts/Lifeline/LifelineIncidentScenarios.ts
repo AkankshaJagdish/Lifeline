@@ -215,9 +215,11 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
     const hit = global.scene.createSceneObject("Selectable Incident Target");
     hit.setParent(root);
     hit.getTransform().setLocalPosition(offset);
-    const collider = hit.createComponent("Component.ColliderComponent") as ColliderComponent;
-    collider.shape = Shape.Box;
-    collider.size = size;
+    const collider = hit.createComponent("ColliderComponent") as ColliderComponent;
+    collider.fitVisual = false;
+    const boxShape = Shape.createBoxShape();
+    boxShape.size = size;
+    collider.shape = boxShape;
     const interactable = hit.createComponent(Interactable.getTypeName()) as Interactable;
     this.createEvent("OnStartEvent").bind(() => {
       interactable.onTriggerStart.add(() => this.selectObject(kind, root));
