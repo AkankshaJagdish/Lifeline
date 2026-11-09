@@ -107,3 +107,12 @@ The scenario props are simplified low-poly training shapes, not generated anatom
 The PR intentionally does not replace \`Assets/Scene.scene\`: the checked-in scene and the exported MCP scene snapshot do not match the documented working Lifeline hierarchy, and the MCP export identifies a temporary editor project path different from the repository workspace. Reconcile / attach in the known-good local scene rather than risk overwriting it.
 
 No local Lens Studio compile, Preview screenshot, scene inspection or LEAF run has been performed by the cloud session. Follow the test plan and record actual outcomes before marking this spatial demo verified.
+
+
+## Spatial UI redesign
+
+The follow-on UI redesign keeps the existing Lifeline controller, state machine, activation adapters, emergency configuration and reviewed medical content. It changes the existing \`LifelineEmergencyUI\` composition to provide a persistent inset SOS 112 control, a cleaner idle introduction, larger role-based typography and a simultaneous 2 × 2 emergency category menu.
+
+The four category selections route to existing pathways only: Person collapsed → adult collapse; Bleeding injury → severe bleeding; Other emergency → existing other path. Fire / smoke has no reviewed guidance or state in the existing state machine, so the selection routes to the safe existing fallback; no new fire instructions are added.
+
+Local compile and Preview checks are documented in [ui-redesign-test-plan.md](devpost/ui-redesign-test-plan.md). The branch has not been compiled or visually verified in Lens Studio by this cloud session.
