@@ -197,7 +197,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     if (isGuidance && hasSelectedIncident && this.incidentScenarios?.getMarkerObject()?.enabled) {
       this.enterGuidancePanels();
-      this.renderTwoPanelGuidance(title, snapshot);
+      this.renderTwoPanelGuidance(snapshot);
       return;
     }
 
@@ -300,7 +300,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     panel.getTransform().setLocalScale(new vec3(0, 0, 1));
   }
 
-  private renderTwoPanelGuidance(title: string, snapshot: LifelineSnapshot): void {
+  private renderTwoPanelGuidance(snapshot: LifelineSnapshot): void {
     if (!this.contentHost || !this.overviewContentHost || !snapshot.path) return;
     const steps = getGuidanceSteps(snapshot.path);
     const currentIndex = Math.max(0, Math.min(snapshot.stepIndex, Math.max(0, steps.length - 1)));
@@ -333,7 +333,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.6, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
       ? "Outside and safe: call 112 (ERSS) or 101 (Fire Services)."
-      : "Lifeline provides guidance only. Follow the emergency operator's instructions.";
+      : "Guidance only. Follow the emergency operator's instructions.";
     this.addLabel(rightColumn, support, "Caption", 1.2, "left", 17.0);
 
     const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.35);
@@ -371,6 +371,26 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
   private getStepSummary(step: GuidanceStep): string {
     if (step.summary) return step.summary;
+    const summaries: Record<string, string> = {
+      scene_safety: "Help only if safe",
+      get_help: "Ask someone to call 112",
+      barrier: "Use gloves or a barrier",
+      direct_pressure: "Press firmly on wound",
+      maintain_pressure: "Keep firm pressure",
+      blood_through: "Add material on top",
+      embedded_object: "Leave object in place",
+      secure_dressing: "When bleeding is controlled",
+      adult_only: "Adults only",
+      responsiveness: "Check adult response",
+      breathing: "Unresponsive / abnormal breathing",
+      compressions: "Push hard and fast",
+      cadence: "100–120 per minute",
+      recoil: "Allow full recoil",
+      operator: "Call 112; follow operator",
+      other_1: "Call 112",
+      other_2: "Follow operator",
+    };
+    if (summaries[step.id]) return summaries[step.id];
     const text = step.text;
     return text.length > 24 ? text.substring(0, 21) + "…" : text;
   }
@@ -383,6 +403,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     if (global.deviceInfoSystem.isEditor()) {
       this.addButton(parent, "SIMULATION — trigger voice: EMERGENCY", 24.0, SECONDARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
+    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.4, "center");
   }
 
   private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
