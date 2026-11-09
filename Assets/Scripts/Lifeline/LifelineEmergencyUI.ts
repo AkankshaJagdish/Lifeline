@@ -334,6 +334,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.pageRoot = rightPage;
     const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.12);
     this.addLabel(rightColumn, "DO NOW\nSTEP " + (currentIndex + 1) + "/" + steps.length, "Headline2", 4.4, "left", 8.0);
+    this.addButton(rightColumn, "CALL 112", 7.0, 3.6, () => this.controller?.showCallInstructions(), "critical");
     this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.4, "left", 17.0);
     this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.6, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
