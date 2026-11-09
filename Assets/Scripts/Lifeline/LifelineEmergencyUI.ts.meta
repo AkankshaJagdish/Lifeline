@@ -29,6 +29,7 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     activationAdaptersObject: false
+    incidentScenariosObject: false
     controllerObject: false
   ScriptTypesHidden:
     {}
@@ -41,9 +42,11 @@
   DefaultScriptInputs:
     - controllerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       activationAdaptersObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      incidentScenariosObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @input SceneObject controllerObject {"hint":"Lifeline Experience root SceneObject containing LifelineController."}'
     - '// @input SceneObject activationAdaptersObject {"hint":"Input Adapters child SceneObject containing the manual, Preview simulation and voice components."}'
+    - '// @input SceneObject incidentScenariosObject {"hint":"SceneObject holding LifelineIncidentScenarios. Used only to anchor guidance panels to the selected incident marker."}'
