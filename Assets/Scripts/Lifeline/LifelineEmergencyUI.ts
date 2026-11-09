@@ -60,6 +60,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private repeatMessage: string | null = null;
   private pathOptionIndex = 0;
   private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
+  private flexRegistrationCallbacks = new Set<SceneObject>();
 
   onAwake(): void {
     if (this.controllerObject) {
@@ -360,13 +361,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     }
 
     // The layout is configured for explicit registration. Queue each item once;
-    // the ReplayEvent flushes the complete batch after parent initialization.
+    // one ReplayEvent callback flushes the complete batch after parent initialization.
     if (pendingItems.indexOf(item) < 0) pendingItems.push(item);
+    if (this.flexRegistrationCallbacks.has(parent)) return;
+    this.flexRegistrationCallbacks.add(parent);
     parentFlex.onInitialized.add(() => {
       const items = this.pendingFlexItems.get(parent);
-      if (!items || items.length === 0) return;
-      parentFlex.addItems(items);
+      if (items && items.length > 0) parentFlex.addItems(items);
       this.pendingFlexItems.delete(parent);
+      this.flexRegistrationCallbacks.delete(parent);
     });
   }
 
