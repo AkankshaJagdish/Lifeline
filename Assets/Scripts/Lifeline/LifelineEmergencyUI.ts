@@ -1,5 +1,5 @@
 import { LifelineController } from "./LifelineController";
-import { LifelineSnapshot, LifelinePath } from "./LifelineTypes";
+import { LifelineSnapshot } from "./LifelineTypes";
 import { LifelineVoiceActivationController } from "./LifelineVoiceActivationController";
 import { LifelineManualActivationController } from "./LifelineManualActivationController";
 import { LifelinePreviewSimulationController } from "./LifelinePreviewSimulationController";
@@ -79,8 +79,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private snapshot: LifelineSnapshot | null = null;
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
-  private pathOptionIndex = 0;
-  private lastChosenCategory: string | null = null;
   private sosObject: SceneObject | null = null;
   private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
   private flexRegistrationCallbacks = new Set<SceneObject>();
@@ -118,7 +116,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       frame.showCloseButton = false;
       frame.showFollowButton = false;
 
-      // Frame remains within the 30 x 20 cm design limit; content uses a 0.75 cm inset.
+      // Preserve the approved 30 x 20 cm Frame baseline; content uses a 0.75 cm inset.
       frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
       frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
       frame.setUseFollow(true);
@@ -137,13 +135,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     this.createEvent("OnStartEvent").bind(() => {
       this.controller?.subscribe((snapshot) => {
-        if (snapshot.state === "PATH_SELECTION" && this.snapshot?.state !== "PATH_SELECTION") {
-          this.pathOptionIndex = 0;
-        }
         const previousState = this.snapshot?.state;
         this.snapshot = snapshot;
         this.repeatMessage = null;
-        if (snapshot.state === "IDLE" && previousState !== "IDLE") this.lastChosenCategory = null;
         this.render(snapshot);
       });
       this.voiceActivation?.onStatusChanged((status) => {
@@ -218,7 +212,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private selectCategory(category: string): void {
-    this.lastChosenCategory = category;
     if (category === "person") {
       this.controller?.selectPath("adult_collapse");
       return;
@@ -279,7 +272,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const sos = global.scene.createSceneObject("Lifeline Persistent SOS Control");
     this.sosObject = sos;
     sos.setParent(this.contentHost || this.sceneObject);
-    // Upper-right inset within the 36 x 26 cm Frame; remains inside a comfortable target region.
+    // Upper-right inset within the approved 30 x 20 cm Frame; stays inside the comfortable interaction region.
     sos.getTransform().setLocalPosition(new vec3(9.8, 6.8, 0.8));
     const button = sos.createComponent(Button.getTypeName()) as Button;
     button.size = new vec3(SOS_WIDTH, SOS_HEIGHT, 1);
