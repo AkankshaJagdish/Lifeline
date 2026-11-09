@@ -206,7 +206,7 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   }
 
   private addSelectableCollider(root: SceneObject, offset: vec3, size: vec3): void {
-    const kind = this.kindForObject(root);
+    const kind = root === this.personObject ? "person" : root === this.injuryObject ? "injury" : "fire";
     const hit = global.scene.createSceneObject("Selectable Incident Target");
     hit.setParent(root);
     hit.getTransform().setLocalPosition(offset);
