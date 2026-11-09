@@ -1,5 +1,7 @@
 import { LifelineController } from "./LifelineController";
-import { LifelineSnapshot } from "./LifelineTypes";
+import { LifelineSnapshot, GuidanceStep, LifelinePath } from "./LifelineTypes";
+import { getGuidanceSteps } from "./LifelineGuidanceContent";
+import { LifelineIncidentScenarios } from "./LifelineIncidentScenarios";
 import { LifelineVoiceActivationController } from "./LifelineVoiceActivationController";
 import { LifelineManualActivationController } from "./LifelineManualActivationController";
 import { LifelinePreviewSimulationController } from "./LifelinePreviewSimulationController";
@@ -7,6 +9,8 @@ import { INDIA_EMERGENCY_CONFIG } from "./LifelineEmergencyConfig";
 import { LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
+import { BackPlate } from "SpectaclesUIKit.lspkg/Scripts/BackPlate";
+import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider";
 import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout";
 import { RoundedRectangleVisual, RoundedRectangleVisualState } from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangleVisual";
 import { GradientParameters } from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle";
@@ -16,6 +20,14 @@ import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scr
 
 const FRAME_INNER_WIDTH = 30;
 const FRAME_INNER_HEIGHT = 20;
+const GUIDANCE_FRAME_WIDTH = 18.5;
+const GUIDANCE_FRAME_HEIGHT = 18.5;
+const OVERVIEW_WIDTH = 10.5;
+const GUIDANCE_PANEL_HEIGHT = 18.5;
+const GUIDANCE_LEFT_OFFSET = -15.5;
+const GUIDANCE_GROUP_RIGHT_OFFSET = 9.75;
+const GUIDANCE_FORWARD_OFFSET = 55;
+const GUIDANCE_VERTICAL_OFFSET = -8;
 const CONTENT_WIDTH = 28.5;
 const CONTENT_HEIGHT = 18.5;
 const PANEL_PADDING = 0.75;
@@ -69,10 +81,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   @hint("Input Adapters child SceneObject containing the manual, Preview simulation and voice components.")
   activationAdaptersObject: SceneObject;
 
+  @input
+  @hint("SceneObject holding the existing LifelineIncidentScenarios component. Used only to anchor guidance panels to the user's selected non-human incident marker.")
+  incidentScenariosObject: SceneObject;
+
   private controller: LifelineController | null = null;
   private voiceActivation: LifelineVoiceActivationController | null = null;
   private manualActivation: LifelineManualActivationController | null = null;
   private previewSimulation: LifelinePreviewSimulationController | null = null;
+  private incidentScenarios: LifelineIncidentScenarios | null = null;
   private frame: Frame | null = null;
   private contentHost: SceneObject | null = null;
   private pageRoot: SceneObject | null = null;
@@ -80,6 +97,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
   private sosObject: SceneObject | null = null;
+  private overviewPanelObject: SceneObject | null = null;
+  private overviewContentHost: SceneObject | null = null;
+  private overviewPageRoot: SceneObject | null = null;
+  private guidancePanelsActive = false;
+  private defaultRootWorldPosition: vec3 | null = null;
+  private defaultRootWorldRotation: quat | null = null;
+  private defaultSosLocalPosition: vec3 | null = null;
   private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
   private flexRegistrationCallbacks = new Set<SceneObject>();
 
@@ -96,6 +120,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       this.voiceActivation = this.activationAdaptersObject.getComponent(LifelineVoiceActivationController.getTypeName()) as LifelineVoiceActivationController;
       this.manualActivation = this.activationAdaptersObject.getComponent(LifelineManualActivationController.getTypeName()) as LifelineManualActivationController;
       this.previewSimulation = this.activationAdaptersObject.getComponent(LifelinePreviewSimulationController.getTypeName()) as LifelinePreviewSimulationController;
+    }
+    if (this.incidentScenariosObject) {
+      this.incidentScenarios = this.incidentScenariosObject.getComponent(LifelineIncidentScenarios.getTypeName()) as LifelineIncidentScenarios;
     }
 
     if (!this.manualActivation) print("Lifeline UI: manual activation adapter is not wired.");
@@ -126,7 +153,11 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       host.setParent(frame.contentTransform.getSceneObject());
       host.getTransform().setLocalPosition(new vec3(0, 0, 0.6));
       this.contentHost = host;
+      this.defaultRootWorldPosition = this.sceneObject.getTransform().getWorldPosition();
+      this.defaultRootWorldRotation = this.sceneObject.getTransform().getWorldRotation();
       this.sosObject = this.createPersistentSosControl();
+      this.defaultSosLocalPosition = this.sosObject.getTransform().getLocalPosition();
+      this.createOverviewPanel();
       if (this.snapshot) this.render(this.snapshot);
     });
 
@@ -144,13 +175,36 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
         this.voiceStatus = status;
         if (this.snapshot?.state === "IDLE") this.render(this.snapshot);
       });
+      this.incidentScenarios?.onSelectionChanged(() => {
+        if (this.guidancePanelsActive && this.snapshot) this.positionGuidancePanels();
+      });
     });
   }
 
   private render(snapshot: LifelineSnapshot): void {
     if (!this.contentHost) return;
-    if (this.pageRoot) this.pageRoot.destroy();
+    if (this.pageRoot) {
+      this.pageRoot.destroy();
+      this.pageRoot = null;
+    }
+    if (this.overviewPageRoot) {
+      this.overviewPageRoot.destroy();
+      this.overviewPageRoot = null;
+    }
 
+    const title = this.guidanceTitle(snapshot.path);
+    const hasSelectedIncident = !!this.incidentScenarios?.getSelectedObject();
+    const isGuidance = snapshot.state === "BLEEDING_GUIDANCE" ||
+      snapshot.state === "ADULT_COLLAPSE_GUIDANCE" ||
+      snapshot.state === "OTHER_EMERGENCY";
+
+    if (isGuidance && hasSelectedIncident) {
+      this.enterGuidancePanels();
+      this.renderTwoPanelGuidance(title, snapshot);
+      return;
+    }
+
+    this.leaveGuidancePanels();
     const page = global.scene.createSceneObject("Lifeline Screen");
     page.setParent(this.contentHost);
     this.pageRoot = page;
@@ -162,13 +216,169 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       case "EMERGENCY_HOME": this.renderEmergencyHome(column, snapshot); break;
       case "CALL_IN_PROGRESS_OR_MANUAL_CALL": this.renderCallInstructions(column); break;
       case "PATH_SELECTION": this.renderPathSelection(column, snapshot); break;
-      case "BLEEDING_GUIDANCE": this.renderGuidance(column, "Severe bleeding", snapshot); break;
-      case "ADULT_COLLAPSE_GUIDANCE": this.renderGuidance(column, "Adult collapse", snapshot); break;
-      case "OTHER_EMERGENCY": this.renderGuidance(column, "Other emergency", snapshot); break;
+      case "BLEEDING_GUIDANCE": this.renderGuidance(column, title, snapshot); break;
+      case "ADULT_COLLAPSE_GUIDANCE": this.renderGuidance(column, title, snapshot); break;
+      case "OTHER_EMERGENCY": this.renderGuidance(column, title, snapshot); break;
       case "HELP_ARRIVED_OR_SESSION_END": this.renderEndScreen(column); break;
       case "CANCEL_CONFIRMATION": this.renderCancelConfirmation(column, snapshot); break;
       case "ACTIVATING": this.addLabel(column, "Starting Lifeline…", "Headline2", 1.2); break;
     }
+  }
+
+  private guidanceTitle(path: LifelinePath | null): string {
+    if (path === "bleeding") return "Severe bleeding";
+    if (path === "adult_collapse") return "Adult collapse";
+    if (path === "fire_smoke") return "Fire / smoke";
+    return "Other emergency";
+  }
+
+  private enterGuidancePanels(): void {
+    if (!this.frame || !this.overviewPanelObject) return;
+    if (this.guidancePanelsActive) {
+      this.positionGuidancePanels();
+      return;
+    }
+    this.guidancePanelsActive = true;
+    this.frame.setFollowing(false);
+    this.frame.innerSize = new vec2(GUIDANCE_FRAME_WIDTH, GUIDANCE_PANEL_HEIGHT);
+    this.frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
+    this.overviewPanelObject.enabled = true;
+    this.positionGuidancePanels();
+    // Keep the existing SOS object and callback. It moves with the shared
+    // instruction-panel root instead of creating a second emergency control.
+    if (this.sosObject) {
+      this.sosObject.getTransform().setLocalPosition(new vec3(5.15, 5.85, 0.8));
+    }
+  }
+
+  private leaveGuidancePanels(): void {
+    if (!this.guidancePanelsActive) {
+      if (this.overviewPanelObject) this.overviewPanelObject.enabled = false;
+      return;
+    }
+    this.guidancePanelsActive = false;
+    if (this.overviewPanelObject) this.overviewPanelObject.enabled = false;
+    if (this.frame) {
+      this.frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
+      this.frame.padding = new vec2(PANEL_PADDING, PANEL_PADDING);
+      this.frame.setFollowing(true);
+    }
+    const transform = this.sceneObject.getTransform();
+    if (this.defaultRootWorldPosition) transform.setWorldPosition(this.defaultRootWorldPosition);
+    if (this.defaultRootWorldRotation) transform.setWorldRotation(this.defaultRootWorldRotation);
+    if (this.sosObject && this.defaultSosLocalPosition) {
+      this.sosObject.getTransform().setLocalPosition(this.defaultSosLocalPosition);
+    }
+  }
+
+  private positionGuidancePanels(): void {
+    if (!this.guidancePanelsActive || !this.incidentScenarios) return;
+    const marker = this.incidentScenarios.getMarkerObject();
+    if (!marker || !marker.enabled) return;
+    const markerPosition = marker.getTransform().getWorldPosition();
+    const cameraTransform = WorldCameraFinderProvider.getInstance().getComponent().getTransform();
+    const groupPosition = markerPosition
+      .subtract(cameraTransform.forward.uniformScale(GUIDANCE_FORWARD_OFFSET))
+      .add(cameraTransform.right.uniformScale(GUIDANCE_GROUP_RIGHT_OFFSET))
+      .add(cameraTransform.up.uniformScale(GUIDANCE_VERTICAL_OFFSET));
+    const rootTransform = this.sceneObject.getTransform();
+    rootTransform.setWorldPosition(groupPosition);
+    rootTransform.setWorldRotation(cameraTransform.getWorldRotation());
+  }
+
+  private createOverviewPanel(): void {
+    if (this.overviewPanelObject || !this.contentHost) return;
+    const panel = global.scene.createSceneObject("Lifeline Response Plan Panel");
+    panel.setParent(this.sceneObject);
+    panel.getTransform().setLocalPosition(new vec3(GUIDANCE_LEFT_OFFSET, 0, 0.2));
+    const plate = panel.createComponent(BackPlate.getTypeName()) as BackPlate;
+    plate.size = new vec2(OVERVIEW_WIDTH, GUIDANCE_PANEL_HEIGHT);
+    this.overviewPanelObject = panel;
+    this.overviewContentHost = global.scene.createSceneObject("Lifeline Response Plan Content");
+    this.overviewContentHost.setParent(panel);
+    this.overviewContentHost.getTransform().setLocalPosition(new vec3(0, 0, 0.6));
+    panel.enabled = false;
+  }
+
+  private renderTwoPanelGuidance(title: string, snapshot: LifelineSnapshot): void {
+    if (!this.contentHost || !this.overviewContentHost || !snapshot.path) return;
+    const steps = getGuidanceSteps(snapshot.path);
+    const currentIndex = Math.max(0, Math.min(snapshot.stepIndex, Math.max(0, steps.length - 1)));
+    const currentStep = steps[currentIndex];
+    if (!currentStep) return;
+
+    const overviewPage = global.scene.createSceneObject("Lifeline Response Plan Screen");
+    overviewPage.setParent(this.overviewContentHost);
+    this.overviewPageRoot = overviewPage;
+    const overviewColumn = this.createFlex(overviewPage, FlexDirection.Column, 9.0, 17.0, 0.12);
+    this.addLabel(overviewColumn, "RESPONSE PLAN", "Headline2", 1.8, "left", 9.0);
+    for (let index = 0; index < steps.length; index++) {
+      const step = steps[index];
+      const status = index < currentIndex ? "✓" : index === currentIndex ? "●" : "○";
+      const stepTitle = this.getStepTitle(step);
+      const summary = this.getStepSummary(step);
+      const tone = index < currentIndex ? PALETTE.teal : index === currentIndex ? PALETTE.amber : PALETTE.neutral;
+      const label = status + " " + (index + 1) + ". " + stepTitle + " — " + summary;
+      this.addLabel(overviewColumn, label, "Caption", 1.82, "left", 9.0, tone);
+    }
+    this.addButton(overviewColumn, "BACK", 8.0, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+
+    const rightPage = global.scene.createSceneObject("Lifeline DO NOW Screen");
+    rightPage.setParent(this.contentHost);
+    this.pageRoot = rightPage;
+    const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.2);
+    const topRow = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 3.6, 0.4);
+    this.addLabel(topRow, "DO NOW · STEP " + (currentIndex + 1) + " OF " + steps.length, "Headline2", 3.6, "left", 11.0);
+    this.addButton(topRow, "END", 5.2, 3.6, () => this.controller?.requestEndSession(), "neutral");
+    this.addLabel(rightColumn, title, "Headline1", 2.0, "left", 17.0);
+    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 4.2, "left", 17.0);
+    const support = snapshot.path === "fire_smoke"
+      ? "Emergency contacts: 112 integrated response · 101 Fire Services. Contact them once outside and safe."
+      : LIFELINE_SAFETY_STATEMENT;
+    this.addLabel(rightColumn, support, "Caption", 1.8, "left", 17.0);
+
+    const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.5);
+    const canAdvance = currentIndex + 1 < steps.length;
+    if (canAdvance) {
+      this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
+      this.addButton(actions, "NEXT STEP", 6.0, 5.6, () => this.controller?.next(), "primary");
+    } else {
+      this.addButton(actions, "REPEAT", 5.5, 5.6, () => this.repeatCurrentInstruction(), "neutral");
+      this.addButton(actions, "FINISH", 5.5, 5.6, () => this.controller?.next(), "primary");
+    }
+    if (snapshot.path === "fire_smoke") {
+      // 101 is shown in the instruction / support copy; SOS remains 112.
+    }
+  }
+
+  private getStepTitle(step: GuidanceStep): string {
+    if (step.title) return step.title;
+    const titles: Record<string, string> = {
+      scene_safety: "Stay safe",
+      get_help: "Get help",
+      barrier: "Barrier",
+      direct_pressure: "Press firmly",
+      maintain_pressure: "Keep pressure",
+      blood_through: "Add material",
+      embedded_object: "Work around object",
+      secure_dressing: "Secure dressing",
+      adult_only: "Adult only",
+      responsiveness: "Check response",
+      breathing: "Check normal breathing",
+      compressions: "Compressions",
+      cadence: "Pace",
+      recoil: "Full recoil",
+      operator: "Follow operator",
+      other_1: "Call 112",
+      other_2: "Follow operator",
+    };
+    return titles[step.id] || step.id.replace(/_/g, " ");
+  }
+
+  private getStepSummary(step: GuidanceStep): string {
+    if (step.summary) return step.summary;
+    const text = step.text;
+    return text.length > 42 ? text.substring(0, 39) + "…" : text;
   }
 
   private renderIdle(parent: SceneObject): void {
@@ -312,7 +522,12 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.addLabel(parent, instruction, "Body", 5.0);
 
     const actions = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 11.0, TARGET_GAP);
-    this.addButton(actions, "NEXT STEP", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
+    const hasNext = snapshot.stepIndex + 1 < snapshot.stepCount;
+    if (hasNext) {
+      this.addButton(actions, "NEXT STEP", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
+    } else {
+      this.addLabel(actions, "Final guided step", "Callout", SECONDARY_TARGET, "center");
+    }
     const secondary = this.createFlex(actions, FlexDirection.Row, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
     const half = (CONTENT_WIDTH - TARGET_GAP) / 2;
     this.addButton(secondary, "REPEAT", half, SECONDARY_TARGET, () => this.repeatCurrentInstruction(), "neutral");
@@ -393,7 +608,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     return row;
   }
 
-  private addLabel(parent: SceneObject, value: string, role: TextRole, height: number, alignment: "left" | "center" = "left", width: number = CONTENT_WIDTH): void {
+  private addLabel(parent: SceneObject, value: string, role: TextRole, height: number,
+      alignment: "left" | "center" = "left", width: number = CONTENT_WIDTH,
+      textColor: vec4 = PALETTE.ivory): void {
     // ElementContent auto-sizes safely when it is the sole child of its own layout host.
     const host = global.scene.createSceneObject("Lifeline Label Host");
     host.setParent(parent);
@@ -421,7 +638,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     text.text = value;
     text.depthTest = true;
     applyTextRole(text, role);
-    text.textFill.color = PALETTE.ivory;
+    text.textFill.color = textColor;
     text.horizontalAlignment = alignment === "center" ? HorizontalAlignment.Center : HorizontalAlignment.Left;
     text.verticalAlignment = VerticalAlignment.Center;
     text.horizontalOverflow = HorizontalOverflow.Overflow;
