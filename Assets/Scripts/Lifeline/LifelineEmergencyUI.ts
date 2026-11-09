@@ -244,7 +244,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     // Keep the existing SOS object and callback. It moves with the shared
     // instruction-panel root instead of creating a second emergency control.
     if (this.sosObject) {
-      this.sosObject.getTransform().setLocalPosition(new vec3(4.95, 5.85, 0.8));
+      this.sosObject.getTransform().setLocalPosition(new vec3(4.95, 6.3, 0.8));
     }
   }
 
@@ -290,6 +290,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     panel.getTransform().setLocalPosition(new vec3(GUIDANCE_LEFT_OFFSET, 0, 0.2));
     const plate = panel.createComponent(BackPlate.getTypeName()) as BackPlate;
     plate.size = new vec2(OVERVIEW_WIDTH, GUIDANCE_PANEL_HEIGHT);
+    plate.style = "simple";
     this.overviewPanelObject = panel;
     this.overviewContentHost = global.scene.createSceneObject("Lifeline Response Plan Content");
     this.overviewContentHost.setParent(panel);
@@ -327,13 +328,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     rightPage.setParent(this.contentHost);
     this.pageRoot = rightPage;
     const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.12);
-    this.addLabel(rightColumn, "DO NOW\nSTEP " + (currentIndex + 1) + "/" + steps.length, "Headline2", 3.2, "left", 8.0);
-    this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.6, "left", 17.0);
-    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 4.2, "left", 17.0);
+    this.addLabel(rightColumn, "DO NOW\nSTEP " + (currentIndex + 1) + "/" + steps.length, "Headline2", 4.4, "left", 8.0);
+    this.addLabel(rightColumn, this.getStepTitle(currentStep), "Headline1", 1.4, "left", 17.0);
+    this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 3.6, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
-      ? "Once outside and safe: 112 integrated response · 101 Fire Services."
+      ? "Outside and safe: call 112 (ERSS) or 101 (Fire Services)."
       : "Lifeline provides guidance only. Follow the emergency operator's instructions.";
-    this.addLabel(rightColumn, support, "Caption", 1.5, "left", 17.0);
+    this.addLabel(rightColumn, support, "Caption", 1.2, "left", 17.0);
 
     const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.35);
     this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
