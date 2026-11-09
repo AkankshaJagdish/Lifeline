@@ -37,7 +37,7 @@ The voice controller now stops listening when the emergency state begins. It onl
 
 - Lens Studio 5.23.2.26081320 Public; target platform: Spectacles.
 - TypeScript Lens source under `Assets/Scripts/Lifeline/`.
-- Scene hierarchy in `Assets/Scene.scene`: `Lifeline Experience` root, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`.
+- The working Lifeline hierarchy is expected to contain `Lifeline Experience`, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`. The checked-in `Assets/Scene.scene` is a separate export (Camera Object / Lighting / Preview support) without that hierarchy; use the known-good local scene for Preview and do not treat the checked-in scene as the runnable demo scene.
 - The UI uses the installed Spectacles UIKit Frame, BackPlate, Button, FlexLayout, and FlexItem components; the main controller and state machine remain UI-independent.
 - The current scene keeps voice activation disabled by default. Do not enable it for a Preview-only demonstration.
 - Package sources and `.lspkg` contents are not modified by this verification branch.
