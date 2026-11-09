@@ -223,3 +223,53 @@ The official run skill states that each scenario execution resets the Lens scene
 - Hardware tests reported separately from Preview. Never infer real ASR from the labelled Preview simulation, or claim an emergency call was placed.
 
 **Current verdict:** Source review complete; end-to-end Preview and LEAF remain BLOCKED pending the known-good local scene and a connected Lens Studio MCP session. No compile, runtime, screenshot, LEAF or hardware pass is claimed by this cloud session.
+## Narrow compiler repair — 2026-11-09
+
+User-reported Lens Studio 5.23.2.26081320 compiler diagnostics:
+
+- `LifelineIncidentScenarios.ts(219,28) TS2339`: `Shape.Box` is not a valid static member.
+- `LifelineIncidentScenarios.ts(220,14) TS2339`: `ColliderComponent.size` is not a valid property.
+- `LifelineEmergencyUI.ts(214,52) TS2339`: `renderCallInstructions()` was referenced but absent.
+- `LifelineEmergencyUI.ts(278,8) TS2339`: runtime `vec3` has no instance `subtract()` method.
+
+### Changes prepared on `codex/lifeline-compiler-repair`
+
+- `LifelineIncidentScenarios.ts`: replaced the invalid collider construction with the SPECS sample pattern: create a `ColliderComponent`, set `fitVisual = false`, create a box using `Shape.createBoxShape()`, set `boxShape.size` to the existing target dimensions, then assign `collider.shape = boxShape`. Collider remains on its own child SceneObject, offset from the visual root, with the same Interactable and selection callback.
+- `LifelineEmergencyUI.ts`: restored `renderCallInstructions()` using the existing UI helpers and controller `back()` method. It shows India 112, tells the user to call from their phone, gives the helper alternative, explicitly states that Lifeline has not placed or verified a call, and offers Back. It does not set or infer `userAcknowledgedCall`.
+- `LifelineEmergencyUI.ts`: replaced `markerPosition.subtract(...)` with explicit component-wise `new vec3(x,y,z)` arithmetic. The forward/right/up basis vectors and the existing 55 cm / 9.75 cm / −8 cm offsets remain unchanged.
+- `LifelineEmergencyUI.ts`: retained a `CALL 112` action on the two-panel branch, which otherwise bypasses the normal single-panel emergency controls. It enters the same call-instructions state through the existing controller API.
+
+### API evidence consulted
+
+1. SPECS 27 sample repository (`specs-devs/samples`, main; README states SPECS 27 / Lens Studio 5.22.0+): `Navigation Kit/Assets/Scripts/PanelManager.ts` uses `obj.createComponent("ColliderComponent")`, `Shape.createBoxShape()`, `shape.size = new vec3(...)`, and `collider.shape = shape`.
+2. SPECS 27 sample repository: `Agent Manager/Assets/Scripts/UI/Input/WrappingTextInput.ts`, `AgentChatPanel.ts`, `AgentObject.ts`, and `UIBuilders.ts` repeat the same shape-specific sizing pattern. Some samples set `collider.fitVisual = false` before assigning the explicit shape size.
+3. Official `lens-studio-devs/ls-extensions` `lens-api` skill states that `Support/StudioLib.d.ts` in public Lens Studio is the authoritative type declaration for the runtime API; it also distinguishes Lens runtime from Editor API.
+4. Official `ls-extensions` `specs-sync-kit` reference explains that SIK Interactable raycasts target `ColliderComponent` specifically; `BodyComponent` alone is not a replacement. The dedicated selectable child retains a ColliderComponent and SIK Interactable.
+
+### Source-level checks performed
+
+- Confirmed `Shape.Box`, `collider.size`, and `.subtract(...)` no longer occur in the repaired code paths.
+- Confirmed the original three scenario target names, collider offsets and size arguments were not changed.
+- Confirmed `renderCallInstructions()` is present and called from the existing `CALL_IN_PROGRESS_OR_MANUAL_CALL` render switch.
+- Confirmed `CALL 112` remains available within the two-panel guidance renderer.
+- Confirmed the existing Frame / BackPlate composition, 10.5 cm overview, 1 cm gap, 18.5 cm instruction width, 18.5 cm height, and spatial offsets are unchanged.
+- Confirmed the existing deferred FlexLayout registration still has one queued `.addItems()` flush and the existing `autoDiscoverItemsOnStart = false` assignments.
+- Controller, state machine, India emergency configuration, medical guidance content, scene files and package sources are untouched.
+
+### Compile and runtime status
+
+**Lens Studio TypeScript compile: NOT RUN in this cloud session.** The local `Support/StudioLib.d.ts` was not available through the GitHub repository, and no Lens Studio MCP / compiler is connected. The public SPECS samples establish the API pattern, but cannot provide the user's exact installed package declarations or a fresh compile result. Do not report this repair as compiled until the user recompiles the branch in Lens Studio 5.23.2.26081320 Public and supplies the complete output.
+
+### Local verification after sync
+
+1. Sync `codex/lifeline-compiler-repair` and open the exact Lifeline project in Lens Studio 5.23.2.26081320 Public, targeting Spectacles / SPECS 27.
+2. Recompile all TypeScript. Record the complete diagnostic output, not only the error count. The immediate check is that the four reported TS2339 diagnostics are gone and no new errors appeared.
+3. In Inspector, verify `LifelineIncidentScenarios` inputs: `scenariosParent` optional SceneObject; `camera` optional Camera (only used for gaze ray diagnostics); `scenarioDistanceCm` numeric (default 165); `incidentMaterial` optional Material (required for visible mesh materials if the runtime-authored stand-ins have no built-in material); `enableDirectSelection` boolean (default true).
+4. Verify `LifelineEmergencyUI` input references: controllerObject and activationAdaptersObject retain their existing assignments; incidentScenariosObject must reference the SceneObject containing the `LifelineIncidentScenarios` component.
+5. Preview: select each of the three stand-ins with SIK Interactable. Confirm a selectable area around each full target, and that the marker moves to the selected object. This is explicit scene-object selection, not recognition.
+6. Enter emergency home, open Call Instructions, verify 112, phone-call instruction, helper alternative, the explicit no-call claim and Back. Return and separately test the user acknowledgement; it must not be presented as technical call success.
+7. Enter each guidance route with a marker selected. Verify `CALL 112` remains available in the two-panel layout, and verify Next / Back / Repeat / End Session.
+8. Verify the two panels retain their original dimensions and stay offset around the marker. Check no FlexLayout initialization error returns.
+9. Share the full compiler result and any runtime error lines before considering further changes.
+
+No clean compiler result or Preview pass is claimed in this cloud-only repair record.
