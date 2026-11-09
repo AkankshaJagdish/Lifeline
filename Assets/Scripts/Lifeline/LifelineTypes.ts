@@ -18,6 +18,8 @@ export type LifelineState =
 export interface GuidanceStep {
   readonly id: string;
   readonly text: string;
+  readonly title?: string;
+  readonly summary?: string;
 }
 
 export interface LifelineSnapshot {
