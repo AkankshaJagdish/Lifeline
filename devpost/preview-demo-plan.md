@@ -1,53 +1,83 @@
-# Lifeline — Preview demo plan
+# Lifeline — continuous Preview demo and submission plan
 
-**Goal:** Demonstrate the fixed Lifeline MVP in actual Lens Studio Interactive Preview without suggesting that Preview validates real speech recognition, patient detection, emergency calling, or medical performance.
+**Target duration:** 2 minutes 55 seconds.
+**Recording format:** one continuous Lens Studio Interactive Preview recording; no composited UI, simulated outcomes, inserted screenshots or voice-over that implies untested behavior.
 
-## Current status
+## Current readiness
 
-The user reports that the core Lifeline interaction passed actual Lens Studio Interactive Preview testing. No screenshot or fresh runtime log was attached to this cloud review. The current verification branch also changes optional ASR lifecycle handling and must be recompiled and regression-tested locally before recording.
+The two-panel / Fire / Smoke implementation is merged in PR #11. This cloud session completed GitHub source review and read the official `/verify-preview` and Live Lens Tester / LEAF instructions. It did not access a running Lens Studio Preview, compile TypeScript, capture screenshots, collect runtime logs or execute LEAF.
 
-## Demo setup
+The checked-in `Assets/Scene.scene` does not contain the documented Lifeline root / input / UI / incident-manager hierarchy. The recording must use the user's known-good local Lifeline scene after confirming the new Inspector references and Preview controls are wired. Do not record from the checked-in exported scene if it does not open the working hierarchy.
 
-- Open the exact `Lifeline.esproj` in Lens Studio 5.23.2.26081320 Public.
-- Select the project's Spectacles Interactive Preview configuration. Use the Preview mode supported by the installed Lens Studio version; do not force a different device override to work around a compile/runtime problem.
-- Keep a neutral physical-person stand-in visible in the Preview scene. No recognition target or patient object is required.
-- Keep the instruction panel centred, slightly below natural gaze, and compact enough not to obstruct the stand-in.
-- Use the exact visible control: `SIMULATION — trigger voice: EMERGENCY`.
-- Demonstrate manual ACTIVATE separately. Do not enable ASR for the Preview demonstration.
+**Do not record a feature as working until its interaction has been exercised in the current Preview build.** If the build, scene wiring or a scenario fails, stop the take and resolve / document the issue before recording.
 
-## Full interaction checklist
+## Pre-recording gate
 
-1. **Idle and activation:** Confirm the physical stand-in is visible. Use ACTIVATE, return to idle, then use the Preview simulation. Both must enter the same emergency home.
-2. **Emergency help:** Confirm India 112 and the alternative to ask someone nearby to call appear immediately. Open call instructions, return, and explicitly select the user acknowledgement. Do not imply that Lifeline placed a call.
-3. **Path selection:** Select each fixed path. Exercise NEXT OPTION and Back. Confirm Call 112 remains available.
-4. **Severe bleeding:** Walk every step, one at a time. Exercise Next, Back, and Repeat. Compare each rendered sentence with `medical-content-sources.md`.
-5. **Adult collapse:** Walk every step, one at a time. Confirm the adult-only boundary, responsiveness, abnormal breathing including gasping, help first, adult compression instruction, rhythm, recoil, and operator guidance. Confirm there is no pulse check or pediatric/infant CPR.
-6. **Other emergency:** Confirm only the 112 / emergency-operator fallback appears.
-7. **Session end:** Open End Session confirmation, choose Cancel / Keep Guidance, confirm the active path remains, then confirm End Session and verify return to idle.
-8. **Spatial inspection:** Move the Preview camera around the stand-in. Inspect central-view obstruction, panel stability, text readability, binocular placement, target feedback, and whether the stand-in remains visible.
-9. **Evidence capture:** Capture a fresh Preview screenshot and fresh runtime log. Record the exact actions tested and any failure. A screenshot proves only the rendered frame, not every interaction.
+1. Open the known-good local Lifeline project and scene in the Lens Studio version selected for the hackathon. Confirm target platform and Preview mode. Record the exact editor version.
+2. Confirm the root, Lifeline Controller, Input Adapters, Instruction Panel, incident scenario manager, marker and three non-human stand-ins are present in the running scene.
+3. Confirm `LifelineEmergencyUI.controllerObject` and `activationAdaptersObject` are wired. Wire `incidentScenariosObject` to the SceneObject holding `LifelineIncidentScenarios`.
+4. Confirm `LifelinePreviewSimulationController.incidentScenarios` references the same scenario component. Wire clearly labelled Editor-only FOUND PERSON / FOUND INJURY / FOUND FIRE controls to `foundPerson()`, `foundInjury()`, and `foundFire()`. Assign the required `incidentMaterial`.
+5. Compile with Lens Studio. Save the exact successful compiler result. If there are TypeScript errors, stop.
+6. Run the official `/verify-preview` See-and-fix loop: reset Preview if dirty; collect logs; capture the initial scene; inspect the real pixels; drive a real Preview interaction; capture again; inspect runtime logs. Fix and re-capture after any change.
+7. Verify that all four emergency categories appear simultaneously, SOS is visible, each stand-in and marker is visible, both guidance panels render, and camera movement does not obscure the selected incident.
+8. Run the LEAF scenarios locally and record their actual statuses. Do not display a PASS card for an unregistered or unrun test. Only the Lens-side scenario-manager PASS line paired with a clean returned `succeeded` result counts.
+9. Capture the six screenshots in the two-panel test plan. They are evidence snapshots, not substitutes for exercising the full interaction.
 
-## Voice and simulation boundary
+## Continuous recording script (2:55)
 
-- Preview simulation calls the shared application transition directly and must work with voice activation disabled. It does not request microphone access and does not test speech recognition.
-- Hardware ASR is optional. Test separately only on compatible Spectacles hardware after checking OS version, network, authentication, microphone access, and Extended Permissions.
-- The current scene input `voiceActivationEnabled` remains false by default.
-- Never describe simulated voice as real ASR. Never claim that Lifeline placed an actual emergency call.
+| Time | Live action | Suggested narration / evidence |
+|---|---|---|
+| 0:00–0:20 | Show the selected non-human incident stand-ins and Lifeline idle screen in Preview. Keep the incident visible. | “Lifeline is an India-focused emergency guidance prototype. It keeps emergency access visible and presents concise, source-reviewed instructions. It does not identify patients or contact emergency services.” |
+| 0:20–0:40 | Pinch the red SOS 112 control. Show the emergency-first screen and helper alternative. | “SOS opens the 112 guidance screen. The application does not place or verify a phone call.” |
+| 0:40–1:00 | Use the labelled Preview-only FOUND PERSON control or pinch the collapsed-person stand-in. Show the marker appearing beside the selected prop. Do not imply automatic recognition. | “This is an explicit Preview selection of a non-human stand-in. The marker is a user-selected location cue, not person detection.” |
+| 1:00–1:30 | Select Person Collapsed. Show RESPONSE PLAN and DO NOW together. Exercise Next, Repeat and Back while the left progress states update. | “The overview shows the pathway order; the right panel shows the current action. Repeat does not advance. Navigation states indicate progress through the instructions, not a medical outcome.” |
+| 1:30–1:50 | Return to selection; select the injury stand-in with FOUND INJURY; show its marker. Select Bleeding Injury and advance at least one step. | “The injury target is a user-selected Preview prop. The bleeding copy retains its approved wording and sequence.” |
+| 1:50–2:10 | Select the fire stand-in with FOUND FIRE; show the marker; select Fire / Smoke. Advance through representative evacuation steps, including no lifts and the final contact instruction. | “Fire guidance focuses on evacuation and professional help: raise the alarm, leave by a safe exit, stay low if smoke is in the way, avoid lifts, assemble, do not re-enter, then call 112 or 101 once outside and safe.” |
+| 2:10–2:35 | Return to the emergency selection grid. Hold the camera long enough to show all four simultaneous categories and SOS. Optionally show Other Emergency fallback if time permits. | “The four choices are explicit user selections. Other Emergency retains the 112 and operator fallback. No camera-based classification is claimed.” |
+| 2:35–2:55 | Show the public repository, design brief, source register, acceptance criteria and test report. If all LEAF tests passed, briefly show the actual LEAF result panel / scenario-manager results. Otherwise show the report's BLOCKED status. | “The repository includes the architecture, source register and test plans. We report only the tests actually run. Preview simulation is not ASR, and Preview is not a hardware test.” |
 
-## LEAF boundary
+The recording must remain one continuous take. If a transition cannot be completed within the scheduled slot, omit the optional segment rather than insert a fabricated result or accelerate a confusing interaction.
 
-No Lifeline scenarios are currently registered. The official Live Lens Tester requires Lens Studio MCP to inspect the scene, verify the installed LEAF version, attach LeafIndex, compile, and run. It explicitly stops when Lens Studio MCP is unavailable. LEAF results must therefore remain blocked until a connected Lens Studio environment can perform that workflow.
+## Recording controls and boundaries
 
-## Demo capability disclosure
+- Use only visible manual pinch / interaction controls and the clearly labelled Editor-only Preview simulation / scenario selection controls.
+- Do not enable microphone activation for the Preview recording. If hardware ASR is later demonstrated, record it separately on compatible Spectacles hardware and identify it as a hardware test.
+- Do not narrate “detected,” “recognized,” “called an ambulance,” “ambulance dispatched,” “breathing verified,” or other unsupported claims.
+- The incident stand-ins are stylized training props. Selecting them is not object or patient recognition.
+- Keep the selected incident / marker visible while showing the two panels. Do not claim binocular comfort, reachability or obstruction-free placement until those have been checked in Preview and on hardware.
+- Show 112 and 101 as contact information only. Lifeline does not place calls.
+- If a scenario fails, the last step does not fit, a button is unreachable, panels drift, text clips, or a runtime error appears, do not hide it with an edit. Stop and record the issue for correction.
 
-- Preview can demonstrate spatial placement, camera movement, and standard SIK pinch interactions when the current build runs.
-- Preview cannot establish real ASR performance, patient/object recognition, breathing detection, wound recognition, medical diagnosis, compression sensing, a real 112 call, or emergency dispatch.
-- Hardware comfort, real-world tracking reliability, and long-duration readability remain separate device/user checks.
-- Do not claim a criterion passed unless the actual interaction was exercised and evidence recorded.
+## Submission assets
 
-## Presentation rubric mapping
+Save these only after they are actually captured:
 
-- **Design:** Show the one-step flow, compact readable placement, large pinch targets, continued view of the stand-in, and calm copy.
-- **Technical implementation:** Show actual Preview interaction. Show LEAF results only after scenarios run and the Lens-side scenario manager confirms them. Distinguish the simulation from ASR.
-- **Innovation / idea:** Explain the hands-free emergency context without claiming machine vision or emergency calling.
-- **Presentation:** State the problem, demonstrate the full flow in a clear order, and disclose platform / medical limits plainly.
+- `devpost/evidence/01-emergency-selection.png`
+- `devpost/evidence/02-person-collapsed-two-panel.png`
+- `devpost/evidence/03-bleeding-two-panel.png`
+- `devpost/evidence/04-fire-smoke-two-panel.png`
+- `devpost/evidence/05-other-emergency-two-panel.png`
+- `devpost/evidence/06-completed-step-overview.png`
+- `devpost/evidence/lifeline-continuous-demo.mp4` (or link to the actual hosted recording)
+
+Do not create empty placeholders or name source-only diagrams as Preview screenshots. Add the compile result, relevant runtime log excerpts, scenario IDs / status lines and recording duration to `devpost/test-report.md`.
+
+## LEAF / results presentation
+
+Use the official Live Lens Tester in a CLAD runtime with Lens Studio MCP connected. It must first verify the installed LEAF package and LeafPlugin; read the LEAF Reference; inspect the actual scene and object names; author and register scenarios; attach LeafIndex; compile after each modification; then run scenarios **serially** in Preview.
+
+Recommended coverage:
+- SOS activation and 112 emergency-first screen.
+- Four simultaneous categories and explicit category choice.
+- Incident stand-in selection and marker placement.
+- Adult collapse and bleeding guidance, Next / Back / Repeat.
+- Fire / Smoke seven-step pathway and 112 / 101 contacts.
+- Other Emergency fallback.
+- End Session confirmation, cancel, confirmed IDLE reset.
+- At least one IK-interactor reachability scenario for the reach-sensitive UI.
+
+If any scenario fails or times out, follow the official run skill's log-baseline procedure and quote the Lens-side scenario-manager line. Do not auto-retry and do not cite plugin UI success messages as proof when the scenario-run call timed out.
+
+## Present submission status
+
+As of this cloud review, actual Preview screenshots, compiler output, runtime logs, LEAF outcomes and video do not exist in the available evidence. The recording plan is ready; the recording and end-to-end proof remain blocked pending local Lens Studio setup and execution.

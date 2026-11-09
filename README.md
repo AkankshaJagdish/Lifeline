@@ -1,6 +1,6 @@
 # Lifeline
 
-> **Current status:** The Lifeline root, input adapters, and UIKit instruction panel are integrated in the merged `master` scene. The user reports that the core interaction passed actual Lens Studio Interactive Preview testing. That result is recorded as user-reported; no screenshot or fresh runtime log was supplied to this cloud review. This verification branch hardens optional ASR lifecycle handling, but its new TypeScript changes still require a local Lens Studio compile and Preview check. LEAF scenarios have not been registered or run.
+> **Current status:** The guidance / Fire Smoke implementation from [PR #11](https://github.com/AkankshaJagdish/Lifeline/pull/11) is merged into `master`. GitHub source review confirms the expected scripts and seven fire steps are present. End-to-end validation remains blocked in this cloud session: no Lens Studio MCP, running Preview, runtime logs, screenshots or LEAF execution are available. The checked-in `Assets/Scene.scene` is not the working Lifeline scene; use the known-good local scene for final integration and verification. See [test-report.md](devpost/test-report.md) and [preview-demo-plan.md](devpost/preview-demo-plan.md).
 
 ## Project overview
 
@@ -37,7 +37,7 @@ The voice controller now stops listening when the emergency state begins. It onl
 
 - Lens Studio 5.23.2.26081320 Public; target platform: Spectacles.
 - TypeScript Lens source under `Assets/Scripts/Lifeline/`.
-- Scene hierarchy in `Assets/Scene.scene`: `Lifeline Experience` root, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`.
+- The working Lifeline hierarchy is expected to contain `Lifeline Experience`, `Lifeline Input Adapters`, and `Lifeline Instruction Panel`. The checked-in `Assets/Scene.scene` is a separate export (Camera Object / Lighting / Preview support) without that hierarchy; use the known-good local scene for Preview and do not treat the checked-in scene as the runnable demo scene.
 - The UI uses the installed Spectacles UIKit Frame, BackPlate, Button, FlexLayout, and FlexItem components; the main controller and state machine remain UI-independent.
 - The current scene keeps voice activation disabled by default. Do not enable it for a Preview-only demonstration.
 - Package sources and `.lspkg` contents are not modified by this verification branch.
@@ -50,8 +50,10 @@ The voice controller now stops listening when the emergency state begins. It onl
 4. After a clean compile, collect fresh runtime logs and check errors, prints, and `firstActivityAtMs`.
 5. Open or refresh Interactive Preview and capture a fresh screenshot. Inspect the actual rendered panel, the physical-person stand-in, central-view obstruction, text readability, and camera movement stability.
 6. Exercise manual ACTIVATE and the labelled Preview simulation separately. Then test 112, call instructions, return, user acknowledgement, path selection, every guidance step, Back, Repeat, Next, End Session confirmation, Cancel, and confirmed return to IDLE.
-7. For two-panel guidance, wire the `incidentScenariosObject` input on `LifelineEmergencyUI` to the SceneObject containing the existing `LifelineIncidentScenarios` ScriptComponent. Select a non-human Preview stand-in before selecting the guidance category. Follow [two-panel and fire guidance test plan](devpost/two-panel-fire-guidance-test-plan.md) for panel geometry, navigation, the seven fire steps, and the six screenshot captures.
-7. Keep hardware ASR separate from Preview. Test it only on compatible Spectacles hardware with the required OS, internet, authentication, and permissions. Record the actual error/result; do not infer hardware behavior from simulation.
+7. Use the known-good Lifeline scene from your local workspace. The checked-in `Assets/Scene.scene` is a separate export without the documented Lifeline root, instruction panel or incident-manager component; do not treat it as the runnable scene.
+8. Wire the `incidentScenariosObject` input on `LifelineEmergencyUI` to the SceneObject containing the existing `LifelineIncidentScenarios` ScriptComponent. Wire the Editor-only Preview controls to the existing `foundPerson()`, `foundInjury()` and `foundFire()` methods. Assign the required incident material.
+9. Select a non-human Preview stand-in before selecting the guidance category. Follow [two-panel and fire guidance test plan](devpost/two-panel-fire-guidance-test-plan.md) for scene setup, geometry, navigation, fire steps and screenshots.
+10. Keep hardware ASR separate from Preview. Test it only on compatible Spectacles hardware with the required OS, internet, authentication, and permissions. Record the actual error/result; do not infer hardware behavior from simulation.
 
 ## LEAF status and local run instructions
 
@@ -86,7 +88,7 @@ Official procedures: [Live Lens Tester](https://github.com/lens-studio-devs/ls-e
 
 ## Demo and public release
 
-The under-three-minute recording sequence is in [demo-video-script.md](devpost/demo-video-script.md). Record only actual Preview behavior. Keep the physical stand-in visible, show the simulation label when using it, and disclose that it does not test ASR or a real emergency call.
+The continuous under-three-minute recording sequence is in [preview-demo-plan.md](devpost/preview-demo-plan.md). Record only actual Preview behavior. Keep the physical stand-in visible, show the simulation label when using it, and disclose that it does not test ASR or a real emergency call. LEAF results may be shown only after a locally run scenario returns `succeeded` and the Lens-side scenario manager confirms it.
 
 Before public submission, use [submission-checklist.md](devpost/submission-checklist.md). Do not mark a compile, Preview, LEAF, hardware ASR, or medical-validation item as passed without its corresponding evidence. Recheck the public repository for secrets before release.
 

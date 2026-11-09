@@ -86,3 +86,13 @@ Primary source: American Heart Association, **2025 Adult Basic Life Support Guid
 - Follow emergency-service / fire-officer instructions where they differ from this concise bystander summary.
 
 The NIDM material includes specialist and school contexts. The seven-step UI deliberately retains only the conservative, shared evacuation actions requested for this prototype. It is source-referenced educational guidance, not clinical validation, fire-authority approval, or a substitute for the local building's evacuation plan.
+
+## Verification and implementation status — 2026-11-09
+
+The seven-step Fire / Smoke text in this register is present in the merged `LifelineGuidanceContent.ts` and is routed through the existing `OTHER_EMERGENCY` state under the `fire_smoke` path. This was confirmed by GitHub source readback only. The current Lens Studio project was not compiled, and no Preview screen or live interaction was inspected in this cloud session.
+
+The National Portal of India helpline directory and ERSS 112 site are cited for the emergency contact labels. Lifeline's text says to contact services only after reaching safety; the application itself does not place or verify a call.
+
+The fire material is adapted from NIDM's specialist hydrocarbon-sector and school-safety training contexts. This register records the source context and exclusions; it is not fire-authority approval or validation for every building type. Follow local fire officers and the building's evacuation plan where available. Do not use Lifeline to infer that an exit or stairwell is safe.
+
+Runtime display, step progression, panel readability, and contact-label visibility remain BLOCKED pending a local compile and Preview walkthrough. Do not mark this copy clinically or operationally validated based on repository presence alone.

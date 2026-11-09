@@ -64,3 +64,28 @@ These checks extend the UI-specific UX criteria. They do not change original MVP
 **Implementation constraints:** Fire / Smoke reuses the existing `OTHER_EMERGENCY` guidance state; no state-machine enum was added. The left overview is display-only to avoid accidental step navigation. Progress indicators are navigation status, not claims about a medical outcome. A missing/unselected incident marker causes a safe fallback to the existing single-panel guidance; two-panel placement requires the Inspector input to be wired and a valid selected non-human marker.
 
 **Verification boundary:** The branch has not been compiled or run in Lens Studio, no Preview screenshots were captured, and no LEAF tests were registered or executed by the cloud session. Do not mark UX-6 through UX-9 passed until the local evidence is attached.
+
+## Verification snapshot — 2026-11-09 (cloud source review)
+
+This snapshot records source-level checks and execution blockers for the merged two-panel / Fire / Smoke implementation. It does not replace the four original MVP acceptance criteria or upgrade user-reported Preview results into independently verified results.
+
+| Area | Cloud outcome | Evidence / reason |
+|---|---|---|
+| Merged implementation available | **PASS — repository state only** | PR [#11](https://github.com/AkankshaJagdish/Lifeline/pull/11) is merged into `master`; the merged UI, path types, fire steps and source register were read back from GitHub. |
+| TypeScript compilation | **BLOCKED** | No Lens Studio MCP or local Lens Studio instance is available. GitHub file writes and source review are not compilation. |
+| `/verify-preview` walkthrough | **BLOCKED** | The official skill requires a running Lens Studio Preview, CaptureRuntimeViewTool, Preview interaction tools and RunAndCollectLogsTool. None are connected in this session. |
+| Scene / runtime initialization | **BLOCKED** | The checked-in `Assets/Scene.scene` serialization has Camera Object, Lighting and exported hand/Preview objects; it does not contain the documented Lifeline Experience root, Input Adapters, Instruction Panel or incident manager. The known-good local scene must be used and wired. |
+| SOS / category grid / stand-ins | **BLOCKED** | No current Preview frame or interaction log is available. Static source shows the UI and incident scenario scripts, but does not prove they are wired in the working scene or visually render. |
+| Two-panel placement and navigation | **BLOCKED** | No screenshot or Preview interaction evidence. Static source review confirms marker-based shared-root positioning code and conditional Next logic only. |
+| Fire / Smoke copy | **PASS — source review only** | Seven evacuation-only steps and the India emergency-number source register are present. No runtime rendering / navigation pass is claimed. |
+| Adult / bleeding content preservation | **PASS — source diff review only** | Existing bleeding and adult-collapse text arrays in merged `LifelineGuidanceContent.ts` were read back and retain the pre-existing wording. No runtime pass is claimed. |
+| LEAF install / registration / execution | **BLOCKED** | The repo contains no registered Lifeline `LeafIndex` or scenario classes; Live Lens Tester requires Lens Studio MCP and explicitly stops when it is unavailable. |
+| Demo recording / screenshots | **BLOCKED** | No actual Preview screenshots or video can be captured by the GitHub-only session. |
+| Hardware ASR / Spectacles testing | **NOT RUN** | Preview simulation is not ASR and no hardware access or evidence is available. |
+| Real emergency call | **NOT IMPLEMENTED** | Lifeline does not place or verify calls. |
+
+### Known local integration gate
+
+Before any Preview walkthrough, open the user's known-good Lifeline scene, not the checked-in `Assets/Scene.scene` export. Confirm the actual hierarchy and attach / wire the existing components there. In particular, set `LifelineEmergencyUI.incidentScenariosObject` to the SceneObject holding `LifelineIncidentScenarios`, and wire Editor-only FOUND PERSON / FOUND INJURY / FOUND FIRE controls to the existing `LifelinePreviewSimulationController` methods. The spatial-demo test plan documents material assignment and target selection. If this scene wiring is absent, the spatial panels will fall back to the existing single-panel guidance or the scenario selector will be unavailable.
+
+Do not mark any blocked item as PASS on the basis of source code, GitHub merge status, or a clean compile alone. Add actual screenshot paths, full relevant runtime log excerpts, and Lens-side LEAF scenario-manager outcomes when obtained.
