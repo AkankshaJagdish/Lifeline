@@ -22,6 +22,11 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   scenarioDistanceCm: number = 165;
 
   @input
+  @hint("Assign a valid unlit or vertex-colour material from the project. Empty material graphs do not render.")
+  @allowUndefined
+  incidentMaterial: Material;
+
+  @input
   @hint("Enable SIK object target selection on each incident stand-in.")
   enableDirectSelection: boolean = true;
 
@@ -226,10 +231,13 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
     object.getTransform().setLocalPosition(position);
     object.getTransform().setLocalScale(size);
     const mesh = this.createMesh(shape, color);
-    const material = this.createMaterial(color);
     const visual = object.createComponent("Component.RenderMeshVisual") as RenderMeshVisual;
     visual.mesh = mesh;
-    visual.mainMaterial = material;
+    if (this.incidentMaterial) {
+      visual.mainMaterial = this.incidentMaterial.clone();
+      visual.mainMaterial.mainPass.depthTest = true;
+      visual.mainMaterial.mainPass.depthWrite = true;
+    }
   }
 
   private createMesh(shape: string, color: vec4): RenderMesh {
@@ -304,14 +312,6 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
     face([x1,y0,z0], [x0,y0,z0], [x0,y1,z0], [x1,y1,z0], [0,0,-1]);
     builder.appendVerticesInterleaved(verts);
     return vi;
-  }
-
-  private createMaterial(color: vec4): Material {
-    const material = global.scene.createMaterial("Lifeline Incident Material");
-    material.mainPass.baseColor = color;
-    material.mainPass.depthTest = true;
-    material.mainPass.depthWrite = true;
-    return material;
   }
 
   private addLabel(parent: SceneObject, value: string, position: vec3): void {
