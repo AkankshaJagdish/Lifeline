@@ -18,7 +18,7 @@
   SvgIcon: ""
   SetupScript:
     code: ""
-  Description: "Spatial Lifeline UI with persistent SOS and four-category incident selection."
+  Description: "Spatial Lifeline UI with persistent SOS, incident selection, two-panel guidance, and Fire / Smoke evacuation path."
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
