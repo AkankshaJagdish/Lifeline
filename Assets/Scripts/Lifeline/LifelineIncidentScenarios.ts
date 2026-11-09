@@ -13,9 +13,9 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   scenariosParent: SceneObject;
 
   @input
-  @hint("Optional authored marker template. If empty, a simple marker is constructed from primitives.")
+  @hint("Optional camera used only for scene-collider gaze hit testing. Direct SIK Interactable selection remains available without it.")
   @allowUndefined
-  markerTemplate: SceneObject;
+  camera: Camera;
 
   @input
   @hint("Distance in centimetres from the parent origin to the demo objects.")
@@ -31,13 +31,10 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   private injuryObject: SceneObject;
   private fireObject: SceneObject;
   private markerObject: SceneObject;
-  private markerLabel: SceneObject;
   private selectedObject: SceneObject | null = null;
   private selectedKind: string = "";
   private selectionListeners: Array<(kind: string, target: SceneObject) => void> = [];
   private probe: Probe;
-  private camera: Camera | null = null;
-  private lastGazeHitName: string = "";
 
   onAwake(): void {
     this.createEvent("OnStartEvent").bind(() => this.buildScenario());
@@ -120,21 +117,9 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   }
 
   private bindDirectSelection(): void {
+    // SIK Interactable callbacks are registered on their collider SceneObjects
+    // inside OnStartEvent by addSelectableCollider().
     if (!this.enableDirectSelection) return;
-    const bindings: Array<{kind: string, target: SceneObject}> = [
-      {kind: "person", target: this.personObject},
-      {kind: "injury", target: this.injuryObject},
-      {kind: "fire", target: this.fireObject},
-    ];
-    this.createEvent("OnStartEvent").bind(() => {
-      bindings.forEach((binding) => {
-        const interactable = binding.target.getComponent(Interactable.getTypeName()) as Interactable;
-        if (!interactable) return;
-        interactable.onTriggerStart.add(() => {
-          this.selectObject(binding.kind, binding.target);
-        });
-      });
-    });
   }
 
   /**
@@ -142,16 +127,10 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
    * not recognition of people, wounds, flames or other real-world content.
    */
   private bindGazeRayFallback(): void {
-    const cameraObjects = this.sceneObject.getParent()
-      ? this.sceneObject.getParent().getChildrenCount()
-      : 0;
-    // Prefer a camera wired by the scene if one is available; avoid scene.findByName
-    // because ScriptScene does not expose that method.
+    if (!this.camera) return;
     this.createEvent("UpdateEvent").bind(() => {
       if (!this.probe || !this.scenariosRoot) return;
-      const camera = this.findCameraInHierarchy(this.sceneObject);
-      if (!camera) return;
-      const transform = camera.getSceneObject().getTransform();
+      const transform = this.camera.getSceneObject().getTransform();
       const origin = transform.getWorldPosition();
       const end = origin.add(transform.forward.uniformScale(5));
       this.probe.rayCast(origin, end, (hit) => {
@@ -159,24 +138,11 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
         const hitObject = hit.collider.getSceneObject();
         const kind = this.kindForObject(hitObject);
         if (kind) {
-          this.lastGazeHitName = hitObject.name;
-          // Gaze hover alone does not select; actual pinch is handled by Interactable.
+          // Gaze hit is reported only; selection is the explicit SIK trigger.
+          // Triggering the target itself is handled by Interactable.onTriggerStart.
         }
       });
     });
-  }
-
-  private findCameraInHierarchy(root: SceneObject): Camera | null {
-    const camera = root.getComponent("Component.Camera") as Camera | null;
-    if (camera) return camera;
-    const count = root.getChildrenCount();
-    for (let i = 0; i < count; i++) {
-      const found = this.findCameraInHierarchy(root.getChild(i));
-      if (found) return found;
-    }
-    const parent = root.getParent();
-    if (parent && parent !== root) return this.findCameraInHierarchy(parent);
-    return null;
   }
 
   private kindForObject(object: SceneObject): string {
@@ -240,6 +206,7 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   }
 
   private addSelectableCollider(root: SceneObject, offset: vec3, size: vec3): void {
+    const kind = this.kindForObject(root);
     const hit = global.scene.createSceneObject("Selectable Incident Target");
     hit.setParent(root);
     hit.getTransform().setLocalPosition(offset);
@@ -247,8 +214,9 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
     collider.shape = Shape.Box;
     collider.size = size;
     const interactable = hit.createComponent(Interactable.getTypeName()) as Interactable;
-    // Give the interactable node a predictable child name; selection callback
-    // captures the scenario root, not the collider wrapper.
+    this.createEvent("OnStartEvent").bind(() => {
+      interactable.onTriggerStart.add(() => this.selectObject(kind, root));
+    });
     hit.enabled = true;
   }
 
@@ -302,12 +270,6 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
   }
 
   private createIncidentMarker(parent: SceneObject): SceneObject {
-    if (this.markerTemplate) {
-      const marker = global.scene.createSceneObject("Selected Incident Marker");
-      marker.setParent(parent);
-      const cloned = this.markerTemplate.copyWholeHierarchy(marker);
-      return marker;
-    }
     const marker = global.scene.createSceneObject("Selected Incident Marker");
     marker.setParent(parent);
     // A visible locator assembled from a small ring-like four-bar marker.
