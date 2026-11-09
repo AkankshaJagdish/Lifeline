@@ -98,21 +98,21 @@ The original `codexsources/GAME PLAN do not change arwithspecs.txt` is preserved
 
 The spatial-demo increment is on the draft PR branch. It adds three separate runtime-authored training targets (collapsed-person mannequin-style prop, forearm injury prop with restrained red stripe, and fire/smoke proxy), each with its own collider and SIK Interactable. Selecting a target moves the incident marker to an offset from that target's actual world transform.
 
-- Runtime module: \`Assets/Scripts/Lifeline/LifelineIncidentScenarios.ts\`
-- Preview-only selector methods: \`foundPerson()\`, \`foundInjury()\`, \`foundFire()\` on \`LifelinePreviewSimulationController\`
+- Runtime module: `Assets/Scripts/Lifeline/LifelineIncidentScenarios.ts`
+- Preview-only selector methods: `foundPerson()`, `foundInjury()`, `foundFire()` on `LifelinePreviewSimulationController`
 - Local scene attachment and verification: [spatial incident demo test plan](devpost/spatial-incident-demo-test-plan.md)
 
-The scenario props are simplified low-poly training shapes, not generated anatomical GLBs. Assign a renderable project material to the \`incidentMaterial\` input. The scenario component must be attached beneath the actual working Lifeline Experience root, and the Preview controller's new \`incidentScenarios\` input must reference its ScriptComponent. Add a clearly labelled, Editor-only Preview panel with separate FOUND PERSON / FOUND INJURY / FOUND FIRE controls; these controls are not part of the live emergency UI.
+The scenario props are simplified low-poly training shapes, not generated anatomical GLBs. Assign a renderable project material to the `incidentMaterial` input. The scenario component must be attached beneath the actual working Lifeline Experience root, and the Preview controller's new `incidentScenarios` input must reference its ScriptComponent. Add a clearly labelled, Editor-only Preview panel with separate FOUND PERSON / FOUND INJURY / FOUND FIRE controls; these controls are not part of the live emergency UI.
 
-The PR intentionally does not replace \`Assets/Scene.scene\`: the checked-in scene and the exported MCP scene snapshot do not match the documented working Lifeline hierarchy, and the MCP export identifies a temporary editor project path different from the repository workspace. Reconcile / attach in the known-good local scene rather than risk overwriting it.
+The PR intentionally does not replace `Assets/Scene.scene`: the checked-in scene and the exported MCP scene snapshot do not match the documented working Lifeline hierarchy, and the MCP export identifies a temporary editor project path different from the repository workspace. Reconcile / attach in the known-good local scene rather than risk overwriting it.
 
 No local Lens Studio compile, Preview screenshot, scene inspection or LEAF run has been performed by the cloud session. Follow the test plan and record actual outcomes before marking this spatial demo verified.
 
 
 ## Spatial UI redesign
 
-The follow-on UI redesign keeps the existing Lifeline controller, state machine, activation adapters, emergency configuration and reviewed medical content. It changes the existing \`LifelineEmergencyUI\` composition to provide a persistent inset SOS 112 control, a cleaner idle introduction, larger role-based typography and a simultaneous 2 × 2 emergency category menu.
+The follow-on UI redesign keeps the existing Lifeline controller, state machine, activation adapters, emergency configuration and reviewed medical content. It retains the approved 30 × 20 cm Frame and changes the existing `LifelineEmergencyUI` composition to provide a persistent inset SOS 112 control, a cleaner idle introduction, larger role-based typography and a simultaneous 2 × 2 emergency category menu.
 
 The four category selections route to existing pathways only: Person collapsed → adult collapse; Bleeding injury → severe bleeding; Other emergency → existing other path. Fire / smoke has no reviewed guidance or state in the existing state machine, so the selection routes to the safe existing fallback; no new fire instructions are added.
 
-Local compile and Preview checks are documented in [ui-redesign-test-plan.md](devpost/ui-redesign-test-plan.md). The branch has not been compiled or visually verified in Lens Studio by this cloud session.
+The four category cards currently use simple glyph placeholders because the repository has no `Assets/Icons/` directory and the cloud-only workflow cannot call the Lens Studio icon selector. Local compile and Preview checks are documented in [ui-redesign-test-plan.md](devpost/ui-redesign-test-plan.md). The branch has not been compiled or visually verified in Lens Studio by this cloud session.
