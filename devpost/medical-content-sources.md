@@ -50,3 +50,39 @@ Primary source: American Heart Association, **2025 Adult Basic Life Support Guid
 - Indian Red Cross Society First Aid page links to its 2016 manual and training; that is older than IFRC's 2025 guidelines and the page itself did not provide detailed bleeding instructions. It was not used as the controlling source for the proposed exact lines. [IRCS First Aid](https://www.indianredcross.org/ircs/program/firstaid/)
 - The supplied AHA International Hands-Only CPR URL returned 404 during checking. Use the current 2025 Adult BLS guideline as controlling source; AHA’s current CPR explainer is also linked here: [What is CPR](https://cpr.heart.org/resources/what-is-cpr). The explainer contains US-specific 911 references, which must not appear in India UI.
 - Re-check sources and wording immediately before implementation and again before any public release. If source section context cannot be confirmed, omit the line and fall back to 112/operator instructions.
+
+
+## Fire / smoke evacuation — India-specific bystander guidance
+
+**Scope:** This is an evacuation and professional-assistance pathway for an inexperienced adult bystander. It is not firefighting, rescue, fire investigation, hazard assessment, route-finding, or a promise that a particular exit is safe. The user must choose an exit they can see is safe; Lifeline does not assess exits or the building.
+
+### Source review
+
+1. **National Institute of Disaster Management (NIDM), 2025, Training Module on Firefighting for Disaster Management of Oil Installation in Hydrocarbon Sector**, printed page 84. [Official PDF](https://nidm.gov.in/PDF/Modules/TM_Hydro_Carbon25.pdf). The module instructs evacuees to use the closest safe route, stay low/crawl in smoke, move downwards during evacuation, avoid lifts, and proceed to the designated assembly area until the all-clear. This is specialist oil / hydrocarbon installation training; only the conservative evacuation points are adapted here. The pathway does not use its firefighting, plant, or specialist responder material.
+2. **NIDM / NDMA, 2015, Training Module for Master Trainers on School Safety**, printed page 70, fire-safety handout. [Official PDF](https://nidm.gov.in/PDF/modules/nssp.pdf). The page says to raise the alarm and alert everyone, use the nearest staircase / exit, avoid elevators, and stay low when escaping through smoke. This is school-safety training; the alarm and general evacuation points are used as plain bystander guidance, not as instructions for school incident command.
+3. **NIDM, 2020, evacuation training report**, fire-safety / evacuation section. [Official PDF](https://nidm.gov.in/pdf/trgReports/2020/October/Report_21-23October2020aw.pdf). The material says not to return for belongings and not to re-enter until advised it is safe. The UI uses the narrower “Do not re-enter until authorities advise it is safe.”
+4. **National Portal of India, Helpline Directory**, current directory entry checked 2026-11-09. [Official directory](https://www.india.gov.in/directory/helpline). The directory lists **112 — Integrated Helpline (ERSS)** for Police, Fire & Rescue, Health etc., and **101 — Fire Helpline**.
+5. **Emergency Response Support System (ERSS), Government of India**, [112.gov.in](https://112.gov.in/). The service describes 112 as the pan-India integrated emergency number for Police, Fire & Rescue and Health-related emergencies. The app continues to display the existing India-specific 112 number; it does not place or verify a call.
+
+### Proposed exact user-facing copy
+
+| Step ID | Overview title | Concise summary | Exact current-step instruction | Source and limits |
+|---|---|---|---|---|
+| \`raise_alarm\` | Raise the alarm | Alert people nearby | “Raise the alarm and alert people nearby. Tell them to leave the building.” | NIDM / NDMA 2015 school-safety fire handout, p.70. General alarm-raising adaptation; no instructions to investigate the source. |
+| \`safe_exit\` | Use a safe exit | Take the closest safe route | “Leave using the closest safe exit.” | NIDM 2025 hydrocarbon training module, p.84. “Safe” is a user-observed condition; Lifeline does not determine which exit is safe. |
+| \`stay_low\` | Stay low in smoke | Keep low while moving out | “If smoke is in your way out, stay as low as you can while moving towards the exit.” | NIDM 2025, p.84; NIDM / NDMA 2015, p.70. No instruction to enter or cross a smoke-filled room. |
+| \`no_lifts\` | Use stairs, not lifts | Do not use elevators | “Use the stairs. Do not use lifts or elevators.” | NIDM 2025, p.84; NIDM / NDMA 2015, p.70. Do not imply that stairs are safe if visibly affected by fire or smoke. |
+| \`assembly_area\` | Reach the assembly area | Stay for the all-clear | “Move to the designated evacuation assembly area and remain there until the all-clear is given.” | NIDM 2025, p.84. Use the site's designated assembly area if one is known; Lifeline does not generate an assembly point. |
+| \`do_not_reenter\` | Do not go back inside | Wait for official advice | “Do not re-enter the building until authorities advise it is safe.” | NIDM 2020 evacuation training material; consistent with the no-return fire evacuation boundary. |
+| \`contact_services\` | Contact emergency services | Call 112 or Fire Services 101 | “Once you are outside and safe, contact emergency services: 112 for integrated response or 101 for Fire Services.” | National Portal of India Helpline Directory and ERSS 112 portal. Lifeline does not make calls or contact responders. |
+
+### Exclusions
+
+- No fighting fires, using extinguishers, operating fire equipment, isolating power/gas, or any other firefighting procedure.
+- No entering smoke, checking rooms, investigating the source, rescuing people, or returning for belongings.
+- No claim that an exit, stairwell, or route has been checked or is safe.
+- No AR escape-route overlay, smoke-density assessment, flame detection, hazard recognition, or people tracking.
+- No call placement, ambulance dispatch, responder contact, or successful-call claim.
+- Follow emergency-service / fire-officer instructions where they differ from this concise bystander summary.
+
+The NIDM material includes specialist and school contexts. The seven-step UI deliberately retains only the conservative, shared evacuation actions requested for this prototype. It is source-referenced educational guidance, not clinical validation, fire-authority approval, or a substitute for the local building's evacuation plan.
