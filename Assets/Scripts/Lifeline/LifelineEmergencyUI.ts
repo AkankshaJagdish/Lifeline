@@ -59,6 +59,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
   private pathOptionIndex = 0;
+  private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
+  private flexRegistrationCallbacks = new Set<SceneObject>();
 
   onAwake(): void {
     if (this.controllerObject) {
@@ -256,6 +258,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const container = global.scene.createSceneObject("Lifeline Layout");
     container.setParent(parent);
     const flex = container.createComponent(FlexLayout.getTypeName()) as FlexLayout;
+    // Use explicit registration consistently; automatic start discovery is disabled before children exist.
+    flex.autoDiscoverItemsOnStart = false;
+    const pendingItems: FlexItem[] = [];
+    this.pendingFlexItems.set(container, pendingItems);
     flex.onInitialized.add(() => {
       flex.width = width;
       flex.height = height;
@@ -268,6 +274,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       flex.paddingBottom = 0;
       flex.paddingLeft = 0;
       flex.paddingRight = 0;
+      if (pendingItems.length > 0) flex.addItems(pendingItems);
     });
     return container;
   }
@@ -279,8 +286,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     item.overrideHeight = height;
     item.flexGrow = 0;
     item.flexShrink = 0;
-    const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
-    if (parentFlex) parentFlex.addItems([item]);
+    this.registerFlexItemAfterInitialization(parent, item);
     return stack;
   }
 
@@ -291,8 +297,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     item.overrideHeight = height;
     item.flexGrow = 0;
     item.flexShrink = 0;
-    const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
-    if (parentFlex) parentFlex.addItems([item]);
+    this.registerFlexItemAfterInitialization(parent, item);
     return row;
   }
 
@@ -301,6 +306,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const host = global.scene.createSceneObject("Lifeline Label Host");
     host.setParent(parent);
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
+    hostFlex.autoDiscoverItemsOnStart = false;
+    const hostItems: FlexItem[] = [];
+    this.pendingFlexItems.set(host, hostItems);
     hostFlex.onInitialized.add(() => {
       hostFlex.width = width;
       hostFlex.height = height;
@@ -312,6 +320,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       hostFlex.paddingBottom = 0;
       hostFlex.paddingLeft = 0;
       hostFlex.paddingRight = 0;
+      if (hostItems.length > 0) hostFlex.addItems(hostItems);
     });
 
     const contentObject = global.scene.createSceneObject("Lifeline Label Content");
@@ -326,15 +335,42 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     contentItem.overrideHeight = height;
     contentItem.flexGrow = 0;
     contentItem.flexShrink = 0;
-    hostFlex.addItems([contentItem]);
+    this.registerFlexItemAfterInitialization(host, contentItem);
 
     const item = host.createComponent(FlexItem.getTypeName()) as FlexItem;
     item.overrideWidth = width;
     item.overrideHeight = height;
     item.flexGrow = 0;
     item.flexShrink = 0;
+    this.registerFlexItemAfterInitialization(parent, item);
+  }
+
+  /**
+   * Register a child FlexItem only after its parent FlexLayout has initialized.
+   * Each parent layout uses autoDiscoverItemsOnStart = false and owns its
+   * pending item list, so each item is explicitly registered exactly once.
+   */
+  private registerFlexItemAfterInitialization(parent: SceneObject, item: FlexItem): void {
     const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
-    if (parentFlex) parentFlex.addItems([item]);
+    if (!parentFlex) return;
+
+    let pendingItems = this.pendingFlexItems.get(parent);
+    if (!pendingItems) {
+      pendingItems = [];
+      this.pendingFlexItems.set(parent, pendingItems);
+    }
+
+    // The layout is configured for explicit registration. Queue each item once;
+    // one ReplayEvent callback flushes the complete batch after parent initialization.
+    if (pendingItems.indexOf(item) < 0) pendingItems.push(item);
+    if (this.flexRegistrationCallbacks.has(parent)) return;
+    this.flexRegistrationCallbacks.add(parent);
+    parentFlex.onInitialized.add(() => {
+      const items = this.pendingFlexItems.get(parent);
+      if (items && items.length > 0) parentFlex.addItems(items);
+      this.pendingFlexItems.delete(parent);
+      this.flexRegistrationCallbacks.delete(parent);
+    });
   }
 
   private addButton(parent: SceneObject, label: string, width: number, height: number, action: () => void, tone: "primary" | "critical" | "neutral"): void {
@@ -362,7 +398,6 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     item.overrideHeight = height;
     item.flexGrow = 0;
     item.flexShrink = 0;
-    const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
-    if (parentFlex) parentFlex.addItems([item]);
+    this.registerFlexItemAfterInitialization(parent, item);
   }
 }
