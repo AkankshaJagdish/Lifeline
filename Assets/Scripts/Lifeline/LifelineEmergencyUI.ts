@@ -11,18 +11,18 @@ import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Fl
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
 import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
-const FRAME_INNER_WIDTH = 36;
-const FRAME_INNER_HEIGHT = 26;
-const CONTENT_WIDTH = 34.5;
-const CONTENT_HEIGHT = 24.5;
+const FRAME_INNER_WIDTH = 30;
+const FRAME_INNER_HEIGHT = 20;
+const CONTENT_WIDTH = 28.5;
+const CONTENT_HEIGHT = 18.5;
 const PANEL_PADDING = 0.75;
 const CONTENT_GAP = 0.65;
-const PRIMARY_TARGET = 7.0;
-const SECONDARY_TARGET = 5.0;
+const PRIMARY_TARGET = 5.6;
+const SECONDARY_TARGET = 3.9;
 const TARGET_GAP = 0.8;
 const VIEW_DISTANCE_CM = 105;
-const SOS_WIDTH = 9.0;
-const SOS_HEIGHT = 5.0;
+const SOS_WIDTH = 7.0;
+const SOS_HEIGHT = 4.4;
 const BUTTON_LABEL_Z = 0.08;
 const PALETTE = {
   ivory: new vec4(1.0, 0.92, 0.80, 1.0),
@@ -175,43 +175,43 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderIdle(parent: SceneObject): void {
-    this.addLabel(parent, "Lifeline", "Title2", 4.0, "center");
-    this.addLabel(parent, "Emergency guidance, when every second matters.", "Subheadline", 3.4, "center");
+    this.addLabel(parent, "Lifeline", "Title2", 3.2, "center");
+    this.addLabel(parent, "Emergency guidance, when every second matters.", "Subheadline", 2.6, "center");
     const status = this.voiceActivation ? this.voiceStatus : "Voice activation inactive — manual SOS is available.";
-    this.addLabel(parent, status, "Caption", 2.0, "center");
+    this.addLabel(parent, status, "Caption", 1.4, "center");
     if (global.deviceInfoSystem.isEditor()) {
       this.addButton(parent, "SIMULATION — trigger voice: EMERGENCY", 24.0, SECONDARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
   }
 
   private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "Emergency help", "Headline1", 3.0);
-    this.addLabel(parent, "112", "Title1", 4.0, "center");
-    this.addLabel(parent, "Call emergency services now.", "Subheadline", 2.5, "center");
-    this.addLabel(parent, "If you cannot call, ask someone nearby to call 112.", "Body", 2.6, "center");
+    this.addLabel(parent, "Emergency help", "Headline1", 2.2);
+    this.addLabel(parent, "112", "Title1", 3.0, "center");
+    this.addLabel(parent, "Call emergency services now.", "Subheadline", 1.8, "center");
+    this.addLabel(parent, "If you cannot call, ask someone nearby to call 112.", "Body", 1.8, "center");
     if (snapshot.userAcknowledgedCall) {
       this.addLabel(parent, "Your confirmation is recorded. Lifeline has not verified the call.", "Caption", 1.8, "center");
     }
-    this.addButton(parent, "CALL INSTRUCTIONS", 22.0, PRIMARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
-    this.addButton(parent, "CONTINUE", 22.0, PRIMARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
+    this.addButton(parent, "CALL INSTRUCTIONS", 18.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
+    this.addButton(parent, "CONTINUE", 18.0, SECONDARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
   }
 
   private renderPathSelection(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "WHAT IS HAPPENING?", "Headline1", 3.0, "center");
-    this.addLabel(parent, "Choose one option. You can continue to 112 at any time.", "Caption", 2.0, "center");
+    this.addLabel(parent, "WHAT IS HAPPENING?", "HeadlineXL", 2.4, "center");
+    this.addLabel(parent, "Choose one option", "Caption", 1.2, "center");
 
-    const grid = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 15.8, 0.75);
-    this.registerLayoutItem(grid, parent, CONTENT_WIDTH, 15.8);
-    const rowOne = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
-    const rowTwo = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
-    this.registerLayoutItem(rowOne, grid, CONTENT_WIDTH, 7.4);
-    this.registerLayoutItem(rowTwo, grid, CONTENT_WIDTH, 7.4);
-    const cardWidth = (CONTENT_WIDTH - 0.7) / 2;
-    this.addCategoryCard(rowOne, "PERSON COLLAPSED", "Adult casualty", "●", cardWidth, 7.4, () => this.selectCategory("person"));
+    const grid = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 11.8, 0.45);
+    this.registerLayoutItem(grid, parent, CONTENT_WIDTH, 11.8);
+    const rowOne = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 5.6, 0.5);
+    const rowTwo = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 5.6, 0.5);
+    this.registerLayoutItem(rowOne, grid, CONTENT_WIDTH, 5.6);
+    this.registerLayoutItem(rowTwo, grid, CONTENT_WIDTH, 5.6);
+    const cardWidth = (CONTENT_WIDTH - 0.5) / 2;
+    this.addCategoryCard(rowOne, "PERSON COLLAPSED", "Adult casualty", "●", cardWidth, 5.6, () => this.selectCategory("person"));
     this.addCategoryCard(rowOne, "BLEEDING INJURY", "Visible injury", "✚", cardWidth, 7.4, () => this.selectCategory("bleeding"));
     this.addCategoryCard(rowTwo, "FIRE / SMOKE", "Hazard nearby", "▲", cardWidth, 7.4, () => this.selectCategory("fire"));
     this.addCategoryCard(rowTwo, "OTHER EMERGENCY", "Not sure / other", "?", cardWidth, 7.4, () => this.selectCategory("other"));
-    this.addButton(parent, "SKIP — CONTINUE TO 112", 24.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
+    this.addButton(parent, "SKIP — CONTINUE TO 112", 20.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
   }
 
   private selectCategory(category: string): void {
@@ -277,7 +277,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.sosObject = sos;
     sos.setParent(this.contentHost || this.sceneObject);
     // Upper-right inset within the 36 x 26 cm Frame; remains inside a comfortable target region.
-    sos.getTransform().setLocalPosition(new vec3(11.0, 7.2, 0.8));
+    sos.getTransform().setLocalPosition(new vec3(9.8, 6.8, 0.8));
     const button = sos.createComponent(Button.getTypeName()) as Button;
     button.size = new vec3(SOS_WIDTH, SOS_HEIGHT, 1);
     button.opacity = 1.0;
