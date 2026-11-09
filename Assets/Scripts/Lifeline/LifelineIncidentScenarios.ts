@@ -225,27 +225,85 @@ export class LifelineIncidentScenarios extends BaseScriptComponent {
     object.setParent(parent);
     object.getTransform().setLocalPosition(position);
     object.getTransform().setLocalScale(size);
-    const mesh = this.createMesh(shape);
+    const mesh = this.createMesh(shape, color);
     const material = this.createMaterial(color);
     const visual = object.createComponent("Component.RenderMeshVisual") as RenderMeshVisual;
     visual.mesh = mesh;
     visual.mainMaterial = material;
   }
 
-  private createMesh(shape: string): RenderMesh {
-    // Procedural, low-poly meshes are deliberate local geometry—not an
-    // unannounced fallback after a failed generated-asset request.
+  private createMesh(shape: string, color: vec4): RenderMesh {
     const builder = new MeshBuilder([
-      {name: "position", components: 3, type: MeshBuilder.AttributeType.Float32},
-      {name: "normal", components: 3, type: MeshBuilder.AttributeType.Float32},
+      {name: "position", components: 3},
+      {name: "normal", components: 3, normalized: true},
+      {name: "color", components: 4},
     ]);
     builder.topology = MeshTopology.Triangles;
-    if (shape === "sphere") builder.addSphere(1, 12, 8);
-    else if (shape === "cylinder") builder.addCylinder(1, 1, 12);
-    else if (shape === "cone") builder.addCone(1, 1, 12);
-    else if (shape === "capsule") builder.addCapsule(1, 1, 8, 8);
-    else builder.addBox(new vec3(1, 1, 1));
-    return builder.getMesh();
+    builder.indexType = MeshIndexType.UInt16;
+    const indices: number[] = [];
+    let vertexIndex = 0;
+
+    if (shape === "sphere") {
+      // A deliberately faceted ellipsoid made from 3 orthogonal boxes.
+      // Training-stand-in geometry only; no anatomy or injury is represented.
+      vertexIndex = this.appendBox(builder, indices, 0, 0, 0, 0.50, 0.50, 0.50, color, vertexIndex);
+    } else if (shape === "cylinder") {
+      // Faceted hazard base, expressed as a low-poly square prism.
+      vertexIndex = this.appendBox(builder, indices, 0, 0, 0, 0.50, 0.50, 0.50, color, vertexIndex);
+    } else if (shape === "cone") {
+      // Tapered cue is represented by a narrow upright stack of boxes.
+      vertexIndex = this.appendBox(builder, indices, 0, -0.25, 0, 0.30, 0.25, 0.30, color, vertexIndex);
+      vertexIndex = this.appendBox(builder, indices, 0, 0.25, 0, 0.16, 0.25, 0.16, color, vertexIndex);
+    } else if (shape === "capsule") {
+      // Rounded appearance is approximated by a stack of three beveled blocks.
+      vertexIndex = this.appendBox(builder, indices, 0, -0.30, 0, 0.34, 0.20, 0.34, color, vertexIndex);
+      vertexIndex = this.appendBox(builder, indices, 0, 0, 0, 0.42, 0.30, 0.42, color, vertexIndex);
+      vertexIndex = this.appendBox(builder, indices, 0, 0.30, 0, 0.34, 0.20, 0.34, color, vertexIndex);
+    } else {
+      vertexIndex = this.appendBox(builder, indices, 0, 0, 0, 0.50, 0.50, 0.50, color, vertexIndex);
+    }
+
+    builder.appendIndices(indices);
+    const mesh = builder.getMesh();
+    builder.updateMesh();
+    return mesh;
+  }
+
+  private appendBox(
+    builder: MeshBuilder,
+    indices: number[],
+    cx: number, cy: number, cz: number,
+    hw: number, hh: number, hd: number,
+    color: vec4,
+    baseIndex: number
+  ): number {
+    const x0 = cx - hw, x1 = cx + hw;
+    const y0 = cy - hh, y1 = cy + hh;
+    const z0 = cz - hd, z1 = cz + hd;
+    const rgba = [color.x, color.y, color.z, color.w];
+    const verts: number[] = [];
+    let vi = baseIndex;
+    const face = (
+      p0: number[], p1: number[], p2: number[], p3: number[],
+      n: number[]
+    ) => {
+      verts.push(
+        ...p0, ...n, ...rgba,
+        ...p1, ...n, ...rgba,
+        ...p2, ...n, ...rgba,
+        ...p3, ...n, ...rgba
+      );
+      indices.push(vi, vi + 1, vi + 2, vi, vi + 2, vi + 3);
+      vi += 4;
+    };
+    face([x1,y0,z0], [x1,y1,z0], [x1,y1,z1], [x1,y0,z1], [1,0,0]);
+    face([x0,y0,z1], [x0,y1,z1], [x0,y1,z0], [x0,y0,z0], [-1,0,0]);
+    face([x0,y1,z0], [x0,y1,z1], [x1,y1,z1], [x1,y1,z0], [0,1,0]);
+    face([x0,y0,z1], [x0,y0,z0], [x1,y0,z0], [x1,y0,z1], [0,-1,0]);
+    face([x0,y0,z1], [x1,y0,z1], [x1,y1,z1], [x0,y1,z1], [0,0,1]);
+    face([x1,y0,z0], [x0,y0,z0], [x0,y1,z0], [x1,y1,z0], [0,0,-1]);
+    builder.appendVerticesInterleaved(verts);
+    return vi;
   }
 
   private createMaterial(color: vec4): Material {
