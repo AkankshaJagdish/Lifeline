@@ -1,7 +1,7 @@
 # Lifeline — medical content sources
 
-**Checked:** 2026-11-06  
-**Scope:** India emergency number; adult bystander CPR; severe external bleeding. Content is for planning and must be reviewed again before release. No claim of clinical or regulatory approval.
+**Checked:** 2026-11-09  
+**Scope:** India emergency numbers; adult bystander CPR; severe external bleeding; evacuation-only Fire / Smoke guidance. Content is for planning and must be reviewed again before release. No claim of clinical or regulatory approval.
 
 ## India emergency number
 
