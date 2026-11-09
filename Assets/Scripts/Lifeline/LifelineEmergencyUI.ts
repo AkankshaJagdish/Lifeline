@@ -274,10 +274,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     if (!marker || !marker.enabled) return;
     const markerPosition = marker.getTransform().getWorldPosition();
     const cameraTransform = WorldCameraFinderProvider.getInstance().getComponent().getTransform();
-    const groupPosition = markerPosition
-      .subtract(cameraTransform.forward.uniformScale(GUIDANCE_FORWARD_OFFSET))
-      .add(cameraTransform.right.uniformScale(GUIDANCE_GROUP_RIGHT_OFFSET))
-      .add(cameraTransform.up.uniformScale(GUIDANCE_VERTICAL_OFFSET));
+    const cameraForwardOffset = cameraTransform.forward.uniformScale(GUIDANCE_FORWARD_OFFSET);
+    const cameraRightOffset = cameraTransform.right.uniformScale(GUIDANCE_GROUP_RIGHT_OFFSET);
+    const cameraUpOffset = cameraTransform.up.uniformScale(GUIDANCE_VERTICAL_OFFSET);
+    const positionWithoutForwardOffset = markerPosition.add(cameraRightOffset).add(cameraUpOffset);
+    const groupPosition = new vec3(
+      positionWithoutForwardOffset.x - cameraForwardOffset.x,
+      positionWithoutForwardOffset.y - cameraForwardOffset.y,
+      positionWithoutForwardOffset.z - cameraForwardOffset.z
+    );
     const rootTransform = this.sceneObject.getTransform();
     rootTransform.setWorldPosition(groupPosition);
     rootTransform.setWorldRotation(cameraTransform.getWorldRotation());
