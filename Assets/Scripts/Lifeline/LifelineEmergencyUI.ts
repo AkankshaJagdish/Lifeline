@@ -108,7 +108,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     // Frame also binds initialize() to its own OnStartEvent; initialize() is idempotent.
     // Calling it here guarantees the registered callback runs before any content is built.
-    this.frame.initialize();
+    this.frame.initialized();
 
     this.createEvent("OnStartEvent").bind(() => {
       this.controller?.subscribe((snapshot) => {
