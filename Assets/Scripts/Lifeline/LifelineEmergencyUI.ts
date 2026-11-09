@@ -308,9 +308,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     overviewPage.setParent(this.overviewContentHost);
     this.overviewPageRoot = overviewPage;
     const overviewColumn = this.createFlex(overviewPage, FlexDirection.Column, 9.0, 17.0, 0.05);
-    const overviewHeader = this.createFlex(overviewColumn, FlexDirection.Row, 9.0, 3.6, 0.3);
-    this.addLabel(overviewHeader, "PLAN", "Headline2", 3.6, "left", 3.5);
-    this.addButton(overviewHeader, "BACK", 5.2, 3.6, () => this.controller?.back(), "neutral");
+    const overviewHeader = this.createFlex(overviewColumn, FlexDirection.Row, 9.0, 4.0, 0.3);
+    this.addLabel(overviewHeader, "PLAN", "Headline2", 4.0, "left", 3.5);
+    this.addButton(overviewHeader, "BACK", 5.2, 4.0, () => this.controller?.back(), "neutral");
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index];
       const status = index < currentIndex ? "✓" : index === currentIndex ? "●" : "○";
@@ -318,7 +318,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       const summary = this.getStepSummary(step);
       const tone = index < currentIndex ? PALETTE.teal : index === currentIndex ? PALETTE.amber : PALETTE.neutral;
       const label = status + " " + (index + 1) + ". " + stepTitle + " — " + summary;
-      this.addLabel(overviewColumn, label, "Caption", 1.62, "left", 9.0, tone);
+      this.addLabel(overviewColumn, label, "Caption", 1.55, "left", 9.0, tone);
     }
 
     const rightPage = global.scene.createSceneObject("Lifeline DO NOW Screen");
@@ -475,11 +475,12 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const sos = global.scene.createSceneObject("Lifeline Persistent SOS Control");
     this.sosObject = sos;
     sos.setParent(this.contentHost || this.sceneObject);
-    // Upper-right inset within the approved 30 x 20 cm Frame; stays inside the comfortable interaction region.
+    // Upper-right inset in normal mode; repositioned into the reserved right-panel header band during guidance.
     sos.getTransform().setLocalPosition(new vec3(9.8, 6.8, 0.8));
     const button = sos.createComponent(Button.getTypeName()) as Button;
     button.size = new vec3(SOS_WIDTH, SOS_HEIGHT, 1);
     button.opacity = 1.0;
+    this.applyButtonTone(button, "critical");
     button.onTriggerUp.add(() => this.manualActivation?.activateManually());
     const labelObject = global.scene.createSceneObject("Lifeline SOS Label");
     labelObject.setParent(sos);
