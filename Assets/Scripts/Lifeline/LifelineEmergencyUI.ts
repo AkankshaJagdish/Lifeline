@@ -208,9 +208,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.registerLayoutItem(rowTwo, grid, CONTENT_WIDTH, 5.6);
     const cardWidth = (CONTENT_WIDTH - 0.5) / 2;
     this.addCategoryCard(rowOne, "PERSON COLLAPSED", "Adult casualty", "●", cardWidth, 5.6, () => this.selectCategory("person"));
-    this.addCategoryCard(rowOne, "BLEEDING INJURY", "Visible injury", "✚", cardWidth, 7.4, () => this.selectCategory("bleeding"));
-    this.addCategoryCard(rowTwo, "FIRE / SMOKE", "Hazard nearby", "▲", cardWidth, 7.4, () => this.selectCategory("fire"));
-    this.addCategoryCard(rowTwo, "OTHER EMERGENCY", "Not sure / other", "?", cardWidth, 7.4, () => this.selectCategory("other"));
+    this.addCategoryCard(rowOne, "BLEEDING INJURY", "Visible injury", "✚", cardWidth, 5.6, () => this.selectCategory("bleeding"));
+    this.addCategoryCard(rowTwo, "FIRE / SMOKE", "Hazard nearby", "▲", cardWidth, 5.6, () => this.selectCategory("fire"));
+    this.addCategoryCard(rowTwo, "OTHER EMERGENCY", "Not sure / other", "?", cardWidth, 5.6, () => this.selectCategory("other"));
     this.addButton(parent, "SKIP — CONTINUE TO 112", 20.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
   }
 
