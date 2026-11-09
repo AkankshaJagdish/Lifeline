@@ -273,6 +273,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
   private createPersistentSosControl(): SceneObject {
     const sos = global.scene.createSceneObject("Lifeline Persistent SOS Control");
+    this.sosObject = sos;
     sos.setParent(this.contentHost || this.sceneObject);
     // Upper-right inset within the 36 x 26 cm Frame; remains inside a comfortable target region.
     sos.getTransform().setLocalPosition(new vec3(11.0, 7.2, 0.8));
