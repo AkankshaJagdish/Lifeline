@@ -4,7 +4,7 @@ import { GuidanceStep, LifelinePath } from "./LifelineTypes";
  * User-facing first-aid copy transcribed only from devpost/medical-content-sources.md.
  * Keep adult CPR depth measurement out of this visual-only MVP.
  */
-export const LIFELINE_GUIDANCE: Record<Exclude<LifelinePath, "other">, readonly GuidanceStep[]> = {
+export const LIFELINE_GUIDANCE: Record<"bleeding" | "adult_collapse", readonly GuidanceStep[]> = {
   bleeding: [
     { id: "scene_safety", text: "Approach only if it is safe to help." },
     { id: "get_help", text: "Get emergency help. Ask someone nearby to call 112." },
