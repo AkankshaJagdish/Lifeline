@@ -57,6 +57,52 @@ export const LIFELINE_GUIDANCE: Record<Exclude<LifelinePath, "other">, readonly 
   ],
 };
 
+/** Evacuation-only fire/smoke steps sourced in devpost/medical-content-sources.md. */
+export const FIRE_SMOKE_GUIDANCE: readonly GuidanceStep[] = [
+  {
+    id: "raise_alarm",
+    title: "Raise the alarm",
+    summary: "Alert people nearby",
+    text: "Raise the alarm and alert people nearby. Tell them to leave the building.",
+  },
+  {
+    id: "safe_exit",
+    title: "Use a safe exit",
+    summary: "Take the closest safe route",
+    text: "Leave using the closest safe exit.",
+  },
+  {
+    id: "stay_low",
+    title: "Stay low in smoke",
+    summary: "Keep low while moving out",
+    text: "If smoke is in your way out, stay as low as you can while moving towards the exit.",
+  },
+  {
+    id: "no_lifts",
+    title: "Use stairs, not lifts",
+    summary: "Do not use elevators",
+    text: "Use the stairs. Do not use lifts or elevators.",
+  },
+  {
+    id: "assembly_area",
+    title: "Reach the assembly area",
+    summary: "Stay for the all-clear",
+    text: "Move to the designated evacuation assembly area and remain there until the all-clear is given.",
+  },
+  {
+    id: "do_not_reenter",
+    title: "Do not go back inside",
+    summary: "Wait for official advice",
+    text: "Do not re-enter the building until authorities advise it is safe.",
+  },
+  {
+    id: "contact_services",
+    title: "Contact emergency services",
+    summary: "Call 112 or Fire Services 101",
+    text: "Once you are outside and safe, contact emergency services: 112 for integrated response or 101 for Fire Services.",
+  },
+];
+
 export const OTHER_EMERGENCY_INSTRUCTIONS: readonly string[] = [
   "Call 112 now.",
   "Follow the emergency operator's instructions.",
@@ -68,6 +114,7 @@ export const LIFELINE_SAFETY_STATEMENT =
 export function getGuidanceSteps(path: LifelinePath): readonly GuidanceStep[] {
   if (path === "bleeding") return LIFELINE_GUIDANCE.bleeding;
   if (path === "adult_collapse") return LIFELINE_GUIDANCE.adult_collapse;
+  if (path === "fire_smoke") return FIRE_SMOKE_GUIDANCE;
   return OTHER_EMERGENCY_INSTRUCTIONS.map((text, index) => ({
     id: `other_${index + 1}`,
     text,
