@@ -59,6 +59,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
   private pathOptionIndex = 0;
+  private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
 
   onAwake(): void {
     if (this.controllerObject) {
@@ -259,6 +260,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     // Use explicit registration consistently; automatic start discovery is disabled before children exist.
     flex.autoDiscoverItemsOnStart = false;
     const pendingItems: FlexItem[] = [];
+    this.pendingFlexItems.set(container, pendingItems);
     flex.onInitialized.add(() => {
       flex.width = width;
       flex.height = height;
@@ -305,6 +307,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const hostFlex = host.createComponent(FlexLayout.getTypeName()) as FlexLayout;
     hostFlex.autoDiscoverItemsOnStart = false;
     const hostItems: FlexItem[] = [];
+    this.pendingFlexItems.set(host, hostItems);
     hostFlex.onInitialized.add(() => {
       hostFlex.width = width;
       hostFlex.height = height;
@@ -331,7 +334,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     contentItem.overrideHeight = height;
     contentItem.flexGrow = 0;
     contentItem.flexShrink = 0;
-    hostItems.push(contentItem);
+    this.registerFlexItemAfterInitialization(host, contentItem);
 
     const item = host.createComponent(FlexItem.getTypeName()) as FlexItem;
     item.overrideWidth = width;
@@ -349,7 +352,22 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private registerFlexItemAfterInitialization(parent: SceneObject, item: FlexItem): void {
     const parentFlex = parent.getComponent(FlexLayout.getTypeName()) as FlexLayout | null;
     if (!parentFlex) return;
-    parentFlex.onInitialized.add(() => parentFlex.addItems([item]));
+
+    let pendingItems = this.pendingFlexItems.get(parent);
+    if (!pendingItems) {
+      pendingItems = [];
+      this.pendingFlexItems.set(parent, pendingItems);
+    }
+
+    // The layout is configured for explicit registration. Queue each item once;
+    // the ReplayEvent flushes the complete batch after parent initialization.
+    if (pendingItems.indexOf(item) < 0) pendingItems.push(item);
+    parentFlex.onInitialized.add(() => {
+      const items = this.pendingFlexItems.get(parent);
+      if (!items || items.length === 0) return;
+      parentFlex.addItems(items);
+      this.pendingFlexItems.delete(parent);
+    });
   }
 
   private addButton(parent: SceneObject, label: string, width: number, height: number, action: () => void, tone: "primary" | "critical" | "neutral"): void {
