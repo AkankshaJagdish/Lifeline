@@ -33,3 +33,18 @@ These are required alongside the four criteria and are not new acceptance criter
 - No real emergency call is implemented or claimed.
 
 See `test-report.md` for the detailed evidence matrix and local test instructions. Do not change a status to passed until the corresponding interaction has actually been exercised and its evidence recorded.
+
+
+## Additive spatial UI UX checks
+
+These checks are additive to AC-1..AC-4 above and do not replace or expand the original medical-content acceptance criteria.
+
+| ID | Done when | Verification |
+|---|---|---|
+| UX-1 Persistent SOS | SOS 112 is visible, inset within the comfortable upper-right interaction area, and manually activates Lifeline from IDLE and remains available throughout active states. | Exercise the control from IDLE, emergency home, category selection, guidance and cancellation; capture Preview evidence. |
+| UX-2 Idle hierarchy | Idle shows Lifeline, “Emergency guidance, when every second matters.”, voice status, manual SOS and a discreet Preview-only simulation. | Preview screenshot and check that no long guidance or category grid appears while idle. |
+| UX-3 Four simultaneous categories | Person collapsed, Bleeding injury, Fire / smoke and Other emergency are visible as four large 2 × 2 UIKit targets after the emergency-first screen. | Capture full grid and exercise all four selections. |
+| UX-4 Existing-path preservation | Person and bleeding map to existing guidance paths; other and fire fallback do not introduce unsourced medical / fire copy. | Confirm callbacks and compare displayed text with existing approved source register. |
+| UX-5 UI readability and context | Larger typography, readable contrast, comfortable target sizes and central incident visibility are maintained. | Inspect Preview at neutral head position and while moving around the incident stand-in. |
+
+Fire / smoke is selectable as a user-described category, but the unchanged baseline controller/state machine has no fire guidance state. The current implementation routes this selection to the existing “other emergency” fallback and does not claim a fire response.
