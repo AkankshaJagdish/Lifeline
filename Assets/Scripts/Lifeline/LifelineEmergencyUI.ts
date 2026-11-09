@@ -8,6 +8,9 @@ import { LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
 import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout";
+import { RoundedRectangleVisual, RoundedRectangleVisualState } from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangleVisual";
+import { GradientParameters } from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle";
+import { StateName } from "SpectaclesUIKit.lspkg/Scripts/Components/Element";
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
 import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
@@ -474,35 +477,50 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     });
   }
 
+  private makeGradient(color: vec4): GradientParameters {
+    const highlight = new vec4(
+      Math.min(1, color.x + 0.12),
+      Math.min(1, color.y + 0.12),
+      Math.min(1, color.z + 0.12),
+      color.w
+    );
+    return {
+      enabled: true,
+      type: "Linear",
+      start: new vec2(0, 1),
+      end: new vec2(0, -1),
+      stop0: {enabled: true, percent: 0, color: highlight},
+      stop1: {enabled: true, percent: 0.35, color},
+      stop2: {enabled: true, percent: 0.7, color},
+      stop3: {enabled: true, percent: 1, color: new vec4(color.x * 0.84, color.y * 0.84, color.z * 0.84, color.w)},
+    };
+  }
+
   private applyButtonTone(button: Button, tone: "primary" | "critical" | "neutral" | "category" | "caution"): void {
-    // Public UIKit Element exposes visual; use public RoundedRectangleVisual
-    // properties when available rather than touching protected style fields.
-    const visual = button.visual as any;
-    if (!visual) return;
     const color = tone === "critical"
       ? PALETTE.coral
       : tone === "caution"
         ? PALETTE.amber
-        : tone === "primary"
+        : tone === "primary" || tone === "category"
           ? PALETTE.teal
-          : tone === "category"
-            ? PALETTE.teal
-            : PALETTE.neutral;
-    try {
-      visual.defaultBaseType = "Color";
-      visual.hoveredBaseType = "Color";
-      visual.triggeredBaseType = "Color";
-      visual.defaultColor = color;
-      visual.hoveredColor = new vec4(
-        Math.min(1, color.x + 0.12),
-        Math.min(1, color.y + 0.12),
-        Math.min(1, color.z + 0.12),
-        color.w
-      );
-      visual.triggeredColor = color;
-    } catch (error) {
-      print("Lifeline UI: button tone styling unavailable; UIKit default visual retained.");
-    }
+          : PALETTE.neutral;
+    const defaultGradient = this.makeGradient(color);
+    const hoverGradient = this.makeGradient(new vec4(
+      Math.min(1, color.x + 0.1),
+      Math.min(1, color.y + 0.1),
+      Math.min(1, color.z + 0.1),
+      color.w
+    ));
+    const border = new vec4(PALETTE.ivory.x, PALETTE.ivory.y, PALETTE.ivory.z, 0.72);
+    const borderHover = new vec4(1, 1, 1, 0.96);
+    const style: Partial<Record<StateName, RoundedRectangleVisualState>> = {
+      default: {hasBorder: true, borderSize: 0.08, borderType: "Color", borderColor: border, baseGradient: defaultGradient},
+      hovered: {hasBorder: true, borderSize: 0.1, borderType: "Color", borderColor: borderHover, baseGradient: hoverGradient},
+      triggered: {hasBorder: true, borderSize: 0.1, borderType: "Color", borderColor: border, baseGradient: defaultGradient},
+    };
+    const visual = new RoundedRectangleVisual({sceneObject: button.sceneObject, style});
+    button.visual = visual;
+    button.initialize();
   }
 
   private addButton(parent: SceneObject, label: string, width: number, height: number, action: () => void, tone: "primary" | "critical" | "neutral"): void {
