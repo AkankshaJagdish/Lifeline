@@ -83,12 +83,15 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     this.frame.autoShowHide = false;
     this.frame.autoScaleContent = false;
     this.frame.allowScaling = false;
-    this.frame.showCloseButton = false;
-    this.frame.showFollowButton = false;
 
+    // Frame's close/follow button setters access ButtonHandler internals created by initialize().
+    // Register first because initialization may complete synchronously.
     this.frame.onInitialized.add(() => {
       const frame = this.frame;
       if (!frame) return;
+
+      frame.showCloseButton = false;
+      frame.showFollowButton = false;
 
       // Frame remains within the 30 x 20 cm design limit; content uses a 0.75 cm inset.
       frame.innerSize = new vec2(FRAME_INNER_WIDTH, FRAME_INNER_HEIGHT);
@@ -102,6 +105,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       this.contentHost = host;
       if (this.snapshot) this.render(this.snapshot);
     });
+
+    // Frame also binds initialize() to its own OnStartEvent; initialize() is idempotent.
+    // Calling it here guarantees the registered callback runs before any content is built.
+    this.frame.initialize();
 
     this.createEvent("OnStartEvent").bind(() => {
       this.controller?.subscribe((snapshot) => {
