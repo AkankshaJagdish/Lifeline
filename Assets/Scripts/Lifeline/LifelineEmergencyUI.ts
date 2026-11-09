@@ -7,34 +7,54 @@ import { INDIA_EMERGENCY_CONFIG } from "./LifelineEmergencyConfig";
 import { LIFELINE_SAFETY_STATEMENT } from "./LifelineGuidanceContent";
 import { Frame } from "SpectaclesUIKit.lspkg/Scripts/Components/Frame/Frame";
 import { Button } from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button";
-import { ElementContent } from "SpectaclesUIKit.lspkg/Scripts/Components/Content/ElementContent";
 import { FlexLayout } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout";
 import { FlexItem } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem";
-import { FlexAlign, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
+import { FlexAlign, FlexAlignSelf, FlexDirection, FlexJustify } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes";
 
-const FRAME_INNER_WIDTH = 30;
-const FRAME_INNER_HEIGHT = 20;
-const CONTENT_WIDTH = 28.5;
-const CONTENT_HEIGHT = 18.5;
+const FRAME_INNER_WIDTH = 36;
+const FRAME_INNER_HEIGHT = 26;
+const CONTENT_WIDTH = 34.5;
+const CONTENT_HEIGHT = 24.5;
 const PANEL_PADDING = 0.75;
-const CONTENT_GAP = 0.05;
-const PRIMARY_TARGET = 5.6;
-const SECONDARY_TARGET = 3.9;
-const TARGET_GAP = 2.0;
+const CONTENT_GAP = 0.65;
+const PRIMARY_TARGET = 7.0;
+const SECONDARY_TARGET = 5.0;
+const TARGET_GAP = 0.8;
 const VIEW_DISTANCE_CM = 105;
-
-type TextRole = "Headline2" | "Title2" | "Subheadline" | "Button" | "Body" | "Caption";
-const TYPE_SCALE: Record<TextRole, number> = {
-  Headline2: 48,
-  Title2: 93,
-  Subheadline: 41,
-  Button: 39,
-  Body: 39,
-  Caption: 38,
+const SOS_WIDTH = 9.0;
+const SOS_HEIGHT = 5.0;
+const SOS_INSET_X = 1.2;
+const SOS_INSET_Y = 1.0;
+const BUTTON_LABEL_Z = 0.08;
+const PALETTE = {
+  ivory: new vec4(1.0, 0.92, 0.80, 1.0),
+  teal: new vec4(0.18, 0.72, 0.68, 1.0),
+  coral: new vec4(1.0, 0.30, 0.27, 1.0),
+  amber: new vec4(1.0, 0.67, 0.25, 1.0),
+  neutral: new vec4(0.82, 0.90, 0.88, 0.9),
 };
 
-function roleSize(role: TextRole): number {
-  return TYPE_SCALE[role] * (VIEW_DISTANCE_CM / 110);
+type TextRole = "Title1" | "Title2" | "HeadlineXL" | "Headline1" | "Headline2" | "Subheadline" | "Button" | "Callout" | "Body" | "Caption";
+const TYPE_SCALE: Record<TextRole, {size: number; weight: number}> = {
+  Title1: {size: 105, weight: 700},
+  Title2: {size: 93, weight: 700},
+  HeadlineXL: {size: 62, weight: 700},
+  Headline1: {size: 54, weight: 700},
+  Headline2: {size: 48, weight: 700},
+  Subheadline: {size: 41, weight: 700},
+  Button: {size: 39, weight: 500},
+  Callout: {size: 39, weight: 700},
+  Body: {size: 39, weight: 500},
+  Caption: {size: 38, weight: 500},
+};
+
+function roleSize(role: TextRole, distanceCm: number = 110): number {
+  return TYPE_SCALE[role].size * (VIEW_DISTANCE_CM / 110) * (distanceCm / VIEW_DISTANCE_CM);
+}
+
+function applyTextRole(text: Text, role: TextRole): void {
+  text.size = roleSize(role);
+  (text as Text & {weight?: number}).weight = TYPE_SCALE[role].weight;
 }
 
 /** Lifeline's complete visual flow, composed from Spectacles UIKit primitives. */
@@ -59,6 +79,9 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   private voiceStatus = "Voice activation unavailable; use ACTIVATE.";
   private repeatMessage: string | null = null;
   private pathOptionIndex = 0;
+  private lastChosenCategory: string | null = null;
+  private sosObject: SceneObject | null = null;
+  private sosButton: Button | null = null;
   private pendingFlexItems = new Map<SceneObject, FlexItem[]>();
   private flexRegistrationCallbacks = new Set<SceneObject>();
 
@@ -105,6 +128,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       host.setParent(frame.contentTransform.getSceneObject());
       host.getTransform().setLocalPosition(new vec3(0, 0, 0.6));
       this.contentHost = host;
+      this.sosObject = this.createPersistentSosControl();
       if (this.snapshot) this.render(this.snapshot);
     });
 
@@ -116,8 +140,10 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
         if (snapshot.state === "PATH_SELECTION" && this.snapshot?.state !== "PATH_SELECTION") {
           this.pathOptionIndex = 0;
         }
+        const previousState = this.snapshot?.state;
         this.snapshot = snapshot;
         this.repeatMessage = null;
+        if (snapshot.state === "IDLE" && previousState !== "IDLE") this.lastChosenCategory = null;
         this.render(snapshot);
       });
       this.voiceActivation?.onStatusChanged((status) => {
@@ -135,6 +161,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     page.setParent(this.contentHost);
     this.pageRoot = page;
     const column = this.createFlex(page, FlexDirection.Column, CONTENT_WIDTH, CONTENT_HEIGHT, CONTENT_GAP);
+    this.addPersistentSosButton(page, snapshot.state);
 
     switch (snapshot.state) {
       case "IDLE": this.renderIdle(column); break;
@@ -151,77 +178,134 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
   }
 
   private renderIdle(parent: SceneObject): void {
-    this.addLabel(parent, "Lifeline", "Headline2", 1.0, "center");
-    this.addLabel(parent, this.voiceStatus, "Caption", 1.0, "center");
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "ACTIVATE", CONTENT_WIDTH, PRIMARY_TARGET, () => this.manualActivation?.activateManually(), "primary");
+    this.addLabel(parent, "Lifeline", "Title2", 4.0, "center");
+    this.addLabel(parent, "Emergency guidance, when every second matters.", "Subheadline", 3.4, "center");
+    const status = this.voiceActivation ? this.voiceStatus : "Voice activation inactive — manual SOS is available.";
+    this.addLabel(parent, status, "Caption", 2.0, "center");
     if (global.deviceInfoSystem.isEditor()) {
-      this.addButton(actions, "SIMULATION — trigger voice: EMERGENCY", CONTENT_WIDTH, SECONDARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
+      this.addButton(parent, "SIMULATION — trigger voice: EMERGENCY", 24.0, SECONDARY_TARGET, () => this.previewSimulation?.simulateVoiceEmergency(), "neutral");
     }
-    this.addLabel(parent, LIFELINE_SAFETY_STATEMENT, "Caption", 2.6, "center");
   }
 
   private renderEmergencyHome(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    this.addLabel(parent, "Emergency help", "Headline2", 1.0);
-    this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ". Call emergency services now.", "Subheadline", 1.8);
-    this.addLabel(parent, "If you cannot call, ask someone nearby to call " + INDIA_EMERGENCY_CONFIG.emergencyNumber + ".", "Body", 1.5);
+    this.addLabel(parent, "Emergency help", "Headline1", 3.0);
+    this.addLabel(parent, "112", "Title1", 4.0, "center");
+    this.addLabel(parent, "Call emergency services now.", "Subheadline", 2.5, "center");
+    this.addLabel(parent, "If you cannot call, ask someone nearby to call 112.", "Body", 2.6, "center");
     if (snapshot.userAcknowledgedCall) {
-      this.addLabel(parent, "Your confirmation is recorded. Lifeline has not verified the call.", "Caption", 1.0);
+      this.addLabel(parent, "Your confirmation is recorded. Lifeline has not verified the call.", "Caption", 1.8, "center");
     }
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, SECONDARY_TARGET + TARGET_GAP + PRIMARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "CALL 112", CONTENT_WIDTH, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
-    this.addButton(actions, "CONTINUE TO GUIDANCE", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
-  }
-
-  private renderCallInstructions(parent: SceneObject): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
-    this.addLabel(header, "Call emergency services", "Headline2", SECONDARY_TARGET, "left", CONTENT_WIDTH - 5.9);
-    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
-    this.addLabel(parent, "India emergency number: " + INDIA_EMERGENCY_CONFIG.emergencyNumber, "Subheadline", 1.8);
-    this.addLabel(parent, INDIA_EMERGENCY_CONFIG.callActionInstruction + " Lifeline has not placed or verified a call.", "Body", 2.8);
-    this.addButton(parent, "I HAVE CALLED 112", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.acknowledgeUserCalled112(), "primary");
+    this.addButton(parent, "CALL INSTRUCTIONS", 22.0, PRIMARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
+    this.addButton(parent, "CONTINUE", 22.0, PRIMARY_TARGET, () => this.controller?.continueToPathSelection(), "primary");
   }
 
   private renderPathSelection(parent: SceneObject, snapshot: LifelineSnapshot): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
-    this.addLabel(header, "Choose a pathway", "Headline2", SECONDARY_TARGET, "left", 14.6);
-    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
-    this.addButton(header, "CALL 112", 6.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
+    this.addLabel(parent, "WHAT IS HAPPENING?", "Headline1", 3.0, "center");
+    this.addLabel(parent, "Choose one option. You can continue to 112 at any time.", "Caption", 2.0, "center");
 
-    const options: { path: LifelinePath; label: string }[] = [
-      { path: "bleeding", label: "Severe bleeding" },
-      { path: "adult_collapse", label: "Adult collapse / possible cardiac arrest" },
-      { path: "other", label: "Other emergency" },
-    ];
-    const current = options[this.pathOptionIndex % options.length];
-    this.addLabel(parent, "Option " + (this.pathOptionIndex + 1) + " of " + options.length, "Caption", 0.9, "center");
-    this.addLabel(parent, current.label, "Subheadline", 2.0, "center");
-
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "SELECT THIS PATH", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.selectPath(current.path), "primary");
-    this.addButton(actions, "NEXT OPTION", CONTENT_WIDTH, SECONDARY_TARGET, () => this.nextPathOption(snapshot), "neutral");
+    const grid = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 15.8, 0.75);
+    const rowOne = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
+    const rowTwo = this.createFlex(grid, FlexDirection.Row, CONTENT_WIDTH, 7.4, 0.7);
+    const cardWidth = (CONTENT_WIDTH - 0.7) / 2;
+    this.addCategoryCard(rowOne, "PERSON COLLAPSED", "Adult casualty", "●", cardWidth, 7.4, () => this.selectCategory("person"));
+    this.addCategoryCard(rowOne, "BLEEDING INJURY", "Visible injury", "✚", cardWidth, 7.4, () => this.selectCategory("bleeding"));
+    this.addCategoryCard(rowTwo, "FIRE / SMOKE", "Hazard nearby", "▲", cardWidth, 7.4, () => this.selectCategory("fire"));
+    this.addCategoryCard(rowTwo, "OTHER EMERGENCY", "Not sure / other", "?", cardWidth, 7.4, () => this.selectCategory("other"));
+    this.addButton(parent, "SKIP — CONTINUE TO 112", 24.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
   }
 
-  private nextPathOption(snapshot: LifelineSnapshot): void {
-    this.pathOptionIndex = (this.pathOptionIndex + 1) % 3;
-    this.render(snapshot);
+  private selectCategory(category: string): void {
+    this.lastChosenCategory = category;
+    if (category === "person") {
+      this.controller?.selectPath("adult_collapse");
+      return;
+    }
+    if (category === "bleeding") {
+      this.controller?.selectPath("bleeding");
+      return;
+    }
+    // Fire is selectable as a user-described category, but no reviewed fire
+    // guidance/state exists in this baseline. Keep the safe 112 / other route.
+    this.controller?.selectPath("other");
+  }
+
+  private addCategoryCard(parent: SceneObject, title: string, subtitle: string, glyph: string,
+      width: number, height: number, action: () => void): void {
+    const host = global.scene.createSceneObject("Lifeline Category Card " + title);
+    host.setParent(parent);
+    const button = host.createComponent(Button.getTypeName()) as Button;
+    button.size = new vec3(width, height, 1);
+    button.opacity = 1.0;
+    button.onTriggerUp.add(action);
+
+    const glyphObject = global.scene.createSceneObject("Category Glyph " + glyph);
+    glyphObject.setParent(host);
+    glyphObject.getTransform().setLocalPosition(new vec3(0, 1.65, BUTTON_LABEL_Z));
+    const glyphText = glyphObject.createComponent("Component.Text") as Text;
+    glyphText.text = glyph;
+    glyphText.depthTest = true;
+    applyTextRole(glyphText, "Headline1");
+    glyphText.textFill.color = title === "FIRE / SMOKE" ? PALETTE.amber : PALETTE.ivory;
+    glyphText.horizontalAlignment = HorizontalAlignment.Center;
+    glyphText.verticalAlignment = VerticalAlignment.Center;
+    glyphText.layoutRect = Rect.create(-3.0, 3.0, -1.2, 1.2);
+
+    this.addButtonLabel(host, title, width - 0.6, "Button", new vec3(0, -0.5, BUTTON_LABEL_Z));
+    this.addButtonLabel(host, subtitle, width - 0.6, "Caption", new vec3(0, -2.3, BUTTON_LABEL_Z));
+
+    const item = host.createComponent(FlexItem.getTypeName()) as FlexItem;
+    item.overrideWidth = width;
+    item.overrideHeight = height;
+    item.flexGrow = 0;
+    item.flexShrink = 0;
+    this.registerFlexItemAfterInitialization(parent, item);
+  }
+
+  private createPersistentSosControl(): SceneObject {
+    const sos = global.scene.createSceneObject("Lifeline Persistent SOS Control");
+    sos.setParent(this.sceneObject);
+    sos.getTransform().setLocalPosition(new vec3(13.0, -5.5, -0.2));
+    const button = sos.createComponent(Button.getTypeName()) as Button;
+    button.size = new vec3(SOS_WIDTH, SOS_HEIGHT, 1);
+    button.opacity = 1.0;
+    button.onTriggerUp.add(() => this.manualActivation?.activateManually());
+    const labelObject = global.scene.createSceneObject("Lifeline SOS Label");
+    labelObject.setParent(sos);
+    labelObject.getTransform().setLocalPosition(new vec3(0, 0, BUTTON_LABEL_Z));
+    const label = labelObject.createComponent("Component.Text") as Text;
+    label.text = "SOS 112";
+    label.depthTest = true;
+    applyTextRole(label, "Button");
+    label.textFill.color = PALETTE.ivory;
+    label.horizontalAlignment = HorizontalAlignment.Center;
+    label.verticalAlignment = VerticalAlignment.Center;
+    label.layoutRect = Rect.create(-4.0, 4.0, -1.2, 1.2);
+    return sos;
+  }
+
+  private addPersistentSosButton(page: SceneObject, state: string): void {
+    // The separate SOS scene object is persistent across page rebuilds.
+    // Keep an equivalent contextual 112 route in content as well; this top-right
+    // action is a manual activation control, not a phone-call claim.
+    if (!this.sosObject) return;
+    this.sosObject.enabled = true;
+    if (this.sosButton) this.sosButton.opacity = 1.0;
   }
 
   private renderGuidance(parent: SceneObject, title: string, snapshot: LifelineSnapshot): void {
-    const header = this.createRow(parent, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
-    this.addLabel(header, title, "Headline2", SECONDARY_TARGET, "left", 14.6);
-    this.addButton(header, "BACK", SECONDARY_TARGET, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
-    this.addButton(header, "CALL 112", 6.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
+    this.addLabel(parent, title, "Headline1", 3.0);
+    this.addButton(parent, "BACK", 12.0, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+    this.addButton(parent, "CALL 112", 12.0, SECONDARY_TARGET, () => this.controller?.showCallInstructions(), "critical");
 
-    this.addLabel(parent, "Step " + (snapshot.stepIndex + 1) + " of " + snapshot.stepCount, "Caption", 0.8);
+    this.addLabel(parent, "Step " + (snapshot.stepIndex + 1) + " of " + snapshot.stepCount, "Callout", 1.8);
     const instruction = this.repeatMessage
       ? "REPEATED — " + this.repeatMessage
       : (snapshot.instruction ?? "Follow the emergency operator’s instructions.");
-    this.addLabel(parent, instruction, "Body", 2.0);
+    this.addLabel(parent, instruction, "Body", 5.0);
 
-    const actions = this.createButtonStack(parent, CONTENT_WIDTH, PRIMARY_TARGET + TARGET_GAP + SECONDARY_TARGET, TARGET_GAP);
-    this.addButton(actions, "NEXT", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
-    const secondary = this.createRow(actions, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
+    const actions = this.createFlex(parent, FlexDirection.Column, CONTENT_WIDTH, 11.0, TARGET_GAP);
+    this.addButton(actions, "NEXT STEP", CONTENT_WIDTH, PRIMARY_TARGET, () => this.controller?.next(), "primary");
+    const secondary = this.createFlex(actions, FlexDirection.Row, CONTENT_WIDTH, SECONDARY_TARGET, TARGET_GAP);
     const half = (CONTENT_WIDTH - TARGET_GAP) / 2;
     this.addButton(secondary, "REPEAT", half, SECONDARY_TARGET, () => this.repeatCurrentInstruction(), "neutral");
     this.addButton(secondary, "END SESSION", half, SECONDARY_TARGET, () => this.controller?.requestEndSession(), "neutral");
@@ -325,11 +409,16 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
 
     const contentObject = global.scene.createSceneObject("Lifeline Label Content");
     contentObject.setParent(host);
-    const content = contentObject.createComponent(ElementContent.getTypeName()) as ElementContent;
-    content.text = value;
-    content.textSize = roleSize(role);
-    content.contentAlignment = alignment;
-    content.sizeOverride = new vec2(width, height);
+    const text = contentObject.createComponent("Component.Text") as Text;
+    text.text = value;
+    text.depthTest = true;
+    applyTextRole(text, role);
+    text.textFill.color = PALETTE.ivory;
+    text.horizontalAlignment = alignment === "center" ? HorizontalAlignment.Center : HorizontalAlignment.Left;
+    text.verticalAlignment = VerticalAlignment.Center;
+    text.horizontalOverflow = HorizontalOverflow.Overflow;
+    text.verticalOverflow = VerticalOverflow.Overflow;
+    text.layoutRect = Rect.create(-width / 2, width / 2, -height / 2, height / 2);
     const contentItem = contentObject.createComponent(FlexItem.getTypeName()) as FlexItem;
     contentItem.overrideWidth = width;
     contentItem.overrideHeight = height;
@@ -377,27 +466,32 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const obj = global.scene.createSceneObject("Lifeline Button " + label.replace(/[^A-Z0-9]+/g, "_"));
     obj.setParent(parent);
     const button = obj.createComponent(Button.getTypeName()) as Button;
-    button.onInitialized.add(() => {
-      button.size = new vec3(width, height, 1);
-      button.opacity = tone === "neutral" ? 0.9 : 1;
-    });
+    button.size = new vec3(width, height, 1);
+    button.opacity = tone === "critical" ? 1.0 : tone === "primary" ? 0.98 : 0.88;
     button.onTriggerUp.add(action);
-
-    // Keep button-face text on a child object and lift it 0.08 cm in front of the face.
-    const labelObject = global.scene.createSceneObject("Lifeline Button Label");
-    labelObject.setParent(obj);
-    labelObject.getTransform().setLocalPosition(new vec3(0, 0, 0.08));
-    const content = labelObject.createComponent(ElementContent.getTypeName()) as ElementContent;
-    content.text = label;
-    content.textSize = roleSize("Button");
-    content.contentAlignment = "center";
-    content.sizeOverride = new vec2(width - 0.4, height - 0.4);
-
+    this.addButtonLabel(obj, label, width - 0.5, "Button");
     const item = obj.createComponent(FlexItem.getTypeName()) as FlexItem;
     item.overrideWidth = width;
     item.overrideHeight = height;
     item.flexGrow = 0;
     item.flexShrink = 0;
     this.registerFlexItemAfterInitialization(parent, item);
+  }
+
+  private addButtonLabel(parent: SceneObject, label: string, width: number,
+      role: TextRole = "Button", position: vec3 = new vec3(0, 0, BUTTON_LABEL_Z)): void {
+    const labelObject = global.scene.createSceneObject("Lifeline Button Label");
+    labelObject.setParent(parent);
+    labelObject.getTransform().setLocalPosition(position);
+    const text = labelObject.createComponent("Component.Text") as Text;
+    text.text = label;
+    text.depthTest = true;
+    applyTextRole(text, role);
+    text.textFill.color = PALETTE.ivory;
+    text.horizontalAlignment = HorizontalAlignment.Center;
+    text.verticalAlignment = VerticalAlignment.Center;
+    text.horizontalOverflow = HorizontalOverflow.Overflow;
+    text.verticalOverflow = VerticalOverflow.Overflow;
+    text.layoutRect = Rect.create(-width / 2, width / 2, -1.2, 1.2);
   }
 }
