@@ -198,7 +198,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       snapshot.state === "ADULT_COLLAPSE_GUIDANCE" ||
       snapshot.state === "OTHER_EMERGENCY";
 
-    if (isGuidance && hasSelectedIncident) {
+    if (isGuidance && hasSelectedIncident && this.incidentScenarios?.getMarkerObject()?.enabled) {
       this.enterGuidancePanels();
       this.renderTwoPanelGuidance(title, snapshot);
       return;
@@ -321,7 +321,8 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       const label = status + " " + (index + 1) + ". " + stepTitle + " — " + summary;
       this.addLabel(overviewColumn, label, "Caption", 1.82, "left", 9.0, tone);
     }
-    this.addButton(overviewColumn, "BACK", 8.0, SECONDARY_TARGET, () => this.controller?.back(), "neutral");
+    // Navigation is deliberately not attached to the dense overview rows;
+    // Back remains an explicit control on the current-instruction panel.
 
     const rightPage = global.scene.createSceneObject("Lifeline DO NOW Screen");
     rightPage.setParent(this.contentHost);
@@ -329,7 +330,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     const rightColumn = this.createFlex(rightPage, FlexDirection.Column, 17.0, 17.0, 0.2);
     const topRow = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 3.6, 0.4);
     this.addLabel(topRow, "DO NOW · STEP " + (currentIndex + 1) + " OF " + steps.length, "Headline2", 3.6, "left", 11.0);
-    this.addButton(topRow, "END", 5.2, 3.6, () => this.controller?.requestEndSession(), "neutral");
+    this.addButton(topRow, "BACK", 5.2, 3.6, () => this.controller?.back(), "neutral");
     this.addLabel(rightColumn, title, "Headline1", 2.0, "left", 17.0);
     this.addLabel(rightColumn, this.repeatMessage ? "REPEATED — " + currentStep.text : currentStep.text, "Body", 4.2, "left", 17.0);
     const support = snapshot.path === "fire_smoke"
@@ -337,18 +338,13 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
       : LIFELINE_SAFETY_STATEMENT;
     this.addLabel(rightColumn, support, "Caption", 1.8, "left", 17.0);
 
-    const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.5);
+    const actions = this.createFlex(rightColumn, FlexDirection.Row, 17.0, 5.6, 0.35);
+    this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
     const canAdvance = currentIndex + 1 < steps.length;
     if (canAdvance) {
-      this.addButton(actions, "REPEAT", 5.0, 5.6, () => this.repeatCurrentInstruction(), "neutral");
       this.addButton(actions, "NEXT STEP", 6.0, 5.6, () => this.controller?.next(), "primary");
-    } else {
-      this.addButton(actions, "REPEAT", 5.5, 5.6, () => this.repeatCurrentInstruction(), "neutral");
-      this.addButton(actions, "FINISH", 5.5, 5.6, () => this.controller?.next(), "primary");
     }
-    if (snapshot.path === "fire_smoke") {
-      // 101 is shown in the instruction / support copy; SOS remains 112.
-    }
+    this.addButton(actions, "END SESSION", 5.3, 5.6, () => this.controller?.requestEndSession(), "neutral");
   }
 
   private getStepTitle(step: GuidanceStep): string {
