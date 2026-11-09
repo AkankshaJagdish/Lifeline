@@ -244,7 +244,7 @@ export class LifelineEmergencyUI extends BaseScriptComponent {
     // Keep the existing SOS object and callback. It moves with the shared
     // instruction-panel root instead of creating a second emergency control.
     if (this.sosObject) {
-      this.sosObject.getTransform().setLocalPosition(new vec3(5.15, 5.85, 0.8));
+      this.sosObject.getTransform().setLocalPosition(new vec3(4.95, 5.85, 0.8));
     }
   }
 
