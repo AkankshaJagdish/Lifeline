@@ -1,6 +1,6 @@
 /** Lifeline's typed, UI-independent state and content contracts. */
 
-export type LifelinePath = "bleeding" | "adult_collapse" | "other";
+export type LifelinePath = "bleeding" | "adult_collapse" | "fire_smoke" | "other";
 export type ActivationSource = "voice" | "manual" | "preview_simulation";
 
 export type LifelineState =
