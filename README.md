@@ -92,3 +92,18 @@ Before public submission, use [submission-checklist.md](devpost/submission-check
 - `devpost/` contains the design brief, user journey, technical architecture, medical source register, safety boundaries, acceptance criteria, demo plan, test report, source audit, submission description, and final checklist.
 
 The original `codexsources/GAME PLAN do not change arwithspecs.txt` is preserved unchanged.
+
+
+## Spatial incident demonstration (new proposal branch)
+
+The spatial-demo increment is on the draft PR branch. It adds three separate runtime-authored training targets (collapsed-person mannequin-style prop, forearm injury prop with restrained red stripe, and fire/smoke proxy), each with its own collider and SIK Interactable. Selecting a target moves the incident marker to an offset from that target's actual world transform.
+
+- Runtime module: \`Assets/Scripts/Lifeline/LifelineIncidentScenarios.ts\`
+- Preview-only selector methods: \`foundPerson()\`, \`foundInjury()\`, \`foundFire()\` on \`LifelinePreviewSimulationController\`
+- Local scene attachment and verification: [spatial incident demo test plan](devpost/spatial-incident-demo-test-plan.md)
+
+The scenario props are simplified low-poly training shapes, not generated anatomical GLBs. Assign a renderable project material to the \`incidentMaterial\` input. The scenario component must be attached beneath the actual working Lifeline Experience root, and the Preview controller's new \`incidentScenarios\` input must reference its ScriptComponent. Add a clearly labelled, Editor-only Preview panel with separate FOUND PERSON / FOUND INJURY / FOUND FIRE controls; these controls are not part of the live emergency UI.
+
+The PR intentionally does not replace \`Assets/Scene.scene\`: the checked-in scene and the exported MCP scene snapshot do not match the documented working Lifeline hierarchy, and the MCP export identifies a temporary editor project path different from the repository workspace. Reconcile / attach in the known-good local scene rather than risk overwriting it.
+
+No local Lens Studio compile, Preview screenshot, scene inspection or LEAF run has been performed by the cloud session. Follow the test plan and record actual outcomes before marking this spatial demo verified.
